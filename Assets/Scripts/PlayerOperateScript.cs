@@ -6,9 +6,8 @@ using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 
-public class PlayerOperateScript : MovableObjectScript {
-
-	// Update is called once per frame
+public class PlayerOperateScript : MovableObjectScript
+{    
 	void Update () {
         MapCoordinate c;
 		if (IsArrowInput(out c)) {

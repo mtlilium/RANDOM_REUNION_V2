@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapCoordinate{
+public class MapCoordinate
+{
     public float x;
     public float y;
 
@@ -38,7 +39,7 @@ public class MapCoordinate{
         );
     }
     public Vector2 ToVector2(bool onGrid)
-    {//Vector2に変換
+    {
         if (onGrid)
         {
             return ToVector2();
@@ -51,6 +52,7 @@ public class MapCoordinate{
             );
         }
     }
+
     public static MapCoordinate FromVector2(Vector2 vec)//Vector2から変換
     {
         return new MapCoordinate(

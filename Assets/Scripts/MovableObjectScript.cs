@@ -9,7 +9,7 @@ public class MovableObjectScript : ObjectOnMapScript
 {
     Rigidbody2D rb2d;
 
-    float movement = 1;
+    float movement = 0.3f;
     directions _state;
     directions state {
         get { return _state; }
@@ -45,12 +45,15 @@ public class MovableObjectScript : ObjectOnMapScript
         stateDic.Add(directions.Right, Sprite_Right);
         stateDic.Add(directions.Down, Sprite_Down);
         stateDic.Add(directions.DownLeft, Sprite_DownLeft);
-        stateDic.Add(directions.DownRight, Sprite_DownRight);        
+        stateDic.Add(directions.DownRight, Sprite_DownRight);
+
+        state = directions.Down;
+        transform.position = (new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y)).ToVector2();
     }
 
     private void Start()
     {
-        state = State_Initial;
+
     }
 
     public enum directions{
