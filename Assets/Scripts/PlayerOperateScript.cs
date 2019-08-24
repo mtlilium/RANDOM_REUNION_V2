@@ -8,13 +8,6 @@ using UnityEngine;
 
 public class PlayerOperateScript : MovableObjectScript {
 
-	void Awake(){
-		InitializeOnAwake ();
-	}
-
-	void Start(){
-		InitializeOnStart ();
-	}
 	// Update is called once per frame
 	void Update () {
         MapCoordinate c;

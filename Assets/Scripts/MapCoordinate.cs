@@ -7,11 +7,9 @@ public class MapCoordinate{
     public float x;
     public float y;
 
-    static public readonly int CHIP_WIDTH = 192;
-    static public readonly int CHIP_HEIGHT = 64;
-
-    public static int ConstOfPositionTransform { get; } = 192;
-
+    static public readonly float GridScale_Vertical   = 0.5f;
+    static public readonly float GridScale_Horizontal = 1;
+    
     public MapCoordinate(float _x, float _y)
     {
         x = _x;
@@ -32,31 +30,35 @@ public class MapCoordinate{
         return new MapCoordinate(lhs.x - rhs.x, lhs.y - rhs.y);
     }
 
-    public Vector2 ToVector2(){//Vector2に変換
+    public Vector2 ToVector2()
+    {
         return new Vector2(
-            (-x + y)/ (ConstOfPositionTransform / CHIP_WIDTH),
-            ( x + y)/ (ConstOfPositionTransform / CHIP_HEIGHT)
+            (-x + y) * GridScale_Horizontal / 2,
+            (x + y) * GridScale_Vertical / 2
         );
+    }
+    public Vector2 ToVector2(bool onGrid)
+    {//Vector2に変換
+        if (onGrid)
+        {
+            return ToVector2();
+        }
+        else
+        {
+            return new Vector2(
+                (-x + y) * GridScale_Horizontal / 2,
+                (x + y + 1) * GridScale_Vertical / 2
+            );
+        }
     }
     public static MapCoordinate FromVector2(Vector2 vec)//Vector2から変換
     {
         return new MapCoordinate(
-            (vec.y / CHIP_HEIGHT - vec.x / CHIP_WIDTH) * ConstOfPositionTransform / 2,
-            (vec.y / CHIP_HEIGHT + vec.x / CHIP_WIDTH) * ConstOfPositionTransform / 2
+            vec.y / GridScale_Vertical - vec.x / GridScale_Horizontal,
+            vec.y / GridScale_Vertical + vec.x / GridScale_Horizontal
             );
     }
-
-    public float Depth(){//マップチップの標準的な深さに変換
-        return x + y;
-    }
-    public Vector3 ToVector3(){//Vector3に変換
-        return new Vector3(
-            (-x + y) / (ConstOfPositionTransform / CHIP_WIDTH),
-            (x + y) / (ConstOfPositionTransform / CHIP_HEIGHT),
-             Depth()
-        );
-    }
-
+    
     public new string ToString()
     {
         return $"{x},{y}";
