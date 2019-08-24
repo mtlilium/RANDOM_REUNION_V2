@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using UnityEngine;
 
-[DataContract]
 public class MapCoordinate{
-    [DataMember]
     public float x;
-    [DataMember]
     public float y;
+
+    static public readonly int CHIP_WIDTH = 192;
+    static public readonly int CHIP_HEIGHT = 64;
 
     public static int ConstOfPositionTransform { get; } = 192;
 
@@ -36,15 +34,15 @@ public class MapCoordinate{
 
     public Vector2 ToVector2(){//Vector2に変換
         return new Vector2(
-            (-x + y)/ (ConstOfPositionTransform / MapChipScript.CHIP_WIDTH),
-            ( x + y)/ (ConstOfPositionTransform / MapChipScript.CHIP_HEIGHT)
+            (-x + y)/ (ConstOfPositionTransform / CHIP_WIDTH),
+            ( x + y)/ (ConstOfPositionTransform / CHIP_HEIGHT)
         );
     }
     public static MapCoordinate FromVector2(Vector2 vec)//Vector2から変換
     {
         return new MapCoordinate(
-            (vec.y / MapChipScript.CHIP_HEIGHT - vec.x / MapChipScript.CHIP_WIDTH) * ConstOfPositionTransform / 2,
-            (vec.y / MapChipScript.CHIP_HEIGHT + vec.x / MapChipScript.CHIP_WIDTH) * ConstOfPositionTransform / 2
+            (vec.y / CHIP_HEIGHT - vec.x / CHIP_WIDTH) * ConstOfPositionTransform / 2,
+            (vec.y / CHIP_HEIGHT + vec.x / CHIP_WIDTH) * ConstOfPositionTransform / 2
             );
     }
 
@@ -53,8 +51,8 @@ public class MapCoordinate{
     }
     public Vector3 ToVector3(){//Vector3に変換
         return new Vector3(
-            (-x + y) / (ConstOfPositionTransform / MapChipScript.CHIP_WIDTH),
-            (x + y) / (ConstOfPositionTransform / MapChipScript.CHIP_HEIGHT),
+            (-x + y) / (ConstOfPositionTransform / CHIP_WIDTH),
+            (x + y) / (ConstOfPositionTransform / CHIP_HEIGHT),
              Depth()
         );
     }
