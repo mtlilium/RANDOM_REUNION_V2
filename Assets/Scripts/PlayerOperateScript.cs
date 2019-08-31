@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 
-public class PlayerOperateScript : MovableObjectScript
+public class PlayerOperateScript : PersonScript
 {    
 	void Update () {
         MapCoordinate c;
