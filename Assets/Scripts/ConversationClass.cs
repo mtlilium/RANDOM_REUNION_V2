@@ -5,12 +5,12 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using UnityEngine;
 
-public class ConversationClass
+public class ConversationClass : MonoBehaviour
 {
     [SerializeField]
     List<Saying> Contents = new List<Saying>();//会話の内容
 
-    IEnumerator Talk(){//スペースキーが押されると会話が進む
+    public IEnumerator Talk(){//スペースキーが押されると会話が進む
     	for(int i = 0;i < Contents.Count;i++){
 	    Debug.Log(Contents[i].Who + " " + Contents[i].What);
 	    yield return null;
