@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4979185378758693019}
   - component: {fileID: -3142096928323085774}
   - component: {fileID: -2384119425484534696}
+  - component: {fileID: 2768374741796830891}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,15 +72,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 223870416973811648, guid: cd3ed736294d72643bb5d2dad1f5210d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4979185378758693019
@@ -113,8 +114,8 @@ MonoBehaviour:
     type: 3}
   Sprite_DownRight: {fileID: 4610335326417123846, guid: cd3ed736294d72643bb5d2dad1f5210d,
     type: 3}
-  Name: 
-  PersonalID: 0
+  PersonalName: 
+  InteractionTrigger: {fileID: 2768374741796830891}
 --- !u!50 &-3142096928323085774
 Rigidbody2D:
   serializedVersion: 4
@@ -135,7 +136,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &-2384119425484534696
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -150,5 +151,21 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.25}
+  serializedVersion: 2
+  m_Radius: 0.3
+--- !u!58 &2768374741796830891
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570646607845543631}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.6}
   serializedVersion: 2
   m_Radius: 0.3

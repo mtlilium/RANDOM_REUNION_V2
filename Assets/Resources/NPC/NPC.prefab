@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2934922343502308654}
   - component: {fileID: 4688548366982891842}
   - component: {fileID: 7604208917967666483}
+  - component: {fileID: 3865844701484731229}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -71,15 +72,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 223870416973811648, guid: dbc121e8004fe7c47aca122f98e9e2e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2934922343502308654
@@ -113,8 +114,8 @@ MonoBehaviour:
     type: 3}
   Sprite_DownRight: {fileID: 4610335326417123846, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Name: 
-  PersonalID: 0
+  PersonalName: 
+  InteractionTrigger: {fileID: 3865844701484731229}
 --- !u!50 &4688548366982891842
 Rigidbody2D:
   serializedVersion: 4
@@ -150,5 +151,21 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.25}
+  serializedVersion: 2
+  m_Radius: 0.3
+--- !u!58 &3865844701484731229
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696284690589348840}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.6}
   serializedVersion: 2
   m_Radius: 0.3

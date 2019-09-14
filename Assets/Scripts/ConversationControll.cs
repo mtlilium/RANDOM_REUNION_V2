@@ -7,14 +7,48 @@ using UnityEngine;
 
 public class ConversationControll : MonoBehaviour
 {
-    public List<ConversationClass> Conversations;//会話の登録
     public List<PersonScript> PersonRegist;//ここにPersonScriptを追加すればAwake時登録される
+    public Dictionary<string, ConversationClass> conversationIndex = new Dictionary<string, ConversationClass>();
 
-    private Dictionary<int, string> IDToName = new Dictionary<int, string>();//IDと名前の対応
+    Dictionary<string, PersonScript> PersionIndex = new Dictionary<string, PersonScript>();
 
-    void Awake(){
-    for(int i = 0;i < PersonRegist.Count;i++){
-	    IDToName.Add(PersonRegist[i].PersonnelD, PersonRegist[i].Name);
+    void Awake(){        
+        StaticConversationControll.controller = this;
+        foreach (var x in PersonRegist)
+        {
+            PersionIndex.Add(x.PersonalName,x);
         }
+        foreach (var x in PersonRegist)
+        {
+            var conv = x.GetComponents<ConversationClass>();
+            foreach (var c in conv)
+            {
+                conversationIndex.Add(c.ConversationName, c);
+            }
+        }
+    }
+    public void Action(string conversationName)
+    {
+        try
+        {
+            if (!conversationIndex.ContainsKey(conversationName))
+                throw new ArgumentException("その名前の会話は登録されていません");
+            else
+                conversationIndex[conversationName].Action();
+        }
+        catch(Exception e)
+        {
+            Debug.Log(e.Message);
+            throw;
+        }
+    }
+}
+
+public static class StaticConversationControll
+{
+    public static ConversationControll controller;
+    public static void Action(string conversationName)
+    {
+        controller.Action(conversationName);
     }
 }

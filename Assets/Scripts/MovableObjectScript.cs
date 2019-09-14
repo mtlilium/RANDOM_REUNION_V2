@@ -15,6 +15,8 @@ public class MovableObjectScript : ObjectOnMapScript
         get { return _state; }
         set
         {
+            if (value == directions.Undefined)
+                return;
             if(stateDic[value] != null)
                 sr.sprite = stateDic[value];
             _state = value;
@@ -32,7 +34,9 @@ public class MovableObjectScript : ObjectOnMapScript
     public Sprite Sprite_DownLeft  = null;
     public Sprite Sprite_DownRight = null;
 
-	Dictionary<directions, Sprite> stateDic = new Dictionary<directions, Sprite>();
+    Dictionary<directions, Sprite> stateDic = new Dictionary<directions, Sprite>();
+
+    public Action<directions> ActionsWhenDirecrionChanged;
 
     public new void Awake()
     {
@@ -49,23 +53,14 @@ public class MovableObjectScript : ObjectOnMapScript
         stateDic.Add(directions.DownRight, Sprite_DownRight);
 
         state = directions.Down;
+
+        ActionsWhenDirecrionChanged += LookAtDirection;
     }
 
     private void Start()
     {
 
     }
-
-    public enum directions{
-		Up,
-		UpLeft,
-		UpRight,
-		Left,
-		Right,
-		Down,
-		DownLeft,
-		DownRight
-	}
 
     void Move(Vector2 direction)//引数の方向に移動に移動量movementだけ移動
     {
@@ -74,7 +69,7 @@ public class MovableObjectScript : ObjectOnMapScript
     void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
     {
         rb2d.MovePosition(rb2d.position + direction.normalized * q);
-        LookAtDirection(MapCoordinate.FromVector2(direction));
+        ActionsWhenDirecrionChanged(DirectionOfDeltaPos(MapCoordinate.FromVector2(direction)));
     }
     
     public void Move(MapCoordinate mapcoordinate)//MapCoordinateのToVector2の方向に移動量movementだけ移動
@@ -86,38 +81,52 @@ public class MovableObjectScript : ObjectOnMapScript
         Move(mapcoordinate.ToVector2(),q);
     }
 
-    public void LookAtDirection(MapCoordinate direction)//その方向を見る
+    public void LookAtDirection(directions direction)//その方向を見る
     {
-        if (direction.y > 0)
+        state = direction;
+    }
+
+    public directions DirectionOfDeltaPos(MapCoordinate d)
+    {
+        if (d.y > 0)
         {
-            if (direction.x == 0)
-                state = directions.UpRight;
-            else if (direction.x < 0)
-                state = directions.Right;
-            else if (direction.x > 0)
-                state = directions.Up;
+            if (d.x == 0)
+                return directions.UpRight;
+            else if (d.x < 0)
+                return directions.Right;
+            else
+                return directions.Up;
         }
-        else if (direction.y == 0)
+        else if (d.y == 0)
         {
-            if (direction.x < 0)
-                state = directions.DownRight;
-            else if (direction.x > 0)
-                state = directions.UpLeft;
-            else if (direction.x == 0)
-                return;
+            if (d.x < 0)
+                return directions.DownRight;
+            else if (d.x > 0)
+                return directions.UpLeft;
+            else
+                return directions.Undefined;
         }
-        else if (direction.y < 0)
+        else
         {
-            if (direction.x == 0)
-                state = directions.DownLeft;
-            else if (direction.x < 0)
-                state = directions.Down;
-            else if (direction.x > 0)
-                state = directions.Left;
+            if (d.x == 0)
+                return directions.DownLeft;
+            else if (d.x < 0)
+                return directions.Down;
+            else
+                return directions.Left;
         }
     }
-    public void LookAtPosition(MapCoordinate position)//その座標を見る
-    {
-        LookAtDirection(position - Position);
-    }
+}
+
+public enum directions
+{
+    Up,
+    UpLeft,
+    UpRight,
+    Left,
+    Right,
+    Down,
+    DownLeft,
+    DownRight,
+    Undefined
 }

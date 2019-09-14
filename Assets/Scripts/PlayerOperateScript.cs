@@ -7,15 +7,24 @@ using UnityEngine;
 
 
 public class PlayerOperateScript : PersonScript
-{    
-	void Update () {
+{
+    void Update () {
         MapCoordinate c;
 		if (IsArrowInput(out c)) {
 			Move(c);
-		}
-	}
+        }
+        Action();
+    }
 
-	private bool IsArrowInput(out MapCoordinate c){
+    void Action()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            InteractionTrigger.enabled = true;
+        else
+            InteractionTrigger.enabled = false;
+    }
+
+    private bool IsArrowInput(out MapCoordinate c){
         c = new MapCoordinate(0, 0);
 
         if (Input.GetKey(KeyCode.UpArrow))
