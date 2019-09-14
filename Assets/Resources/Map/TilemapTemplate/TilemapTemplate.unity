@@ -182,40 +182,19 @@ MonoBehaviour:
   PersonRegist:
   - {fileID: 707088825}
   - {fileID: 834907376}
---- !u!1 &707088819 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1570646607845543631, guid: 2cb1cc6e09620424b82fb476077c222b,
-    type: 3}
-  m_PrefabInstance: {fileID: 983818923}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &707088820 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4120388075202226810, guid: 2cb1cc6e09620424b82fb476077c222b,
     type: 3}
   m_PrefabInstance: {fileID: 983818923}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &707088821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707088819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bca9ad4ce98255b44a55672c98151e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ConversationName: 
-  OnlyOnce: 1
-  Contents: []
 --- !u!114 &707088825 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4979185378758693019, guid: 2cb1cc6e09620424b82fb476077c222b,
     type: 3}
   m_PrefabInstance: {fileID: 983818923}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707088819}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60a401e88c3b1574b82280022c7378e8, type: 3}
