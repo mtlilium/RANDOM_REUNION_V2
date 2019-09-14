@@ -97,24 +97,24 @@ MonoBehaviour:
   Sprite_Initial: {fileID: 0}
   MapCoordinate_Initial: {x: 0, y: 0}
   State_Initial: 5
-  Sprite_Up: {fileID: -7229925841618301993, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_Up: {fileID: -3007186282956779050, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Sprite_UpLeft: {fileID: -5190390130078813382, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_UpLeft: {fileID: -8894387815016282616, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Sprite_UpRight: {fileID: 8201805260894795095, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_UpRight: {fileID: 4855420772421357305, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Sprite_Left: {fileID: 7673269319288252302, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_Left: {fileID: 8155965248823316306, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Sprite_Right: {fileID: -1631759627208075762, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_Right: {fileID: 3144343172994839133, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Sprite_Down: {fileID: -6842488798206886567, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_Down: {fileID: 223870416973811648, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Sprite_DownLeft: {fileID: 5845665315348996276, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_DownLeft: {fileID: -1320510847731414797, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
-  Sprite_DownRight: {fileID: -2801052830698991656, guid: af8ef67c351c33c439c212d68b9f6841,
+  Sprite_DownRight: {fileID: 4610335326417123846, guid: dbc121e8004fe7c47aca122f98e9e2e9,
     type: 3}
   Name: 
-  PersonnelD: 0
+  PersonalID: 0
 --- !u!50 &4688548366982891842
 Rigidbody2D:
   serializedVersion: 4
@@ -135,7 +135,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!58 &7604208917967666483
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -151,4 +151,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.25}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.3

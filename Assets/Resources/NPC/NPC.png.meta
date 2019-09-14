@@ -1,31 +1,34 @@
 fileFormatVersion: 2
-guid: af8ef67c351c33c439c212d68b9f6841
+guid: dbc121e8004fe7c47aca122f98e9e2e9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5190390130078813382
-    second: Test_UL
+      213: 223870416973811648
+    second: Player_D
   - first:
-      213: -7229925841618301993
-    second: Test_U
+      213: -1320510847731414797
+    second: Player_DL
   - first:
-      213: 8201805260894795095
-    second: Test_UR
+      213: 8155965248823316306
+    second: Player_L
   - first:
-      213: 7673269319288252302
-    second: Test_L
+      213: -8894387815016282616
+    second: Player_UL
   - first:
-      213: -1631759627208075762
-    second: Test_R
+      213: -3007186282956779050
+    second: Player_U
   - first:
-      213: 5845665315348996276
-    second: Test_DL
+      213: 4855420772421357305
+    second: Player_UR
   - first:
-      213: -6842488798206886567
-    second: Test_D
+      213: 3144343172994839133
+    second: Player_R
   - first:
-      213: -2801052830698991656
-    second: Test_DR
+      213: 7276686775698485515
+    second: Player_DL
+  - first:
+      213: 4610335326417123846
+    second: Player_DR
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -65,11 +68,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,50 +107,17 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Test_UL
+      name: Player_UL
       rect:
         serializedVersion: 2
         x: 0
         y: 192
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +125,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4415d0f5601286f4295fd6bc4d379899
-      internalID: -5190390130078813382
+      spriteID: 08e92fd907ba6c04eb6947a74292857d
+      internalID: -8894387815016282616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test_U
+      name: Player_U
       rect:
         serializedVersion: 2
         x: 64
         y: 192
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0f0f2a24d110ae40bdf97d28b76230c
-      internalID: -7229925841618301993
+      spriteID: f80a73b4861dda34aa12a63a5af5bbf4
+      internalID: -3007186282956779050
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test_UR
+      name: Player_UR
       rect:
         serializedVersion: 2
         x: 128
         y: 192
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,20 +167,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a6d856005d1dcb46bd3da5dfcf3d21b
-      internalID: 8201805260894795095
+      spriteID: cfa0cc39bb278474c95ad65e7d423278
+      internalID: 4855420772421357305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test_L
+      name: Player_L
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
+        y: 96
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,20 +188,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5bafe4d057685ac45b41f8d237ae0445
-      internalID: 7673269319288252302
+      spriteID: 95f1db9744be31f48b0960418de094ef
+      internalID: 8155965248823316306
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test_R
+      name: Player_R
       rect:
         serializedVersion: 2
         x: 128
-        y: 128
+        y: 96
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,20 +209,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 167ab6b1528739741bd087fbc22c9574
-      internalID: -1631759627208075762
+      spriteID: 6cd08cb30ea4fea41823d6cd944f7865
+      internalID: 3144343172994839133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test_DL
+      name: Player_DL
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 0
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,20 +230,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d466cdc7c2ed764fa8505602e1e969f
-      internalID: 5845665315348996276
+      spriteID: c206554d80e26454297d2ae3567d85a8
+      internalID: 7276686775698485515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test_D
+      name: Player_D
       rect:
         serializedVersion: 2
         x: 64
-        y: 64
+        y: 0
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,20 +251,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d10571802f9c2a049bc306bc5ec0d587
-      internalID: -6842488798206886567
+      spriteID: 951458cad5de533478818d13205b4d3f
+      internalID: 223870416973811648
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Test_DR
+      name: Player_DR
       rect:
         serializedVersion: 2
         x: 128
-        y: 64
+        y: 0
         width: 64
-        height: 64
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,8 +272,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9663e238f7c4cfb42a9e28035c89b2ac
-      internalID: -2801052830698991656
+      spriteID: 26aa0c62d239f0846aad2fbfc008e724
+      internalID: 4610335326417123846
       vertices: []
       indices: 
       edges: []
@@ -311,7 +281,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 72933120065be364d9054bac1f4a9c56
+    spriteID: b1e1b32ccc9404249afb27b9df9ab6a2
     internalID: 0
     vertices: []
     indices: 

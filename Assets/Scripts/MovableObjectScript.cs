@@ -9,7 +9,7 @@ public class MovableObjectScript : ObjectOnMapScript
 {
     Rigidbody2D rb2d;
 
-    float movement = 0.3f;
+    float movement = 0.1f;
     directions _state;
     directions state {
         get { return _state; }
@@ -17,6 +17,7 @@ public class MovableObjectScript : ObjectOnMapScript
         {
             if(stateDic[value] != null)
                 sr.sprite = stateDic[value];
+            _state = value;
         }
     }
 
@@ -32,10 +33,10 @@ public class MovableObjectScript : ObjectOnMapScript
     public Sprite Sprite_DownRight = null;
 
 	Dictionary<directions, Sprite> stateDic = new Dictionary<directions, Sprite>();
-    
-    void Awake()
+
+    public new void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
+        GetComponent<ObjectOnMapScript>().Awake();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 
         stateDic.Add(directions.Up, Sprite_Up);
@@ -48,7 +49,6 @@ public class MovableObjectScript : ObjectOnMapScript
         stateDic.Add(directions.DownRight, Sprite_DownRight);
 
         state = directions.Down;
-        transform.position = (new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y)).ToVector2();
     }
 
     private void Start()
@@ -67,14 +67,14 @@ public class MovableObjectScript : ObjectOnMapScript
 		DownRight
 	}
 
-    public void Move(Vector2 direction)//引数の方向に移動に移動量movementだけ移動
+    void Move(Vector2 direction)//引数の方向に移動に移動量movementだけ移動
     {
         Move(direction, movement);
     }
-    public void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
+    void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
     {
         rb2d.MovePosition(rb2d.position + direction.normalized * q);
-		DirectionApply(direction);
+        LookAtDirection(MapCoordinate.FromVector2(direction));
     }
     
     public void Move(MapCoordinate mapcoordinate)//MapCoordinateのToVector2の方向に移動量movementだけ移動
@@ -85,35 +85,39 @@ public class MovableObjectScript : ObjectOnMapScript
     {
         Move(mapcoordinate.ToVector2(),q);
     }
-            
-	void DirectionApply(Vector2 direction){
-		var x = direction.x;
-		var y = direction.y;
 
-		if (y > 0) {
-			if (x == 0) {
-				state = directions.Up;
-			} else if (x < 0) {
-				state = directions.UpLeft;
-			} else if (x > 0) {
-				state = directions.UpRight;
-			}
-		} else if (y == 0) {
-			if (x < 0) {
-				state = directions.Left;
-			} else if (x > 0) {
-				state = directions.Right;
-			} else if (x == 0) {
-				return;
-			}
-		} else if (y < 0) {
-			if (x == 0) {
-				state = directions.Down;
-			} else if (x < 0) {
-				state = directions.DownLeft;
-			} else if (x > 0) {
-				state = directions.DownRight;
-			}
-		}
-	}
+    public void LookAtDirection(MapCoordinate direction)//その方向を見る
+    {
+        if (direction.y > 0)
+        {
+            if (direction.x == 0)
+                state = directions.UpRight;
+            else if (direction.x < 0)
+                state = directions.Right;
+            else if (direction.x > 0)
+                state = directions.Up;
+        }
+        else if (direction.y == 0)
+        {
+            if (direction.x < 0)
+                state = directions.DownRight;
+            else if (direction.x > 0)
+                state = directions.UpLeft;
+            else if (direction.x == 0)
+                return;
+        }
+        else if (direction.y < 0)
+        {
+            if (direction.x == 0)
+                state = directions.DownLeft;
+            else if (direction.x < 0)
+                state = directions.Down;
+            else if (direction.x > 0)
+                state = directions.Left;
+        }
+    }
+    public void LookAtPosition(MapCoordinate position)//その座標を見る
+    {
+        LookAtDirection(position - Position);
+    }
 }

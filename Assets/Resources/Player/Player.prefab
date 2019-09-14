@@ -113,6 +113,8 @@ MonoBehaviour:
     type: 3}
   Sprite_DownRight: {fileID: 4610335326417123846, guid: cd3ed736294d72643bb5d2dad1f5210d,
     type: 3}
+  Name: 
+  PersonalID: 0
 --- !u!50 &-3142096928323085774
 Rigidbody2D:
   serializedVersion: 4
@@ -149,4 +151,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.25}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.3
