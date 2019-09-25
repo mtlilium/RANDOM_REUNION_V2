@@ -8,7 +8,11 @@ using UnityEngine;
 
 public class PlayerOperateScript : PersonScript
 {
-    void Update () {
+    public static GameObject Player { get; private set; }
+
+    void Update ()
+    {
+        Player = gameObject;
         MapCoordinate c;
 		if (IsArrowInput(out c)) {
 			Move(c);
