@@ -3,26 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ItemStack : ObjectOnMapScript
 {
-  LinkedList<Item> itemStack=new LinkedList<Item>();
-  public int allWeight{
-    set{
-      foreach(Item e in itemStack){
-        allWeight+=e.Weight;
-      }
+    public int Weight { get; private set; }
+    List<Item> itemStack = new List<Item>();
+
+    public void Add(Item item)
+    {
+        itemStack.Add(item);
+        Weight += item.Weight;
     }
-    get{
-      return allWeight;
+    public void AddRange(IEnumerable<Item> ie)
+    {
+        foreach (var x in ie)
+            Add(x);
     }
-  }
-  public static Itemstack Merge(ItemStack bag1,Itemstack bag2){
-    ItemStack bag3;
-    foreach(Item e in bag1.itemStack){
-      bag3.itemStack.Addfirst(e);
+
+    public void Remove(Item item)
+    {
+        itemStack.Remove(item);
+        Weight -= item.Weight;
     }
-    foreach(Item e in bag2.itemStack){
-      bag3.itemStack.Addfirst(e);
+    public void RemoveAt(int i)
+    {
+        Item item = itemStack[i];
+        Weight -= item.Weight;
+        itemStack.Remove(item);
     }
-    return bag3;
-  }
+    public static ItemStack Merge(ItemStack s1, ItemStack s2)
+    {
+        ItemStack s3 = new ItemStack();
+        s3.AddRange(s1.itemStack);
+        s3.AddRange(s2.itemStack);
+        return s3;
+    }
 
 }

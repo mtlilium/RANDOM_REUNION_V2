@@ -16,11 +16,6 @@ public class MapCoordinate
         x = _x;
         y = _y;
     }
-    public MapCoordinate(Vector2 v)
-    {
-        x = v.x;
-        y = v.y;
-    }
 
     public static MapCoordinate operator + (MapCoordinate lhs, MapCoordinate rhs)
     {

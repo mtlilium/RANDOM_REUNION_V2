@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemOnMapScript : ObjectOnMap
+public class ItemOnMapScript : ObjectOnMapScript
 {
-  public class ItemStack;
+    public ItemStack itemstack = new ItemStack();
 
-  public void Merge(){
-    
-  }
+    public void Merge(ItemOnMapScript ioms)
+    {
+        itemstack = ItemStack.Merge(itemstack, ioms.itemstack);
+        Destroy(ioms.gameObject);
+    }
 }
