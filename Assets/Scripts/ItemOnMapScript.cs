@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class ItemOnMapScript : ObjectOnMapScript
 {
-    public ItemStack itemstack = new ItemStack();
+    public ItemStack itemstack { get; set; }
+
+    public new void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        sr.sprite = Sprite_Initial;
+        Position = new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y);
+        itemstack = new ItemStack();
+    }
 
     public void Merge(ItemOnMapScript ioms)
     {
