@@ -1089,6 +1089,11 @@ PrefabInstance:
       propertyPath: MapCoordinate_Initial.y
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5935931730652475072, guid: 2cb1cc6e09620424b82fb476077c222b,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2768374741796830891, guid: 2cb1cc6e09620424b82fb476077c222b,
         type: 3}
       propertyPath: m_IsTrigger
@@ -15243,11 +15248,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5240163690710586960, guid: 081542ef621650c4fa4c2dd9609671c0,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2934922343502308654, guid: 081542ef621650c4fa4c2dd9609671c0,
         type: 3}
       propertyPath: MapCoordinate_Initial.x
@@ -15262,6 +15262,11 @@ PrefabInstance:
         type: 3}
       propertyPath: PersonalName
       value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240163690710586960, guid: 081542ef621650c4fa4c2dd9609671c0,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5240163690710586960, guid: 081542ef621650c4fa4c2dd9609671c0,
         type: 3}
