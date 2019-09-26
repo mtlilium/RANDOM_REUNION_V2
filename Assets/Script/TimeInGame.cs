@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeInGame : MonoBehaviour
+public static class TimeInGame
 {
-    // Start is called before the first frame update
-    void Start()
+    public static int Current { get; private set; }
+    
+    public static void TimeUpdate()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Current++;
     }
 }
