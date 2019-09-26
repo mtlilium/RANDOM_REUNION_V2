@@ -7,7 +7,7 @@ public class ObjectOnMapScript : MonoBehaviour
 {
     public Sprite Sprite_Initial = null;
     public Vector2 MapCoordinate_Initial; // 初期座標 生の値がそのままマップ座標に解釈される点に注意
-    MapCoordinate _position;
+    protected MapCoordinate _position;
     public MapCoordinate Position
     {
         get
