@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public static class QuestManager {
+public static class QuestManager{
+    
     public static Dictionary<string, Quest> OrderedQuest { get; private set; }    //クエスト名をキーとし,受注済みクエストを値とする辞書
     public static Dictionary<string, Quest> AcceptableQuest { get; private set; } //クエスト名をキーとし,受注可能クエストを値とする辞書
     public static Dictionary<string, bool> Flags { get; private set; }     //フラグを管理するクラス
@@ -12,7 +13,7 @@ public static class QuestManager {
 
     static SortedSet<int> RegistedExcuteTime;   //actionTriggeredByTimeに登録された時刻のセット
 
-    static GameObject player;
+    static public GameObject player;
     static void QuestAccept(string questName)
     {
         AcceptableQuest[questName].WhenQuestAccepted(player);
@@ -28,7 +29,14 @@ public static class QuestManager {
 
     public static void InsertAction(int time,Action<GameObject> action)
     {
-        ActionTriggeredByTime[time]+=action;
+        if (ActionTriggeredByTime.ContainsKey(time))
+        {
+            ActionTriggeredByTime[time] += action;
+        }
+        else
+        {
+            ActionTriggeredByTime[time] = action;
+        }
     }
     public static void TimeUpdate()
     {

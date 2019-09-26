@@ -7,7 +7,7 @@ enum QuestCategory
 {
     Main,sub
 }
-public class Quest : MonoBehaviour
+public class Quest
 {
     QuestCategory questCategory;
     string questName;
