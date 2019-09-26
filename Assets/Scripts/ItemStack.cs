@@ -1,19 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class ItemStack : ObjectOnMapScript
+public class ItemStack
 {
     public int Weight { get; private set; }
     List<Item> itemStack = new List<Item>();
-
-    public new void Awake()
-    {
-        sr = GetComponent<SpriteRenderer>();
-        sr.sprite = Sprite_Initial;
-        Position = new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y);
-    }
-
-
+    
     public void Add(Item item)
     {
         itemStack.Add(item);
