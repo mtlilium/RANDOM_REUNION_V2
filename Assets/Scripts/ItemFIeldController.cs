@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemFIeldController : MonoBehaviour
+public class ItemFieldController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
