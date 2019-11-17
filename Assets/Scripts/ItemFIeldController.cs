@@ -15,4 +15,9 @@ public class ItemFieldController : MonoBehaviour
     {
         
     }
+
+    public bool PlaceAt(MapCoordinate position)
+    {
+        return false;
+    }
 }

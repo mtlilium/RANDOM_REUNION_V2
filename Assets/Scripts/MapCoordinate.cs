@@ -25,6 +25,10 @@ public class MapCoordinate
     {
         return new MapCoordinate(lhs.x - rhs.x, lhs.y - rhs.y);
     }
+    public static explicit operator MapCoordinateInt(MapCoordinate operand)
+    {
+        return (MapCoordinateInt)(new MapCoordinate(operand.x, operand.y));
+    }
 
     public Vector2 ToVector2()
     {
@@ -56,6 +60,56 @@ public class MapCoordinate
             );
     }
     
+    public new string ToString()
+    {
+        return $"{x},{y}";
+    }
+}
+
+public class MapCoordinateInt
+{
+    public int x;
+    public int y;
+
+    public MapCoordinateInt(int _x, int _y)
+    {
+        x = _x;
+        y = _y;
+    }
+    public MapCoordinateInt(float _x, float _y)
+    {
+        x = Mathf.RoundToInt(_x);
+        y = Mathf.RoundToInt(_y);
+    }
+
+    public static MapCoordinateInt operator +(MapCoordinateInt lhs, MapCoordinateInt rhs)
+    {
+        return new MapCoordinateInt(lhs.x + rhs.x, lhs.y + rhs.y);
+    }
+    public static MapCoordinateInt operator -(MapCoordinateInt lhs, MapCoordinateInt rhs)
+    {
+        return new MapCoordinateInt(lhs.x - rhs.x, lhs.y - rhs.y);
+    }
+
+    public static explicit operator MapCoordinate(MapCoordinateInt operand)
+    {
+        return new MapCoordinate(operand.x, operand.y);
+    }
+
+    public Vector2 ToVector2()
+    {
+        return ((MapCoordinate)this).ToVector2();
+    }
+    public Vector2 ToVector2(bool onGrid)
+    {
+        return ((MapCoordinate)this).ToVector2(onGrid);
+    }
+
+    public static MapCoordinateInt FromVector2(Vector2 vec)//Vector2から変換
+    {
+        return (MapCoordinateInt)(new MapCoordinate(vec.x, vec.y));
+    }
+
     public new string ToString()
     {
         return $"{x},{y}";
