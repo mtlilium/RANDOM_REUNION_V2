@@ -22,7 +22,7 @@ public class ItemFieldController : MonoBehaviour
         
     }
 
-    public bool PlaceAt(MapCoordinateInt position, ItemStack itemstack)
+    public bool PlaceAt(MapCoordinateInt position, Item item)
     {
         Vector2Int v2 = position.ToVector2Int();
         Vector3Int v3 = new Vector3Int(v2.x, 0, v2.y);
@@ -30,7 +30,7 @@ public class ItemFieldController : MonoBehaviour
             return false;
         else
         {
-            tilemap_Item.SetTile(ItemIndex.GetSprite());
+            tilemap_Item.SetTile(v3,ItemIndex.GetChip(item.ItemName));
             return true;
         }
     }
