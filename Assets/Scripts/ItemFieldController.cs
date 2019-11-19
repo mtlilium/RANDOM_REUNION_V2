@@ -9,7 +9,7 @@ public class ItemFieldController : MonoBehaviour
     public Tilemap tilemap_Item;
 
     public GameObject Item_Onmap_Prefab;
-    Dictionary<Vector2Int, GameObject> Items_Onmap = new Dictionary<Vector2Int, GameObject>();
+    Dictionary<Vector3Int, Item> Items_Onmap = new Dictionary<Vector3Int, Item>();
 
     void Start()
     {
@@ -26,12 +26,28 @@ public class ItemFieldController : MonoBehaviour
     {
         Vector2Int v2 = position.ToVector2Int();
         Vector3Int v3 = new Vector3Int(v2.x, 0, v2.y);
-        if (tilemap_Item.GetTile(v3) == Tile_UnPlacable || tilemap_Item.HasTile(v3))
+        if (tilemap_Item.GetTile(v3) == Tile_UnPlacable || tilemap_Item.HasTile(v3) || Items_Onmap.ContainsKey(v3))
             return false;
         else
         {
-            tilemap_Item.SetTile(v3,ItemIndex.GetChip(item.ItemName));
+            tilemap_Item.SetTile(v3, ItemIndex.GetChip(item.ItemName));
+            Items_Onmap.Add(v3, item);
             return true;
+        }
+    }
+
+    public Item PickFrom(MapCoordinateInt position)
+    {
+        Vector2Int v2 = position.ToVector2Int();
+        Vector3Int v3 = new Vector3Int(v2.x, 0, v2.y);
+        if (!Items_Onmap.ContainsKey(v3))
+            return null;
+        else
+        {
+            var removedItem = Items_Onmap[v3];
+            tilemap_Item.SetTile(v3, null);
+            Items_Onmap.Remove(v3);
+            return removedItem;
         }
     }
 
