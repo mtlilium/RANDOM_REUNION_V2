@@ -10,11 +10,16 @@ public class MapCoordinate
 
     static public readonly float GridScale_Vertical   = 0.5f;
     static public readonly float GridScale_Horizontal = 1;
-    
+
     public MapCoordinate(float _x, float _y)
     {
         x = _x;
         y = _y;
+    }
+    public MapCoordinate(Vector2 vec)
+    {
+        x = vec.x;
+        y = vec.y;
     }
 
     public static MapCoordinate operator + (MapCoordinate lhs, MapCoordinate rhs)
@@ -81,6 +86,16 @@ public class MapCoordinateInt
         x = Mathf.RoundToInt(_x);
         y = Mathf.RoundToInt(_y);
     }
+    public MapCoordinateInt(Vector2Int vec)
+    {
+        x = vec.x;
+        y = vec.y;
+    }
+    public MapCoordinateInt(Vector2 vec)
+    {
+        x = Mathf.RoundToInt(vec.x);
+        y = Mathf.RoundToInt(vec.y);
+    }
 
     public static MapCoordinateInt operator +(MapCoordinateInt lhs, MapCoordinateInt rhs)
     {
@@ -104,7 +119,10 @@ public class MapCoordinateInt
     {
         return ((MapCoordinate)this).ToVector2(onGrid);
     }
-
+    public Vector2Int ToVector2Int()
+    {
+        return new Vector2Int(x, y);
+    }
     public static MapCoordinateInt FromVector2(Vector2 vec)//Vector2から変換
     {
         return (MapCoordinateInt)(new MapCoordinate(vec.x, vec.y));
