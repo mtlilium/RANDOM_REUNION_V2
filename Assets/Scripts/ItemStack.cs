@@ -5,7 +5,7 @@ public class ItemStack
 {
     public int Weight { get; private set; }
     List<Item> itemStack = new List<Item>();
-    
+
     public void Add(Item item)
     {
         itemStack.Add(item);
@@ -35,5 +35,4 @@ public class ItemStack
         s3.AddRange(s2.itemStack);
         return s3;
     }
-
 }

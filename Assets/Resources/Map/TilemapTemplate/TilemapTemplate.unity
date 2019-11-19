@@ -225,10 +225,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 697360899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4789cc1b00feae349b416e020aeac97b, type: 3}
+  m_Script: {fileID: 11500000, guid: a227cbe698cfcfa4e8959ed76c8f3d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: 2da382c1f0ec06e45adc2c8535f7cb42, type: 2}
+  Tile_UnPlacable: {fileID: 11400000, guid: 176f9a211707e6a4d839e58b69e1c045, type: 2}
+  tilemap_Item: {fileID: 697360903}
 --- !u!483693784 &697360902
 TilemapRenderer:
   m_ObjectHideFlags: 0

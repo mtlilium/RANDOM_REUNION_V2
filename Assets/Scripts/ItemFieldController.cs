@@ -7,8 +7,7 @@ public class ItemFieldController : MonoBehaviour
 {
     public TileBase Tile_UnPlacable;
     public Tilemap tilemap_Item;
-
-    public GameObject Item_Onmap_Prefab;
+    
     Dictionary<Vector3Int, Item> Items_Onmap = new Dictionary<Vector3Int, Item>();
 
     void Start()
