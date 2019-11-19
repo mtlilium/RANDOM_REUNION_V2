@@ -31,6 +31,7 @@ public class ItemFieldController : MonoBehaviour
         else
         {
             tilemap_Item.SetTile(v3, ItemIndex.GetChip(item.ItemName));
+            tilemap_Item.RefreshTile(v3);
             Items_Onmap.Add(v3, item);
             return true;
         }
@@ -46,6 +47,7 @@ public class ItemFieldController : MonoBehaviour
         {
             var removedItem = Items_Onmap[v3];
             tilemap_Item.SetTile(v3, null);
+            tilemap_Item.RefreshTile(v3);
             Items_Onmap.Remove(v3);
             return removedItem;
         }
