@@ -6,7 +6,7 @@ public class InnerMapTransfer : MonoBehaviour
 {
 	private GameObject ParentGrid;//オブジェクトがGridの子であるとする
 	private GameObject NextMap;
-	public bool warped = false;//無限ワープ防止
+	public bool warped = false;//無限ワープ防止のためのフラグ
 	[SerializeField]
 	private InnerMapTransfer NextPoint = null;
 	
@@ -23,6 +23,7 @@ public class InnerMapTransfer : MonoBehaviour
 	void OnTriggerExit2D(){
 		warped = false;
 	}
+
 	void Awake(){
 		ParentGrid = transform.root.gameObject;
 		NextMap = NextPoint.transform.root.gameObject;
