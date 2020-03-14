@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 668f11b9c49219a4e8519b9e7580b424
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Sprite_Initial: {instanceID: 0}
+  - Sprite_Up: {instanceID: 0}
+  - Sprite_UpLeft: {instanceID: 0}
+  - Sprite_UpRight: {instanceID: 0}
+  - Sprite_Left: {instanceID: 0}
+  - Sprite_Right: {instanceID: 0}
+  - Sprite_Down: {instanceID: 0}
+  - Sprite_DownLeft: {instanceID: 0}
+  - Sprite_DownRight: {instanceID: 0}
+  - InteractionTrigger: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
