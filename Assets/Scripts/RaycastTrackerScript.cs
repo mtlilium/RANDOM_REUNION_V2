@@ -26,14 +26,30 @@ public class RaycastTrackerScript: MonoBehaviour {
         BEHAVING//行動する（敵なら「攻撃する」など）
     };
     TrackingState nowTrackingState;
+    TrackingState preTrackingState;
 
-    Dictionary<TrackingState, Action> stateToActionDict;
+    Dictionary<TrackingState, Action> stateToUpdateDict;
+    Dictionary<TrackingState, Action> stateToInitDict;
+    Dictionary<TrackingState, Action> stateToExitDict;
 
+    //行動の委譲先
+    NPCBehavior behavior;
     private void Start() {
-        stateToActionDict = new Dictionary<TrackingState, Action> {
+        behavior = GetComponent<NPCBehavior>();
+        stateToUpdateDict = new Dictionary<TrackingState, Action> {
             {TrackingState.ROAMING      ,Roam},
             {TrackingState.APPROACHING  ,Approach},
-            {TrackingState.BEHAVING     ,Behave }
+            {TrackingState.BEHAVING     ,this.behavior.Behave }
+        };
+        stateToInitDict = new Dictionary<TrackingState, Action> {
+            { TrackingState.ROAMING   , ()=>{ } },
+            {TrackingState.APPROACHING, ()=>{ } },
+            {TrackingState.BEHAVING   , this.behavior.Init }
+        };
+        stateToExitDict = new Dictionary<TrackingState, Action> {
+            { TrackingState.ROAMING    ,()=>{} },
+            { TrackingState.APPROACHING,()=>{} },
+            { TrackingState.BEHAVING   ,this.behavior.Exit}
         };
     }
     private void Update() {
@@ -48,8 +64,12 @@ public class RaycastTrackerScript: MonoBehaviour {
         else {
             nowTrackingState = TrackingState.ROAMING;
         }
-        stateToActionDict[nowTrackingState]();
-        
+        if (nowTrackingState != preTrackingState) {
+            stateToExitDict[preTrackingState]();
+            stateToInitDict[nowTrackingState]();
+        }
+        stateToUpdateDict[nowTrackingState]();
+        preTrackingState = nowTrackingState;
     }
     bool RayHitToPlayer() {
         Vector2 hereVec2 = transform.position;
@@ -73,9 +93,7 @@ public class RaycastTrackerScript: MonoBehaviour {
         return hitToPlayer;
     }
 
-    //TrackingStateに対応する関数3つ(Roam,Approach,Behave)のうち、
-    //Approachだけはオーバーライド不必要と判断
-    protected virtual void Roam() {
+    protected void Roam() {
 
     }
     void Approach() {
@@ -84,14 +102,12 @@ public class RaycastTrackerScript: MonoBehaviour {
         transform.position=hereVec2+(destVec2 - hereVec2).normalized * speed;
         //もしかしたら↓AddForce↓の方がいいかも
         //GetComponent<Rigidbody2D>().AddForce((destVec2 - hereVec2).normalized * speed);
-    }
-    protected virtual void Behave() {
-
-    }
-    
+    }   
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = new Color(0.8f, 0.3f, 0.3f, 0.8f);
         Gizmos.DrawWireSphere(transform.position, serchRange);
+        Gizmos.color = new Color(0.3f, 0.3f, 0.8f, 0.8f);
+        Gizmos.DrawWireSphere(transform.position, behaveRange);
     }
 }
