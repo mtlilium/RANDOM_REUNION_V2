@@ -32,9 +32,12 @@ public class RaycastTrackerScript: MonoBehaviour {
     Dictionary<TrackingState, Action> stateToInitDict;
     Dictionary<TrackingState, Action> stateToExitDict;
 
+    //同ObjectのMovableObject
+    MovableObjectScript movableObj;
     //行動の委譲先
     NPCBehavior behavior;
     private void Start() {
+        movableObj = GetComponent<MovableObjectScript>();
         behavior = GetComponent<NPCBehavior>();
         stateToUpdateDict = new Dictionary<TrackingState, Action> {
             {TrackingState.ROAMING      ,Roam},
@@ -99,7 +102,8 @@ public class RaycastTrackerScript: MonoBehaviour {
     void Approach() {
         Vector2 hereVec2 = transform.position;
         Vector2 destVec2 = dest.position;
-        transform.position=hereVec2+(destVec2 - hereVec2).normalized * speed;
+        Vector2 moveVec2 = (destVec2 - hereVec2);
+        movableObj.Move(moveVec2,speed); 
         //もしかしたら↓AddForce↓の方がいいかも
         //GetComponent<Rigidbody2D>().AddForce((destVec2 - hereVec2).normalized * speed);
     }   

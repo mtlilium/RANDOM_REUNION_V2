@@ -66,7 +66,7 @@ public class MovableObjectScript : ObjectOnMapScript
     {
         Move(direction, movement);
     }
-    void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
+    public void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
     {
         rb2d.MovePosition(rb2d.position + direction.normalized * q);
         ActionsWhenDirecrionChanged(DirectionOfDeltaPos(MapCoordinate.FromVector2(direction)));

@@ -11,8 +11,8 @@ public class InnerMapTransfer : MonoBehaviour
 	private InnerMapTransfer NextPoint = null;
 	
 	void OnTriggerEnter2D(Collider2D other){
+        if (other.tag != "Player") return;
 		if(warped) return;
-		//Debug.Log("transfer now");
 		ParentGrid.SetActive(false);
 		NextPoint.warped = true;
 		NextMap.SetActive(true);
