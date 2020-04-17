@@ -3928,7 +3928,8 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 834907375}
   selectedCommands: []
   variables: []
   description: NPC Test
