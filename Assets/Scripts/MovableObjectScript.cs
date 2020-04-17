@@ -69,7 +69,7 @@ public class MovableObjectScript : ObjectOnMapScript
     public void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
     {
         rb2d.MovePosition(rb2d.position + direction.normalized * q);
-        ActionsWhenDirecrionChanged(DirectionOfDeltaPos(MapCoordinate.FromVector2(direction)));
+        ActionsWhenDirecrionChanged(DirectionOfDeltaPos(direction));
     }
     
     public void Move(MapCoordinate mapcoordinate)//MapCoordinateのToVector2の方向に移動量movementだけ移動
@@ -85,7 +85,26 @@ public class MovableObjectScript : ObjectOnMapScript
     {
         state = direction;
     }
-
+    directions DirectionOfDeltaPos(Vector2 vec) {
+        if (vec == Vector2.zero) return directions.Undefined;
+        //vecにz座標0を付け足したものとupベクトルとの外積でz成分が負なら、vecとupベクトルとの角度も負
+        bool radIsPlus = (Vector3.Cross((Vector3)vec, Vector3.up)).z > 0;
+        float angle = Vector2.Angle(Vector2.up, vec);
+        if (angle < 22.5) return directions.Up;
+        if (angle < 57.5) {
+            if (radIsPlus)  return directions.UpRight;
+            else            return directions.UpLeft;
+        }
+        if (angle < 102.5) {
+            if (radIsPlus)  return directions.Right;
+            else            return directions.Left;
+        }
+        if (angle < 147.5) {
+            if (radIsPlus)  return directions.DownRight;
+            else            return directions.DownLeft;
+        }
+        return directions.Down;
+    }
     public directions DirectionOfDeltaPos(MapCoordinate d)
     {
         if (d.y > 0)
