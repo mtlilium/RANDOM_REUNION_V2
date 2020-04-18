@@ -5,11 +5,12 @@ using UnityEngine;
 public class NPCBehave_Attack : NPCBehavior
 {
     [SerializeField]
-    Animator anim;
+    Animator anim=null;
     public override void Init(){
         anim.SetTrigger("AttackTrigger");
     }
     public override void Exit() {
         anim.SetTrigger("StopTrigger");
+        Debug.Log("stopped");
     }
 }

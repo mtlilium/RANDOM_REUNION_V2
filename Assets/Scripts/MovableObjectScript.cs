@@ -70,7 +70,6 @@ public class MovableObjectScript : ObjectOnMapScript
     {
         rb2d.MovePosition(rb2d.position + direction.normalized * q);
         ActionsWhenDirecrionChanged(DirectionOfDeltaPos(direction));
-        if (direction != Vector2.zero) Debug.Log(direction);
     }
     
     public void Move(MapCoordinate mapcoordinate)//MapCoordinateのToVector2の方向に移動量movementだけ移動

@@ -6,7 +6,7 @@ using UnityEngine;
 public class RaycastTrackerScript: MonoBehaviour { 
     //destination 追いかける目的地 Raycastの投影目標
     [SerializeField]
-    Transform dest;
+    Transform dest=null;
 
     //Rayの最大到達距離
     [SerializeField]
@@ -37,6 +37,7 @@ public class RaycastTrackerScript: MonoBehaviour {
     //行動の委譲先
     NPCBehavior behavior;
     private void Start() {
+        playerLayerMask = LayerMask.GetMask("Player");
         movableObj = GetComponent<MovableObjectScript>();
         behavior = GetComponent<NPCBehavior>();
         stateToUpdateDict = new Dictionary<TrackingState, Action> {
@@ -74,6 +75,8 @@ public class RaycastTrackerScript: MonoBehaviour {
         stateToUpdateDict[nowTrackingState]();
         preTrackingState = nowTrackingState;
     }
+
+    int playerLayerMask;
     bool RayHitToPlayer() {
         Vector2 hereVec2 = transform.position;
         Vector2 destVec2 = dest.position;
@@ -81,6 +84,9 @@ public class RaycastTrackerScript: MonoBehaviour {
         //当たり判定(circle collider)の半径
         float colliderRadius=GetComponent<CircleCollider2D>().radius;
 
+        RaycastHit2D hit = Physics2D.Raycast(hereVec2, destVec2 - hereVec2, serchRange,playerLayerMask);
+        return (hit.collider?.tag == "Player");
+        /*
         //circlecolliderの外側４点(上下左右)からRayを照射
         int[] dirX = { 0, 1, 0, -1 };
         int[] dirY = { 1, 0, -1, 0 };
@@ -92,8 +98,10 @@ public class RaycastTrackerScript: MonoBehaviour {
                 hitToPlayer = true;
             }
         }
+
         //どれか一つでもあたってれば追いかける
         return hitToPlayer;
+        */
     }
 
     protected void Roam() {
@@ -104,8 +112,6 @@ public class RaycastTrackerScript: MonoBehaviour {
         Vector2 destVec2 = dest.position;
         Vector2 moveVec2 = (destVec2 - hereVec2);
         movableObj.Move(moveVec2,speed); 
-        //もしかしたら↓AddForce↓の方がいいかも
-        //GetComponent<Rigidbody2D>().AddForce((destVec2 - hereVec2).normalized * speed);
     }   
 
     private void OnDrawGizmosSelected() {
