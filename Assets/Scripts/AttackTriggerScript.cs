@@ -14,7 +14,7 @@ public class AttackTriggerScript: MonoBehaviour
         PalameterScript palam = other.GetComponent<PalameterScript>();
         StatusScript status = other.GetComponent<StatusScript>();
 
-        if (status.IsInvincible) return;
+        if ((bool)status?.IsInvincible) return;
 
         palam?.GainDamage(damage);
         status?.EnInvincible();

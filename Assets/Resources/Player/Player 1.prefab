@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -7446026091647042388, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  m_Sprite: {fileID: -2684602988614473793, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,25 +98,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60a401e88c3b1574b82280022c7378e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite_Initial: {fileID: -7446026091647042388, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_Initial: {fileID: -2684602988614473793, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
   MapCoordinate_Initial: {x: 3, y: 3}
   State_Initial: 5
-  Sprite_Up: {fileID: 7364682651488144517, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_Up: {fileID: 2222278368666200533, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
-  Sprite_UpLeft: {fileID: -2311659948842064771, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_UpLeft: {fileID: -1926599976718511941, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
-  Sprite_UpRight: {fileID: -6287787046888575383, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_UpRight: {fileID: -1670009346745302818, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
-  Sprite_Left: {fileID: -1182821291677670348, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_Left: {fileID: -6875794009291020754, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
-  Sprite_Right: {fileID: -4709456396536258026, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_Right: {fileID: -8568461512756223047, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
-  Sprite_Down: {fileID: -7446026091647042388, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_Down: {fileID: -2684602988614473793, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
-  Sprite_DownLeft: {fileID: -4529042392078601758, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_DownLeft: {fileID: 6820238454382498863, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
-  Sprite_DownRight: {fileID: 5938012242645255967, guid: cd3ed736294d72643bb5d2dad1f5210d,
+  Sprite_DownRight: {fileID: 3626825980257480922, guid: 7acd057a3ce12eb45b9f84d8b5b517cc,
     type: 3}
   PersonalName: 
   InteractionTrigger: {fileID: 2768374741796830891, guid: 2cb1cc6e09620424b82fb476077c222b,
