@@ -10,11 +10,11 @@ public class AttackTriggerScript: MonoBehaviour
     {
 
     }
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerStay2D(Collider2D other) {
         PalameterScript palam = other.GetComponent<PalameterScript>();
         StatusScript status = other.GetComponent<StatusScript>();
 
-        if ((bool)status?.IsInvincible) return;
+        if (status!=null && status.IsInvincible) return;
 
         palam?.GainDamage(damage);
         status?.EnInvincible();
