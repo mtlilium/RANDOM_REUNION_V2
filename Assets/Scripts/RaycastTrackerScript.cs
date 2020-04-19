@@ -37,7 +37,7 @@ public class RaycastTrackerScript: MonoBehaviour {
     //行動の委譲先
     NPCBehavior behavior;
     private void Start() {
-        playerLayerMask = LayerMask.GetMask("Player");
+        playerAndObstacleLayerMask = LayerMask.GetMask("Player","Obstacle");
         movableObj = GetComponent<MovableObjectScript>();
         behavior = GetComponent<NPCBehavior>();
         stateToUpdateDict = new Dictionary<TrackingState, Action> {
@@ -76,7 +76,7 @@ public class RaycastTrackerScript: MonoBehaviour {
         preTrackingState = nowTrackingState;
     }
 
-    int playerLayerMask;
+    int playerAndObstacleLayerMask;
     bool RayHitToPlayer() {
         Vector2 hereVec2 = transform.position;
         Vector2 destVec2 = dest.position;
@@ -84,7 +84,7 @@ public class RaycastTrackerScript: MonoBehaviour {
         //当たり判定(circle collider)の半径
         float colliderRadius=GetComponent<CircleCollider2D>().radius;
 
-        RaycastHit2D hit = Physics2D.Raycast(hereVec2, destVec2 - hereVec2, serchRange,playerLayerMask);
+        RaycastHit2D hit = Physics2D.Raycast(hereVec2, destVec2 - hereVec2, serchRange,playerAndObstacleLayerMask);
         return (hit.collider?.tag == "Player");
         /*
         //circlecolliderの外側４点(上下左右)からRayを照射

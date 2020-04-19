@@ -11,6 +11,5 @@ public class NPCBehave_Attack : NPCBehavior
     }
     public override void Exit() {
         anim.SetTrigger("StopTrigger");
-        Debug.Log("stopped");
     }
 }
