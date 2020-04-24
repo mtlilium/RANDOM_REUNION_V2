@@ -2,29 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quest_Subjugation_Behavior : MonoBehaviour
+public class Quest_Subjugation_Behavior : Quest_Behaviour
 {
-    Quest_Subjugation quest;
-    EnemyManager enemyManager;
+    [System.Serializable]
+    class StringInt:Serialize.KeyAndValue<string,int> {
+        StringInt(string s, int x) : base(s, x) { }
+    };
+    [System.Serializable]
+    class StringIntDict : Serialize.TableBase<string, int, StringInt> { };
+
+    [SerializeField]
+    StringIntDict serializedNorma;
+
+    EnemyManager_Behaviour enemyManager=null;
+    Dictionary<string, int> norma;
     Dictionary<string, int> defeatedEnemyCount;
     void Start(){
+        enemyManager = SystemClass.enemyManager;
         defeatedEnemyCount = new Dictionary<string, int>();
-        foreach (string name in quest.enemyNames) {
-            defeatedEnemyCount.Add(name, 0);
-            enemyManager.WhenEnemyDefeated.Add(name,()=> { defeatedEnemyCount[name]++; });
+        norma = serializedNorma.GetTable();
+        foreach (string enemyName in norma.Keys) {
+            defeatedEnemyCount.Add(enemyName, 0);
+            enemyManager.WhenEnemyDefeated.Add(enemyName, ()=> { defeatedEnemyCount[enemyName]++; });
         }
     }
 
     void Update(){
         if (AllNormaCleared()) {
-            QuestManager.QuestClear(quest.questName);
+            QuestManager.QuestClear(base.questName);
             Destroy(this.gameObject);
         }
     }
     bool AllNormaCleared() {
         bool allCleared = true;
-        foreach(string name in quest.enemyNames) {
-            if(defeatedEnemyCount[name] < quest.norma[name]) {
+        foreach(string name in norma.Keys) {
+            if(defeatedEnemyCount[name] < norma[name]) {
                 allCleared = false;
             }
         }
