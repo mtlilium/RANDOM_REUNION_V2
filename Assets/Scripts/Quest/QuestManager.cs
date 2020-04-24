@@ -19,7 +19,6 @@ public static class QuestManager{
         var prefabs = Resources.LoadAll<GameObject>(path);
         foreach (var p in prefabs) {
             AcceptableQuest[p.name] = p.GetComponent<Quest_Behaviour>();
-            Debug.Log(p.name + " add");
         }
     }
 
