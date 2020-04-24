@@ -7,14 +7,14 @@ enum QuestCategory
 {
     Main,sub
 }
+
 public class Quest
 {
     QuestCategory questCategory;
-    string questName;
+    public string questName { get; private set; }
     string questTarget;
     int? deadline;
     string queriedBy;
-
     public Action<GameObject> WhenQuestAccepted { get; private set; }
     public Action<GameObject> WhenQuestCleared { get; private set; }
     public Action<GameObject> WhenQuestFailed { get; private set;}

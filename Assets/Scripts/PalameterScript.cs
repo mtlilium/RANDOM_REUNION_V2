@@ -9,4 +9,7 @@ public class PalameterScript : MonoBehaviour
         //hp-=damage;
         Debug.Log(damage + "ダメージ");
     }
+    public bool IsDefeat() {
+        return hp <= 0;
+    }
 }
