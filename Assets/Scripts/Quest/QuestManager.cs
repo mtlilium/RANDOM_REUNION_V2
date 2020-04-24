@@ -34,6 +34,7 @@ public static class QuestManager{
         //quest.WhenQuestAccepted(player);
         AcceptableQuest.Remove(questName);
         OrderedQuest.Add(questName, quest);
+        Debug.Log(questName + "が受注されました！やったね！！");
         return quest;
     }
     static public void QuestClear(string questName)
