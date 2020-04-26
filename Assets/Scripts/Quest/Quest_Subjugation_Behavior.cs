@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Quest_Subjugation_Behavior : Quest_Behaviour
 {
@@ -12,7 +13,7 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
     class StringIntDict : Serialize.TableBase<string, int, StringInt> { };
 
     [SerializeField]
-    StringIntDict serializedNorma;
+    StringIntDict serializedNorma=null;
 
     EnemyManager_Behaviour enemyManager=null;
     Dictionary<string, int> norma;
@@ -23,7 +24,13 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
         norma = serializedNorma.GetTable();
         foreach (string enemyName in norma.Keys) {
             defeatedEnemyCount.Add(enemyName, 0);
-            enemyManager.WhenEnemyDefeated.Add(enemyName, ()=> { defeatedEnemyCount[enemyName]++; });
+            Action func = (() => { defeatedEnemyCount[enemyName]++; });
+            if (enemyManager.WhenEnemyDefeated.ContainsKey(enemyName)) {
+                enemyManager.WhenEnemyDefeated[enemyName] += func;
+            }
+            else {
+                enemyManager.WhenEnemyDefeated.Add(enemyName, func);
+            }
         }
     }
 

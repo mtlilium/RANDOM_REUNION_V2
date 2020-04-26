@@ -4,7 +4,7 @@ using UnityEngine;
 
 /* QuestManagerの初期化と、Fungusからクエスト受注を呼び出す,QuestオブジェクトInstantiate用
  */
-public class QuestManager_Behavior : MonoBehaviour { 
+public class QuestManager_Behaviour : MonoBehaviour { 
     private void Start() {
         QuestManager.Init();
     }
