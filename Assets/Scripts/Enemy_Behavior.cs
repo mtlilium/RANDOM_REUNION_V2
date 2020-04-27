@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy_Behavior : MonoBehaviour {
 
     EnemyManager_Behaviour enemyManager=null;
-
     new string name;
     StatusScript status;
     PalameterScript palameter;
@@ -17,7 +16,14 @@ public class Enemy_Behavior : MonoBehaviour {
     }
     void Update(){
         if (palameter.IsDefeat()) {
-            enemyManager.WhenEnemyDefeated[name]();
+            if (enemyManager == null) {
+                Debug.Log("enemyManager is null");
+                return;
+            }
+            if (enemyManager.WhenEnemyDefeated.ContainsKey(name)) {
+                enemyManager.WhenEnemyDefeated[name]?.Invoke();
+            }
+            Destroy(this.gameObject);
         }
     }
 }

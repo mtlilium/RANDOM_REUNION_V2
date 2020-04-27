@@ -15,7 +15,10 @@ GameObject:
   - component: {fileID: 6535971293116331713}
   - component: {fileID: 6535971293116331714}
   - component: {fileID: 6535971293116331740}
-  m_Layer: 0
+  - component: {fileID: -1293618733887634334}
+  - component: {fileID: -5599502101951566354}
+  - component: {fileID: -8327580226625037935}
+  m_Layer: 10
   m_Name: Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,6 +187,43 @@ MonoBehaviour:
     type: 3}
   Sprite_DownRight: {fileID: 2058321371489131599, guid: de4bf08503d2ffd449925af6ce3a2dd0,
     type: 3}
+--- !u!114 &-1293618733887634334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988586935253086729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4e7bb8ec67a1d438536e1ba6adcb0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5599502101951566354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988586935253086729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7876f86f9757644a2da6e223c3cac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+--- !u!114 &-8327580226625037935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988586935253086729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a575fad38e4524eb65d8e7969f2121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &939847968683420035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,6 +235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: attack_proto
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322893331246292992, guid: f4c74e03431579540b09b2c718d108fa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6322893331246293023, guid: f4c74e03431579540b09b2c718d108fa,
         type: 3}
