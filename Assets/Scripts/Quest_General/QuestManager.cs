@@ -22,27 +22,30 @@ public static class QuestManager{
         }
     }
 
-    static public GameObject player;
-    static public Quest_Behaviour QuestAccept(string questName)
+    static public void QuestAccept(string questName)
     {
         if (!AcceptableQuest.ContainsKey(questName)) {
             Debug.LogError(questName + "が受注可能クエスト内に見つかりません");
-            return null;
+            return;
         }
         Quest_Behaviour quest = AcceptableQuest[questName];
         //quest.WhenQuestAccepted(player);
         AcceptableQuest.Remove(questName);
-        OrderedQuest.Add(questName, quest);
-        return quest;
+        var obj=GameObject.Instantiate(quest);
+        obj.name = questName;
+        OrderedQuest.Add(questName, obj);
     }
     static public void QuestClear(string questName)
     {
-        OrderedQuest[questName].WhenQuestCleared(player);
-        OrderedQuest.Remove(questName);
+        if (OrderedQuest.ContainsKey(questName)) {
+            OrderedQuest[questName].WhenQuestCleared?.Invoke();
+            GameObject.Destroy(OrderedQuest[questName]);
+            OrderedQuest.Remove(questName);
+        }
     }
     static public void QuestFail(string questName)
     {
-        OrderedQuest[questName].WhenQuestFailed(player);
+        OrderedQuest[questName].WhenQuestFailed();
         OrderedQuest.Remove(questName);
     }
 }

@@ -10,8 +10,6 @@ public class QuestManager_Behaviour : MonoBehaviour {
     }
 
     public void QuestAccept(string questName) {
-        Quest_Behaviour toInstantiateQuest = QuestManager.QuestAccept(questName);
-        if (toInstantiateQuest == null) return;
-        Instantiate(toInstantiateQuest);
+        QuestManager.QuestAccept(questName);        
     }
 }
