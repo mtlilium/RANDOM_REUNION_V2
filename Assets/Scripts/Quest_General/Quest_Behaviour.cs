@@ -8,7 +8,7 @@ enum QuestCategory
     Main,sub
 }
 
-public class Quest_Behaviour:MonoBehaviour
+public abstract class Quest_Behaviour:MonoBehaviour
 {
     QuestCategory questCategory;
     public string questName { get; private set; }
@@ -22,4 +22,5 @@ public class Quest_Behaviour:MonoBehaviour
     virtual protected void Start() {
         questName = this.gameObject.name;//ゲームオブジェクトの名前と同じでいいならこれ　check
     }
+    abstract public bool AllNormaCleared();
 }

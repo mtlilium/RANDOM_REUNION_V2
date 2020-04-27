@@ -36,12 +36,7 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
         WhenQuestCleared = () => { Debug.Log("subujugation completed"); };
     }
 
-    void Update(){
-        if (AllNormaCleared()) {
-            QuestManager.QuestClear(base.questName);
-        }
-    }
-    bool AllNormaCleared() {
+    override public bool AllNormaCleared() {
         bool allCleared = true;
         foreach(string name in norma.Keys) {
             if(defeatedEnemyCount[name] < norma[name]) {

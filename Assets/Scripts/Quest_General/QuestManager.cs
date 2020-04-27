@@ -48,4 +48,11 @@ public static class QuestManager{
         OrderedQuest[questName].WhenQuestFailed();
         OrderedQuest.Remove(questName);
     }
+    static public bool QuestNormaCleared(string questName) {//指定したQuestのノルマが達成できてるかどうか
+        if (!OrderedQuest.ContainsKey(questName)) {
+            Debug.LogError(questName + "が受注済みクエスト内に見つかりません");
+            return false;
+        }
+        return OrderedQuest[questName].AllNormaCleared();
+    }
 }
