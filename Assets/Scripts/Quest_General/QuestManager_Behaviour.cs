@@ -15,4 +15,7 @@ public class QuestManager_Behaviour : MonoBehaviour {
     public bool QuestNormaCleared(string questName) {
         return QuestManager.QuestNormaCleared(questName);
     }
+    public void QuestClear(string questName) {
+        QuestManager.QuestClear(questName);
+    }
 }
