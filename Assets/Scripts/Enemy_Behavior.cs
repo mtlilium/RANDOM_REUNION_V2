@@ -16,10 +16,6 @@ public class Enemy_Behavior : MonoBehaviour {
     }
     void Update(){
         if (palameter.IsDefeat()) {
-            if (enemyManager == null) {
-                Debug.Log("enemyManager is null");
-                return;
-            }
             if (enemyManager.WhenEnemyDefeated.ContainsKey(name)) {
                 enemyManager.WhenEnemyDefeated[name]?.Invoke();
             }

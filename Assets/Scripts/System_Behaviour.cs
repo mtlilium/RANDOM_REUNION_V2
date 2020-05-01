@@ -9,11 +9,6 @@ public class System_Behaviour : MonoBehaviour
     void Start(){
         questManager = transform.Find("QuestManager").GetComponent<QuestManager_Behaviour>();
     }
-    bool f = true;
     void Update(){
-        if (f) {
-            f = false;
-            questManager.QuestAccept("Test_MouseSubjugation");
-        }
     }
 }
