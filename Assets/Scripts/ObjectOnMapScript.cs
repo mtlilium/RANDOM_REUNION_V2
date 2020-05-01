@@ -7,7 +7,8 @@ public class ObjectOnMapScript : MonoBehaviour
 {
     public Sprite Sprite_Initial = null;
 
-    public Vector2 MapCoordinate_Initial; // 初期座標 生の値がそのままマップ座標に解釈される点に注意
+    //transform.positionから計算するように変更　check
+    //public Vector2 MapCoordinate_Initial; // 初期座標 生の値がそのままマップ座標に解釈される点に注意
     protected MapCoordinate _position;
     public MapCoordinate Position
     {
@@ -28,7 +29,8 @@ public class ObjectOnMapScript : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         sr.sprite = Sprite_Initial;
-        Position = new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y);
+        Position = MapCoordinate.FromVector2(transform.position);
+        //Position = new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y);
     }
 
     void Start()

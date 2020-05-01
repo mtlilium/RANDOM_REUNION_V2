@@ -10,7 +10,8 @@ public class ItemOnMapScript : ObjectOnMapScript
     {
         sr = GetComponent<SpriteRenderer>();
         sr.sprite = Sprite_Initial;
-        Position = new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y);
+        //Position = new MapCoordinate(MapCoordinate_Initial.x, MapCoordinate_Initial.y);
+        Position = MapCoordinate.FromVector2(transform.position);
         itemstack = new ItemStack();
     }
 
