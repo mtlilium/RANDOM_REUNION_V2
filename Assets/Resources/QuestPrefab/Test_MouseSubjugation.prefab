@@ -46,4 +46,4 @@ MonoBehaviour:
   serializedNorma:
     list:
     - Key: Mouse
-      Value: 0
+      Value: 1

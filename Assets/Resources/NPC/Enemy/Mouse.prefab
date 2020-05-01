@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -1293618733887634334}
   - component: {fileID: -5599502101951566354}
   - component: {fileID: -8327580226625037935}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite_Initial: {fileID: 5410666819922606986, guid: de4bf08503d2ffd449925af6ce3a2dd0,
     type: 3}
-  MapCoordinate_Initial: {x: 5, y: 1}
   State_Initial: 5
   Sprite_Up: {fileID: -4127907991584135742, guid: de4bf08503d2ffd449925af6ce3a2dd0,
     type: 3}
@@ -239,7 +238,7 @@ PrefabInstance:
     - target: {fileID: 6322893331246292992, guid: f4c74e03431579540b09b2c718d108fa,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6322893331246293023, guid: f4c74e03431579540b09b2c718d108fa,
         type: 3}
