@@ -21,6 +21,12 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
     override protected void Start(){
         base.Start();
         enemyManager = SystemClass.enemyManager;
+        InitNormaAndDefeatedAction();
+        WhenQuestCleared = () => { Debug.Log("subujugation completed"); };
+        
+    }
+
+    void InitNormaAndDefeatedAction() {
         defeatedEnemyCount = new Dictionary<string, int>();
         norma = serializedNorma.GetTable();
         foreach (string enemyName in norma.Keys) {
@@ -33,7 +39,6 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
                 enemyManager.WhenEnemyDefeated.Add(enemyName, func);
             }
         }
-        WhenQuestCleared = () => { Debug.Log("subujugation completed"); };
     }
 
     override public bool AllNormaCleared() {

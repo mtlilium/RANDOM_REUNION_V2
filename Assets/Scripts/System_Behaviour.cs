@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class System_Behaviour : MonoBehaviour
 {
-    [SerializeField]
-    QuestManager_Behaviour questManager;
+    EnemyManager_Behaviour enemyManager;
+    private void Awake() {
+        SystemClass.randGen = new System.Random((int)System.DateTime.Now.Ticks);
+    }
     void Start(){
-        questManager = transform.Find("QuestManager").GetComponent<QuestManager_Behaviour>();
+        enemyManager = transform.Find("EnemyManager").GetComponent<EnemyManager_Behaviour>();
     }
     void Update(){
+        
     }
 }
