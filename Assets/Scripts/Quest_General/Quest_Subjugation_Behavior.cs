@@ -15,6 +15,15 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
     [SerializeField]
     StringIntDict serializedNorma=null;
 
+    /*
+    [SerializeField]
+    string outerMapName = null;
+    [SerializeField]
+    List<string> innerMapName = null;
+    */
+    [SerializeField]
+    string innerMapName = null;
+
     EnemyManager_Behaviour enemyManager=null;
     Dictionary<string, int> norma;
     Dictionary<string, int> defeatedEnemyCount;
@@ -23,7 +32,15 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
         enemyManager = SystemClass.enemyManager;
         InitNormaAndDefeatedAction();
         WhenQuestCleared = () => { Debug.Log("subujugation completed"); };
-        
+        //check InnnerMapManagerをつくる
+        var spotManager = innermap.GetComponent<SpawnSpotManager>();
+        if (spotManager.SpotList == null) {
+            Debug.Log("spotlist is null");
+            return;
+        }
+        foreach(string name in norma.Keys) {
+            enemyManager.EnemyGenerateInRandomSpot(name, norma[name], spotManager, innermap);
+        }
     }
 
     void InitNormaAndDefeatedAction() {

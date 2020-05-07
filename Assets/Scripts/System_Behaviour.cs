@@ -11,7 +11,7 @@ public class System_Behaviour : MonoBehaviour
     void Start(){
         enemyManager = transform.Find("EnemyManager").GetComponent<EnemyManager_Behaviour>();
     }
+
     void Update(){
-        
     }
 }

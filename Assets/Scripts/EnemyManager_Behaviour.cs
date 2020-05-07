@@ -13,8 +13,6 @@ public class EnemyManager_Behaviour : MonoBehaviour
     }
     void Start(){
         WhenEnemyDefeated = new Dictionary<string, Action>();
-        WhenEnemyDefeated.Add("Mouse", () => { Debug.Log("mouse defeat"); });
-
         enemyNameToPrefab = new Dictionary<string, GameObject>();
         var prefabs = Resources.LoadAll<GameObject>("EnemyPrefab/");
         foreach (GameObject prefab in prefabs) {
@@ -22,7 +20,7 @@ public class EnemyManager_Behaviour : MonoBehaviour
         }
     }
 
-    public void EnemyGenerateInRandomSpot(string enemyName,int amount,SpawnSpotManager spotManager) {
+    public void EnemyGenerateInRandomSpot(string enemyName,int amount,SpawnSpotManager spotManager,Transform parent) {
         if (!enemyNameToPrefab.ContainsKey(enemyName)) {
             Debug.LogError(enemyName+"という名前のEnemyが見つかりません");
             return;
@@ -44,9 +42,10 @@ public class EnemyManager_Behaviour : MonoBehaviour
             return;
         }
         for(int count = 0; count < amount; count++) {
-            int random = SystemClass.randGen.Next(spotList.Count);
-            Vector2 pos = spotList[random].RandomPosition(prefab.GetComponent<CircleCollider2D>().radius);//コライダーの大きさ分余裕を持つ
-            Instantiate(enemyNameToPrefab[enemyName], pos, Quaternion.identity);//ランダムなspotのランダムな場所に生成する
+            int randomIndex = SystemClass.randGen.Next(spotList.Count);
+            Vector2 pos = spotList[randomIndex].RandomPosition(prefab.GetComponent<CircleCollider2D>().radius);//コライダーの大きさ分余裕を持つ
+            var obj=Instantiate(prefab, pos, Quaternion.identity, parent);//ランダムなspotのランダムな場所に生成する
+            obj.name = enemyName;
         }
     }
 
