@@ -7,7 +7,7 @@ public class InnerMapTransfer : MonoBehaviour
     private GameObject ParentGrid;//オブジェクトがGridの子であるとする
    
     private GameObject NextMap;
-	public bool warped = false;//無限ワープ防止のためのフラグ
+	public bool warped { get; private set; }//無限ワープ防止のためのフラグ
 	[SerializeField]
 	private InnerMapTransfer NextPoint = null;
 	
@@ -27,8 +27,8 @@ public class InnerMapTransfer : MonoBehaviour
 	}
 
 	void Awake(){
-		ParentGrid = transform.root.gameObject;
-		NextMap = NextPoint.transform.root.gameObject;
+		ParentGrid = transform.parent.gameObject;
+        NextMap = NextPoint.transform.parent.gameObject;
 	}
 
 }

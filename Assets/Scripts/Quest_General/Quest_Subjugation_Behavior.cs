@@ -15,14 +15,11 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
     [SerializeField]
     StringIntDict serializedNorma=null;
 
-    /*
     [SerializeField]
     string outerMapName = null;
     [SerializeField]
-    List<string> innerMapName = null;
-    */
-    [SerializeField]
     string innerMapName = null;
+    //List<string> innerMapNames = null    
 
     EnemyManager_Behaviour enemyManager=null;
     Dictionary<string, int> norma;
@@ -32,14 +29,22 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
         enemyManager = SystemClass.enemyManager;
         InitNormaAndDefeatedAction();
         WhenQuestCleared = () => { Debug.Log("subujugation completed"); };
-        //check InnnerMapManagerをつくる
-        var spotManager = innermap.GetComponent<SpawnSpotManager>();
+        if (!SystemClass.OuterMapDict.ContainsKey(outerMapName)) {
+            Debug.Log(outerMapName+"という名前のOuterMapがSystemClassのOuterMapDictに見つかりません");
+            return;
+        }
+        var innerMapDict = SystemClass.OuterMapDict[outerMapName].innerMapDict;
+        if (!innerMapDict.ContainsKey(innerMapName)) {
+            Debug.Log(innerMapName + "という名前のinnerMapが" + outerMapName + "のinnerMapDictに見つかりません");
+        }
+        var innerMap = innerMapDict[innerMapName];
+        var spotManager = innerMap.GetComponent<SpawnSpotManager>();
         if (spotManager.SpotList == null) {
             Debug.Log("spotlist is null");
             return;
         }
         foreach(string name in norma.Keys) {
-            enemyManager.EnemyGenerateInRandomSpot(name, norma[name], spotManager, innermap);
+            enemyManager.EnemyGenerateRandomAtInnerMap(name, norma[name], innerMap);
         }
     }
 
