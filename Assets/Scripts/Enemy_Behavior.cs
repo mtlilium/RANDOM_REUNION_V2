@@ -9,6 +9,9 @@ public class Enemy_Behavior : MonoBehaviour {
     StatusScript status;
     PalameterScript palameter;
     void Start(){
+        RaycastTrackerScript tracker = GetComponent<RaycastTrackerScript>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");//SystemClassにPlayerの参照を持たせておいてそこから持ってくるようにするかも check
+        tracker.InitDestination(player.transform);
         enemyManager = SystemClass.enemyManager;
         name = gameObject.name;//GameObjectと別にする場合は要変更
         status = GetComponent<StatusScript>();

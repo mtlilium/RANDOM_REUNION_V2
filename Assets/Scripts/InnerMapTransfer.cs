@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class InnerMapTransfer : MonoBehaviour
 {
-	private GameObject ParentGrid;//オブジェクトがGridの子であるとする
-	private GameObject NextMap;
-	public bool warped = false;//無限ワープ防止のためのフラグ
+    private GameObject ParentGrid;//オブジェクトがGridの子であるとする
+   
+    private GameObject NextMap;
+	public bool warped { get; private set; }//無限ワープ防止のためのフラグ
 	[SerializeField]
 	private InnerMapTransfer NextPoint = null;
 	
@@ -16,8 +17,9 @@ public class InnerMapTransfer : MonoBehaviour
 		ParentGrid.SetActive(false);
 		NextPoint.warped = true;
 		NextMap.SetActive(true);
-		other.gameObject.transform.parent = NextMap.transform;
-		other.gameObject.transform.position = NextPoint.transform.position;
+        // アニメーションが動かなくなってしまうので、PlayerはGridの外に置きPlayerの親をいじらない仕様に変更　
+        //other.gameObject.transform.parent = NextMap.transform;　
+        other.gameObject.transform.position = NextPoint.transform.position;
 	}
 
 	void OnTriggerExit2D(){
@@ -25,8 +27,8 @@ public class InnerMapTransfer : MonoBehaviour
 	}
 
 	void Awake(){
-		ParentGrid = transform.root.gameObject;
-		NextMap = NextPoint.transform.root.gameObject;
+		ParentGrid = transform.parent.gameObject;
+        NextMap = NextPoint.transform.parent.gameObject;
 	}
 
 }

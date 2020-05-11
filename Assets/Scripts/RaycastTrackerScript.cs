@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RaycastTrackerScript: MonoBehaviour { 
-    //destination 追いかける目的地 Raycastの投影目標
-    [SerializeField]
-    Transform dest=null;
-
     //Rayの最大到達距離
     [SerializeField]
     float serchRange=3.0f;
@@ -19,6 +15,10 @@ public class RaycastTrackerScript: MonoBehaviour {
     //目的地に向かうスピード
     [SerializeField]
     float speed=0.02f;
+
+    //destination 追いかける目的地 Raycastの投影目標 InitDestで初期化
+    Transform dest = null;
+    bool destInitialized=false;
 
     enum TrackingState {
         ROAMING,//歩き回ってる
@@ -36,6 +36,15 @@ public class RaycastTrackerScript: MonoBehaviour {
     MovableObjectScript movableObj;
     //行動の委譲先
     NPCBehavior behavior;
+
+    public void InitDestination(Transform destination) {
+        if (destInitialized) {
+            Debug.LogError("RaycastTrackerScript.destの初期化が二回以上行われています");
+            return;
+        }
+        dest = destination;
+        destInitialized = true;
+    }
     private void Start() {
         playerAndObstacleLayerMask = LayerMask.GetMask("Player","Obstacle");
         movableObj = GetComponent<MovableObjectScript>();
@@ -85,23 +94,7 @@ public class RaycastTrackerScript: MonoBehaviour {
         float colliderRadius=GetComponent<CircleCollider2D>().radius;
 
         RaycastHit2D hit = Physics2D.Raycast(hereVec2, destVec2 - hereVec2, serchRange,playerAndObstacleLayerMask);
-        return (hit.collider?.tag == "Player");
-        /*
-        //circlecolliderの外側４点(上下左右)からRayを照射
-        int[] dirX = { 0, 1, 0, -1 };
-        int[] dirY = { 1, 0, -1, 0 };
-        bool hitToPlayer = false;
-        for (int i = 0; i < 4; i++) {
-            Vector2 rayOrigin = hereVec2 + new Vector2(dirX[i], dirY[i])*(colliderRadius+Mathf.Epsilon);
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, destVec2 - rayOrigin, serchRange);
-            if (hit.collider?.tag == "Player"){
-                hitToPlayer = true;
-            }
-        }
-
-        //どれか一つでもあたってれば追いかける
-        return hitToPlayer;
-        */
+        return hit.collider?.tag == "Player";
     }
 
     protected void Roam() {
