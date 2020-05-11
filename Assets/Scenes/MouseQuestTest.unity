@@ -317,51 +317,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3209638191652469161, guid: cb80b6838ea9c8a4a87a94796d88e8a5,
-        type: 3}
-      propertyPath: m_SleepingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4143895068312176364, guid: cb80b6838ea9c8a4a87a94796d88e8a5,
-        type: 3}
-      propertyPath: hp
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2432278331073981243, guid: cb80b6838ea9c8a4a87a94796d88e8a5,
-        type: 3}
-      propertyPath: damage
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb80b6838ea9c8a4a87a94796d88e8a5, type: 3}
---- !u!1 &421808574 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7864381537884728660, guid: cb80b6838ea9c8a4a87a94796d88e8a5,
-    type: 3}
-  m_PrefabInstance: {fileID: 421808572}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &421808575 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4464884909541372672, guid: cb80b6838ea9c8a4a87a94796d88e8a5,
     type: 3}
   m_PrefabInstance: {fileID: 421808572}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421808574}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 60a401e88c3b1574b82280022c7378e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &421808576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421808574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4db8b02969590042965e008110e96fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &430413606
@@ -82882,11 +82849,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_2
       objectReference: {fileID: 0}
-    - target: {fileID: 6343388290795216048, guid: ceef2360520da6741b0d7daf7ac7d30c,
-        type: 3}
-      propertyPath: NextPoint
-      value: 
-      objectReference: {fileID: 32292852}
     - target: {fileID: 1317785821431383993, guid: ceef2360520da6741b0d7daf7ac7d30c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -82942,6 +82904,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6343388290795216048, guid: ceef2360520da6741b0d7daf7ac7d30c,
+        type: 3}
+      propertyPath: NextPoint
+      value: 
+      objectReference: {fileID: 32292852}
     - target: {fileID: 6343388290795216050, guid: ceef2360520da6741b0d7daf7ac7d30c,
         type: 3}
       propertyPath: m_LocalPosition.y
