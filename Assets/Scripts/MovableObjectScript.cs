@@ -17,8 +17,9 @@ public class MovableObjectScript : ObjectOnMapScript
         {
             if (value == directions.Undefined)
                 return;
-            if(stateDic[value] != null)
-                sr.sprite = stateDic[value];
+            if (stateDic[value] != null)
+                if(Time.timeScale!=0)
+                    sr.sprite = stateDic[value];
             _state = value;
         }
     }
