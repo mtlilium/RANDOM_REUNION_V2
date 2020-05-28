@@ -30,20 +30,25 @@ public class PlayerOperateScript : PersonScript
 
     private bool IsArrowInput(out MapCoordinate c){
         c = new MapCoordinate(0, 0);
-
-        if (Input.GetKey(KeyCode.UpArrow))
+        var verticalAxis = Input.GetAxis("VerticalDigital");
+        var horizontalAxis = Input.GetAxis("HorizontalDigital");
+        //if (Input.GetKey(KeyCode.UpArrow))
+        if(verticalAxis > 0.2f)
         {
             c += new MapCoordinate(1, 1);
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        //if (Input.GetKey(KeyCode.DownArrow))
+        if(verticalAxis < -0.2f)
         {
             c -= new MapCoordinate(1, 1);
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        if(horizontalAxis < -0.2f)
         {
             c += new MapCoordinate(1, -1);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        //if (Input.GetKey(KeyCode.RightArrow))
+        if(horizontalAxis > 0.2f)
         {
             c -= new MapCoordinate(1, -1);
         }
