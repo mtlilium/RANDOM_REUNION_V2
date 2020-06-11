@@ -8,14 +8,6 @@ public class WindowActivator : Controller{
     [SerializeField]
     DS.UI.Window inactivateWindow = null;
 
-    [System.Serializable]
-    struct InputButtonData {
-        public bool use;
-        public string name;
-        public bool isAxis;
-        public bool isPositive;
-    }
-
     private void Awake() {
         type = ControllerManagers.ControllerType.WINDOW_ACTIVATE;
     }
@@ -23,6 +15,7 @@ public class WindowActivator : Controller{
         base.OnEnable();
         activateWindow?.gameObject.SetActive(false);
     }
+
     protected override IEnumerator Controll() {
         yield return new WaitForSecondsRealtime(0.2f);//別のActivatorでこのActivatorがEnableされた時に一度のGetButtonDownで連続して反応するのを防ぐ
         while (true) {

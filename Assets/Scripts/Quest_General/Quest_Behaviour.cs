@@ -18,8 +18,8 @@ public abstract class Quest_Behaviour:MonoBehaviour
     public Action WhenQuestAccepted { get; protected set; }
     public Action WhenQuestCleared { get; protected set; }
     public Action WhenQuestFailed { get; protected set;}
-
-    virtual protected void Start() {
+    
+    virtual protected void Start() {        
         questName = this.gameObject.name;//ゲームオブジェクトの名前と同じでいいならこれ　check
     }
     abstract public bool AllNormaCleared();
