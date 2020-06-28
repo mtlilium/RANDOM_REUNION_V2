@@ -46,6 +46,6 @@ MonoBehaviour:
   serializedNorma:
     list:
     - Key: Mouse
-      Value: 5
+      Value: 0
   outerMapName: TestOuterMap
   innerMapName: Grid_2

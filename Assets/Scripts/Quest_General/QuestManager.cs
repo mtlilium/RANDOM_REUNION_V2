@@ -14,9 +14,10 @@ public static class QuestManager{
     static DS.UI.Tab questTab;              //HeaderとDetailを動的生成した後にLinkTabHeaderを呼ぶため
     const int headerOffset = 20;
     const int headerPosX = 280;
-    public static Dictionary<string, Quest_Behaviour> OrderedQuest {get; private set; }    //クエスト名をキーとし,受注済みクエストを値とする辞書
+    public static Dictionary<string, Quest_Behaviour> OrderedQuest {get; private set; }     //クエスト名をキーとし,受注済みクエストを値とする辞書
     static Dictionary<string, GameObject> nowValidHeader;
     static Dictionary<string, GameObject> nowValidDetail;
+    public static Dictionary<string,Quest_Behaviour> ClearedQuest { get; private set; }     //クエスト名をキーとし,クリア済みクエストを値とする辞書
     public static void Init(Transform headerParent,Transform detailParent,DS.UI.Tab tab) {//QuestManagerBehaviorのStartで呼び出される
         headerParentTransform = headerParent;
         detailParentTransform = detailParent;
@@ -62,23 +63,22 @@ public static class QuestManager{
     static public void QuestClear(string questName){
         if (OrderedQuest.ContainsKey(questName)) {
             OrderedQuest[questName].WhenQuestCleared?.Invoke();
-            GameObject.Destroy(OrderedQuest[questName]);
-            GameObject.Destroy(nowValidHeader[questName]);
-            GameObject.Destroy(nowValidDetail[questName]);
-            Debug.Log("Deleted");
+            var quest = OrderedQuest[questName];
+            GameObject.Destroy(quest);
             OrderedQuest.Remove(questName);
-            nowValidHeader.Remove(questName);
-            nowValidDetail.Remove(questName);
+
+            ClearedQuest.Add(questName, quest);
+            nowValidHeader[questName].GetComponent<Image>().color = Color.black;
         }
         else {
             Debug.LogError("受注済みクエストに" + questName + "がない状態でQuestClearが呼ばれました");
             return;
         }
     }
-    static public void QuestFail(string questName)
-    {
-        OrderedQuest[questName].WhenQuestFailed();
-        OrderedQuest.Remove(questName);
+    static public void QuestFail(string questName){
+        Debug.Log("QuestFailが未定義です");
+        //OrderedQuest[questName].WhenQuestFailed();
+        //OrderedQuest.Remove(questName);
     }
     static public bool QuestNormaCleared(string questName) {//指定したQuestのノルマが達成できてるかどうか
         if (!OrderedQuest.ContainsKey(questName)) {
@@ -95,13 +95,28 @@ public class QuestDatabase {
     public Dictionary<string, Quest_Behaviour> AcceptableQuest { get; private set; } //クエスト名をキーとし,受注可能クエストを値とする辞書
     public Dictionary<string, Sprite> QuestHeaderSprite { get; private set; } //クエスト名をキーとし、メニューで表示されるヘッダーの画像を値とする辞書
     public Dictionary<string, Sprite> QuestDetailSprite { get; private set; } //クエスト名をキーとし、メニューで表示される詳細の画像を値とする辞書
+    public Dictionary<string, Detail> QuestDetail { get; private set; }
 
+    //////// staticquestdata.json読み込み用 //////////////////////////
+    [Serializable]
+    public struct Detail {
+        public string name;
+        public string target;
+        public string place;
+        public int timeLimit;
+        public string detail;
+    }
+    [Serializable]
+    public class StaticQuestData { public List<Detail> dataList; }
+    /// /////////////////////////////////////////////////////////////
+    
     public QuestDatabase() {
         string path = @"Quest/UI/Prefabs/";
         questHeaderPrefab = Resources.Load<GameObject>(path + "questHeader");
         questDetailPrefab = Resources.Load<GameObject>(path + "questDetail");
         InitAcceptableQuest();
         InitQuestSprite();
+        InitQuestDetail();
     }
 
     void InitAcceptableQuest() {
@@ -127,5 +142,12 @@ public class QuestDatabase {
             QuestDetailSprite.Add(sp.name, sp);
         }
     }
-
+    void InitQuestDetail() {
+        var text = Resources.Load<TextAsset>(@"Quest/staticQuestData").text;
+        var list = JsonUtility.FromJson<StaticQuestData>(text).dataList;
+        QuestDetail = new Dictionary<string, Detail>();
+        foreach (Detail x in list) {
+            QuestDetail.Add(x.name, x);
+        }
+    }
 }
