@@ -15,6 +15,8 @@ public abstract class Quest_Behaviour:MonoBehaviour
     string questTarget;
     int? deadline;
     string queriedBy;
+
+    public QuestInfo info;
     public Action WhenQuestAccepted { get; protected set; }
     public Action WhenQuestCleared { get; protected set; }
     public Action WhenQuestFailed { get; protected set;}
@@ -23,4 +25,14 @@ public abstract class Quest_Behaviour:MonoBehaviour
         questName = this.gameObject.name;//ゲームオブジェクトの名前と同じでいいならこれ　check
     }
     abstract public bool AllNormaCleared();
+}
+
+[Serializable]
+public struct QuestInfo {
+    public string displayName;
+    public string target;
+    public string place;
+    public string reward;
+    public int deadLine;
+    public string detail;
 }

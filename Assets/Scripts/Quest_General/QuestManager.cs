@@ -8,23 +8,17 @@ using System.Linq;
 
 public static class QuestManager{
     static private QuestDatabase database = null;
-    static Transform headerParentTransform; //QuestのHeader(UI)をこのTransformの子として生成する
-    static Transform detailParentTransform; //QuestのDetail(UI)をこのTransformの子として生成する
     static DS.UI.Window questWindow;        //DetailのWindowAcrivatorのInactivateWindow(キャンセルしたときに消えるWindow)に設定する
     static DS.UI.Tab questTab;              //HeaderとDetailを動的生成した後にLinkTabHeaderを呼ぶため
-    const int headerOffset = 20;
-    const int headerPosX = 280;
+   
     public static Dictionary<string, Quest_Behaviour> OrderedQuest {get; private set; }     //クエスト名をキーとし,受注済みクエストを値とする辞書
     static Dictionary<string, GameObject> nowValidHeader;
-    static Dictionary<string, GameObject> nowValidDetail;
+    //static Dictionary<string, GameObject> nowValidDetail;
     public static Dictionary<string,Quest_Behaviour> ClearedQuest { get; private set; }     //クエスト名をキーとし,クリア済みクエストを値とする辞書
-    public static void Init(Transform headerParent,Transform detailParent,DS.UI.Tab tab) {//QuestManagerBehaviorのStartで呼び出される
-        headerParentTransform = headerParent;
-        detailParentTransform = detailParent;
+    public static void Init(Transform headerParent,DS.UI.Tab tab) {//QuestManagerBehaviorのStartで呼び出される
         questTab = tab;
         OrderedQuest = new Dictionary<string, Quest_Behaviour>();
         nowValidHeader = new Dictionary<string, GameObject>();
-        nowValidDetail = new Dictionary<string, GameObject>();
         database = new QuestDatabase();
     }
     static public void QuestAccept(string questName){
@@ -37,13 +31,12 @@ public static class QuestManager{
         //quest.WhenQuestAccepted?.Invoke();
         var obj=GameObject.Instantiate(quest);
         obj.name = questName;//名前から(Clone)を除く
-
         OrderedQuest.Add(questName, obj);
-        InstantiateHeader(questName);
-        InstatntiateDetail(questName);
+        QuestHeaderGenerator.Generate(database.questHeaderPrefab, quest.info.displayName);
+        QuestDetailGenerator.Generate(database.questDetailPrefab, quest.info);
         questTab.LinkTabHeader();
     }
-    static void InstantiateHeader(string questName) {
+    /*static void InstantiateHeader(string questName) {
         var headerPrefab = GameObject.Instantiate(database.questHeaderPrefab, headerParentTransform);
         headerPrefab.GetComponent<Image>().sprite = database.QuestHeaderSprite[questName];
         var rect = headerPrefab.GetComponent<RectTransform>();
@@ -54,12 +47,8 @@ public static class QuestManager{
         }
         rect.anchoredPosition = new Vector2(headerPosX, topPosY + (rect.sizeDelta.y + headerOffset) );
         nowValidHeader.Add(questName, headerPrefab);
-    } 
-    static void InstatntiateDetail(string questName) {
-        var detailObj = GameObject.Instantiate(database.questDetailPrefab, detailParentTransform);
-        detailObj.GetComponent<Image>().sprite = database.QuestDetailSprite[questName];
-        nowValidDetail.Add(questName, detailObj);
-    }
+    }*/ 
+
     static public void QuestClear(string questName){
         if (OrderedQuest.ContainsKey(questName)) {
             OrderedQuest[questName].WhenQuestCleared?.Invoke();
@@ -68,7 +57,7 @@ public static class QuestManager{
             OrderedQuest.Remove(questName);
 
             ClearedQuest.Add(questName, quest);
-            nowValidHeader[questName].GetComponent<Image>().color = Color.black;
+            QuestHeaderGenerator.EnCleared(quest.info.displayName);
         }
         else {
             Debug.LogError("受注済みクエストに" + questName + "がない状態でQuestClearが呼ばれました");
@@ -89,13 +78,78 @@ public static class QuestManager{
     }
 }
 
+public static class QuestHeaderGenerator {
+    static Transform parentTransform;
+    static Dictionary<string, GameObject> nowValidHeader = null;
+    const int headerPosX = 280;
+    const int headerOffset = 20;
+    public static void Init(Transform parent) {
+        parentTransform = parent;
+        nowValidHeader = new Dictionary<string, GameObject>();
+    }
+    public static void Generate(GameObject prefab, string displayName) {
+        GameObject obj = GameObject.Instantiate(prefab, parentTransform);
+        var text = obj.GetComponentInChildren<Text>();
+        text.text = displayName;
+        var rect = obj.GetComponent<RectTransform>();
+        var array = nowValidHeader.ToArray();
+        float topPosY = -120;
+        if (array.Length > 0) {
+            topPosY = array[0].Value.GetComponent<RectTransform>().sizeDelta.y;
+        }
+        rect.anchoredPosition = new Vector2(headerPosX, topPosY + (rect.sizeDelta.y + headerOffset));
+        Debug.Log(displayName+obj.name);
+        nowValidHeader.Add(displayName, obj);
+        Debug.Log("header generated");
+    }
+    public static void EnCleared(string displayName) {
+        nowValidHeader[displayName].GetComponent<Image>().color = Color.black;
+    }
+}
+public static class QuestDetailGenerator{
+    static Transform parentTransform;
+    public static void Init(Transform parent) {
+        parentTransform = parent;
+    }
+    public static void Generate(GameObject prefab,QuestInfo info) {
+        GameObject obj = GameObject.Instantiate(prefab, parentTransform);
+        var detailBehaviour = obj.GetComponent<QuestDetail_Behaviour>();
+        if (detailBehaviour == null) {
+            Debug.LogError("QuestDetail_Behaviour.GenerateDetailで、QuestDetail_Behaivourがアタッチされていないprefabを生成しようとしました");
+            return;
+        }
+        var textList = obj.GetComponentsInChildren<UnityEngine.UI.Text>();
+        foreach (var text in textList) {
+            switch (text.gameObject.name) {
+                case "name":
+                    text.text = info.displayName;
+                    break;
+                case "target":
+                    text.text = info.target;
+                    break;
+                case "place":
+                    text.text = info.place;
+                    break;
+                case "reward":
+                    text.text = info.reward;
+                    break;
+                case "detail":
+                    text.text = info.detail;
+                    break;
+                default: break;
+            }
+        }
+        detailBehaviour.RemainingTime = info.deadLine - TimeInGame.Current;
+    }
+}
+
 public class QuestDatabase {
     public GameObject questHeaderPrefab;
     public GameObject questDetailPrefab;
     public Dictionary<string, Quest_Behaviour> AcceptableQuest { get; private set; } //クエスト名をキーとし,受注可能クエストを値とする辞書
     public Dictionary<string, Sprite> QuestHeaderSprite { get; private set; } //クエスト名をキーとし、メニューで表示されるヘッダーの画像を値とする辞書
     public Dictionary<string, Sprite> QuestDetailSprite { get; private set; } //クエスト名をキーとし、メニューで表示される詳細の画像を値とする辞書
-    public Dictionary<string, Detail> QuestDetail { get; private set; }
+    //public Dictionary<string, Detail> QuestDetail { get; private set; }
 
     //////// staticquestdata.json読み込み用 //////////////////////////
     [Serializable]
@@ -116,7 +170,7 @@ public class QuestDatabase {
         questDetailPrefab = Resources.Load<GameObject>(path + "questDetail");
         InitAcceptableQuest();
         InitQuestSprite();
-        InitQuestDetail();
+        //InitQuestDetail();
     }
 
     void InitAcceptableQuest() {
@@ -142,6 +196,8 @@ public class QuestDatabase {
             QuestDetailSprite.Add(sp.name, sp);
         }
     }
+
+    /*
     void InitQuestDetail() {
         var text = Resources.Load<TextAsset>(@"Quest/staticQuestData").text;
         var list = JsonUtility.FromJson<StaticQuestData>(text).dataList;
@@ -150,4 +206,5 @@ public class QuestDatabase {
             QuestDetail.Add(x.name, x);
         }
     }
+    */
 }
