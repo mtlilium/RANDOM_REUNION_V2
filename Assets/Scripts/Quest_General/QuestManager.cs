@@ -12,13 +12,11 @@ public static class QuestManager{
     static DS.UI.Tab questTab;              //HeaderとDetailを動的生成した後にLinkTabHeaderを呼ぶため
    
     public static Dictionary<string, Quest_Behaviour> OrderedQuest {get; private set; }     //クエスト名をキーとし,受注済みクエストを値とする辞書
-    static Dictionary<string, GameObject> nowValidHeader;
-    //static Dictionary<string, GameObject> nowValidDetail;
     public static Dictionary<string,Quest_Behaviour> ClearedQuest { get; private set; }     //クエスト名をキーとし,クリア済みクエストを値とする辞書
     public static void Init(Transform headerParent,DS.UI.Tab tab) {//QuestManagerBehaviorのStartで呼び出される
         questTab = tab;
         OrderedQuest = new Dictionary<string, Quest_Behaviour>();
-        nowValidHeader = new Dictionary<string, GameObject>();
+        ClearedQuest = new Dictionary<string, Quest_Behaviour>();
         database = new QuestDatabase();
     }
     static public void QuestAccept(string questName){
@@ -40,10 +38,11 @@ public static class QuestManager{
         if (OrderedQuest.ContainsKey(questName)) {
             OrderedQuest[questName].WhenQuestCleared?.Invoke();
             var quest = OrderedQuest[questName];
-            GameObject.Destroy(quest);
+            
             OrderedQuest.Remove(questName);
-
             ClearedQuest.Add(questName, quest);
+
+            GameObject.Destroy(quest);
             QuestHeaderGenerator.EnCleared(quest.info.displayName);
         }
         else {
