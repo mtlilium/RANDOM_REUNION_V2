@@ -35,20 +35,7 @@ public static class QuestManager{
         QuestHeaderGenerator.Generate(database.questHeaderPrefab, quest.info.displayName);
         QuestDetailGenerator.Generate(database.questDetailPrefab, quest.info);
         questTab.LinkTabHeader();
-    }
-    /*static void InstantiateHeader(string questName) {
-        var headerPrefab = GameObject.Instantiate(database.questHeaderPrefab, headerParentTransform);
-        headerPrefab.GetComponent<Image>().sprite = database.QuestHeaderSprite[questName];
-        var rect = headerPrefab.GetComponent<RectTransform>();
-        var array = nowValidHeader.ToArray();
-        float topPosY=-120;
-        if (array.Length > 0) {
-            topPosY = array[0].Value.GetComponent<RectTransform>().sizeDelta.y;
-        }
-        rect.anchoredPosition = new Vector2(headerPosX, topPosY + (rect.sizeDelta.y + headerOffset) );
-        nowValidHeader.Add(questName, headerPrefab);
-    }*/ 
-
+    }    
     static public void QuestClear(string questName){
         if (OrderedQuest.ContainsKey(questName)) {
             OrderedQuest[questName].WhenQuestCleared?.Invoke();
@@ -94,13 +81,15 @@ public static class QuestHeaderGenerator {
         var rect = obj.GetComponent<RectTransform>();
         var array = nowValidHeader.ToArray();
         float topPosY = -120;
-        if (array.Length > 0) {
-            topPosY = array[0].Value.GetComponent<RectTransform>().sizeDelta.y;
+        if (array.Length > 0) { //既にあるheaderの中で一番上の座標を見て、その上になるように
+            float minY = float.PositiveInfinity;
+            foreach(float posY in nowValidHeader.Values.Select(x => x.GetComponent<RectTransform>().sizeDelta.y)) {
+                minY = Mathf.Min(minY, posY);
+            }
+            topPosY = minY;
         }
         rect.anchoredPosition = new Vector2(headerPosX, topPosY + (rect.sizeDelta.y + headerOffset));
-        Debug.Log(displayName+obj.name);
         nowValidHeader.Add(displayName, obj);
-        Debug.Log("header generated");
     }
     public static void EnCleared(string displayName) {
         nowValidHeader[displayName].GetComponent<Image>().color = Color.black;
