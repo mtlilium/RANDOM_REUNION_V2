@@ -9,14 +9,18 @@ public abstract class Controller : MonoBehaviour{
     [SerializeField]
     Controller previousController=null;
 
+    bool controlling=false;
     Coroutine controllCoroutine;
     public void StartControll() {
-        if (gameObject.activeInHierarchy) {
+        if (gameObject.activeInHierarchy && !controlling) {
+            Debug.Log("controll started in "+gameObject.name);
+            controlling = true;
             controllCoroutine = StartCoroutine(Controll());
         }
     }
     public void StopControll() {
         StopCoroutine(controllCoroutine);
+        controlling = false;
     }
     protected abstract IEnumerator Controll();
     protected void OnEnable() {
@@ -29,13 +33,10 @@ public abstract class Controller : MonoBehaviour{
         }
         //previousController = controllerManager.nowController;
         controllerManager.ChangeController(this);
-        Debug.Log("change to " + gameObject.name);
     }
     protected void ChangeControllToPrevious() {
         if (previousController != null) {
             controllerManager.ChangeController(previousController);
-            Debug.Log("return to " + previousController.gameObject.name);
         }
-
     }
 }
