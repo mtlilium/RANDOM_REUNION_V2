@@ -8,6 +8,7 @@ public enum KindOfItem
     food
 }
 
+/*
 public static class ItemIndex
 {
     public static Sprite GetSprite(string itemname)
@@ -15,10 +16,10 @@ public static class ItemIndex
         return Resources.Load<Sprite>("Data/Sprite/" + itemname);
     }
 
-    static Dictionary<string, Item> itemTemplate = new Dictionary<string, Item>();
 
     public static KindOfItem GetKind(string itemname)
     {
         return itemTemplate[itemname].kind;
     }
 }
+*/

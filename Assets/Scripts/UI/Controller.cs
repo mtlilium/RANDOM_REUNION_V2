@@ -29,8 +29,13 @@ public abstract class Controller : MonoBehaviour{
         }
         //previousController = controllerManager.nowController;
         controllerManager.ChangeController(this);
+        Debug.Log("change to " + gameObject.name);
     }
     protected void ChangeControllToPrevious() {
-        if(previousController!=null) controllerManager.ChangeController(previousController); 
+        if (previousController != null) {
+            controllerManager.ChangeController(previousController);
+            Debug.Log("return to " + previousController.gameObject.name);
+        }
+
     }
 }

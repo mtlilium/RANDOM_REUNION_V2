@@ -137,20 +137,6 @@ public class QuestDatabase {
     public Dictionary<string, Quest_Behaviour> AcceptableQuest { get; private set; } //クエスト名をキーとし,受注可能クエストを値とする辞書
     public Dictionary<string, Sprite> QuestHeaderSprite { get; private set; } //クエスト名をキーとし、メニューで表示されるヘッダーの画像を値とする辞書
     public Dictionary<string, Sprite> QuestDetailSprite { get; private set; } //クエスト名をキーとし、メニューで表示される詳細の画像を値とする辞書
-    //public Dictionary<string, Detail> QuestDetail { get; private set; }
-
-    //////// staticquestdata.json読み込み用 //////////////////////////
-    [Serializable]
-    public struct Detail {
-        public string name;
-        public string target;
-        public string place;
-        public int timeLimit;
-        public string detail;
-    }
-    [Serializable]
-    public class StaticQuestData { public List<Detail> dataList; }
-    /// /////////////////////////////////////////////////////////////
     
     public QuestDatabase() {
         string path = @"Quest/UI/Prefabs/";
@@ -158,7 +144,6 @@ public class QuestDatabase {
         questDetailPrefab = Resources.Load<GameObject>(path + "questDetail");
         InitAcceptableQuest();
         InitQuestSprite();
-        //InitQuestDetail();
     }
 
     void InitAcceptableQuest() {
@@ -184,15 +169,4 @@ public class QuestDatabase {
             QuestDetailSprite.Add(sp.name, sp);
         }
     }
-
-    /*
-    void InitQuestDetail() {
-        var text = Resources.Load<TextAsset>(@"Quest/staticQuestData").text;
-        var list = JsonUtility.FromJson<StaticQuestData>(text).dataList;
-        QuestDetail = new Dictionary<string, Detail>();
-        foreach (Detail x in list) {
-            QuestDetail.Add(x.name, x);
-        }
-    }
-    */
 }
