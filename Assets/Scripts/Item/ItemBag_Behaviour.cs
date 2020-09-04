@@ -17,7 +17,7 @@ public class ItemBag_Behaviour : MonoBehaviour{
     public void AddNewItem(Item_Behaviour newItem){
         newItem.transform.parent = transform;
         newItem.EnInactive();
-        var header = Instantiate(ItemDatabase.itemHeaderPrafab, itemTabHeaders);
+        var header = Instantiate(ItemDatabase.itemHeaderPrefab, itemTabHeaders);
         var detail = Instantiate(ItemDatabase.itemDetailPrefab, itemContentContainer);
         itemTab.LinkTabHeader();
 

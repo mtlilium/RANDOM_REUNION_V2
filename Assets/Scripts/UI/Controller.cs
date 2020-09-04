@@ -13,7 +13,6 @@ public abstract class Controller : MonoBehaviour{
     Coroutine controllCoroutine;
     public void StartControll() {
         if (gameObject.activeInHierarchy && !controlling) {
-            Debug.Log("controll started in "+gameObject.name);
             controlling = true;
             controllCoroutine = StartCoroutine(Controll());
         }

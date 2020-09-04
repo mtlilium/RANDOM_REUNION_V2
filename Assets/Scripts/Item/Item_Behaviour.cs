@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum KindOfItem {
+    USABLE,
+    UN_USABLE,
+    FOR_STORY
+}
+
 public class Item_Behaviour : ObjectOnMapScript{
-    public string name { get; private set; }
+    public new string name { get; private set; }
+
+    public KindOfItem Kind { get; private set; }
     public void EnInactive() {
         gameObject.SetActive(false);
     }
@@ -30,5 +38,4 @@ public class Item_Behaviour : ObjectOnMapScript{
             thisSpriteRenderer.enabled = false;
         }
     }
-    
 }

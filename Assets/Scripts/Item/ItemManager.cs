@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public static class ItemManager{
     static public ItemBag_Behaviour itemBag { get; private set; }
@@ -9,15 +10,21 @@ public static class ItemManager{
         ItemDatabase.Load();
     }
     public static void Generate(string itemName) {
-        GameObject itemPrafab = ItemDatabase.itemPrefabs[itemName];
-        GameObject.Instantiate(itemPrafab);
+        //GameObject itemPrafab = ItemDatabase.itemPrefabs[itemName];
+        var itemPrefab = ItemDatabase.itemPrefab;
+        SpriteRenderer renderer = itemPrefab.GetComponent<SpriteRenderer>();
+        GameObject.Instantiate(itemPrefab);
     }
 }
 
 public static class ItemDatabase {
-    public static GameObject itemHeaderPrafab { get; private set; }
-    public static GameObject itemDetailPrefab { get; private set; }
-    static public Dictionary<string, GameObject> itemPrefabs { get; private set; }
+    public static GameObject itemHeaderPrefab { get; private set; }
+    public static GameObject itemDetailPrefab { get; private set; } 
+    public static GameObject itemPrefab { get; private set; }
+    //static public Dictionary<string, GameObject> itemPrefabs { get; private set; }
+
+    static public Dictionary<string, Sprite> itemNameToSprites;
+    static public Dictionary<string, KindOfItem> itemNameToKinds;
 
     static bool loaded = false;
     public static void Load() {
@@ -26,17 +33,38 @@ public static class ItemDatabase {
             return;
         }
         loaded = true;
-        itemPrefabs = new Dictionary<string, GameObject>();
-        string path = @"Item/IndividualPrefabs/";
-        var prefabs = Resources.LoadAll<GameObject>(path);
-        foreach(var p in prefabs) {
-            itemPrefabs.Add(p.name, p);
-        }
-        LoadUIPrefab();
+        LoadPrefabs();
+        LoadSprites();
+        LoadKinds();
     }
-    static void LoadUIPrefab() {
-        string path = @"Item/UI/Prefabs/";
-        itemHeaderPrafab = Resources.Load<GameObject>(path + "itemHeader");
-        itemDetailPrefab = Resources.Load<GameObject>(path + "itemDetail");
+    static void LoadPrefabs() {
+        string path = @"Item/Prefabs/";
+        itemHeaderPrefab = Resources.Load<GameObject>(path + "UI/itemHeader");
+        itemDetailPrefab = Resources.Load<GameObject>(path + "UI/itemDetail");
+        itemPrefab = Resources.Load<GameObject>(path + "item");
+    }
+    static void LoadSprites() {
+        string path = @"Item/Sprites/";
+        var sprites = Resources.LoadAll<Sprite>(path);
+        itemNameToSprites = new Dictionary<string, Sprite>();
+        foreach(var s in sprites) {
+            itemNameToSprites[s.name] = s;
+        }
+    }
+    static void LoadKinds() {
+        string path = @"Item/TextDatas/";
+        var textAsset=Resources.Load<TextAsset>(path+"kinds");
+        Dictionary<string, KindOfItem> dict = 
+        new Dictionary<string, KindOfItem> {
+            { "usable", KindOfItem.USABLE },
+            { "unUsable",KindOfItem.UN_USABLE},
+            { "forStory",KindOfItem.FOR_STORY}
+        };
+        itemNameToKinds = new Dictionary<string, KindOfItem>();
+        using (StringReader reader = new StringReader(textAsset.text)) {
+            string[] texts = reader.ReadLine().Split(' ');
+            Debug.Log(texts[0]+","+texts[1]+",");
+            itemNameToKinds.Add(texts[0],dict[texts[1]]);
+        }
     }
 }
