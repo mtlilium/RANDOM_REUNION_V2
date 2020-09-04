@@ -9,11 +9,16 @@ public static class ItemManager{
         itemBag = _itemBag;
         ItemDatabase.Load();
     }
-    public static void Generate(string itemName) {
-        //GameObject itemPrafab = ItemDatabase.itemPrefabs[itemName];
-        var itemPrefab = ItemDatabase.itemPrefab;
-        SpriteRenderer renderer = itemPrefab.GetComponent<SpriteRenderer>();
-        GameObject.Instantiate(itemPrefab);
+    public static void Generate(string itemName, Transform parent) {
+        var itemObj = GameObject.Instantiate(ItemDatabase.itemPrefab,parent);
+
+        itemObj.name = itemName;
+
+        SpriteRenderer renderer = itemObj.GetComponent<SpriteRenderer>();
+        renderer.sprite = ItemDatabase.itemNameToSprites[itemName];
+
+        Item_Behaviour itemBehaviour = itemObj.GetComponent<Item_Behaviour>();
+        itemBehaviour.Init(itemName, ItemDatabase.itemNameToKinds[itemName]);
     }
 }
 
@@ -21,7 +26,6 @@ public static class ItemDatabase {
     public static GameObject itemHeaderPrefab { get; private set; }
     public static GameObject itemDetailPrefab { get; private set; } 
     public static GameObject itemPrefab { get; private set; }
-    //static public Dictionary<string, GameObject> itemPrefabs { get; private set; }
 
     static public Dictionary<string, Sprite> itemNameToSprites;
     static public Dictionary<string, KindOfItem> itemNameToKinds;

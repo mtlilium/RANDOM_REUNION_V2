@@ -10,8 +10,18 @@ public enum KindOfItem {
 
 public class Item_Behaviour : ObjectOnMapScript{
     public new string name { get; private set; }
-
     public KindOfItem Kind { get; private set; }
+
+    bool initialized = false;
+    public void Init(string _name,KindOfItem kind) {
+        if (initialized) {
+            Debug.LogAssertion(gameObject.name + "のItem_Behaviour.Init()が二回以上呼ばれました");
+            return;
+        }
+        name = _name;
+        Kind = kind;
+    }
+
     public void EnInactive() {
         gameObject.SetActive(false);
     }
