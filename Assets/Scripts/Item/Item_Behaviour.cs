@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public enum KindOfItem {
     USABLE,
@@ -8,18 +9,30 @@ public enum KindOfItem {
     FOR_STORY
 }
 
-public class Item_Behaviour : ObjectOnMapScript{
+public class Item_Behaviour : MonoBehaviour /*ObjectOnMapScript*/ {
     public new string name { get; private set; }
-    public KindOfItem Kind { get; private set; }
+    public KindOfItem KindProperty {
+        get {
+            return kind;
+        }
+        private set {
+            Debug.Log(gameObject.name + "のkindが" + value + "に更新されました");
+            kind = value;
+        }
+    }
+    [SerializeField]
+    KindOfItem kind;
+
 
     bool initialized = false;
-    public void Init(string _name,KindOfItem kind) {
+    public void Init(string _name,KindOfItem _kind) {
         if (initialized) {
             Debug.LogAssertion(gameObject.name + "のItem_Behaviour.Init()が二回以上呼ばれました");
             return;
         }
+        initialized = true;
         name = _name;
-        Kind = kind;
+        KindProperty = _kind;
     }
 
     public void EnInactive() {

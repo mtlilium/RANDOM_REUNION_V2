@@ -9,8 +9,8 @@ public static class ItemManager{
         itemBag = _itemBag;
         ItemDatabase.Load();
     }
-    public static void Generate(string itemName, Transform parent) {
-        var itemObj = GameObject.Instantiate(ItemDatabase.itemPrefab,parent);
+    public static void Generate(string itemName, Transform parent, Vector2 position) {
+        var itemObj = GameObject.Instantiate(ItemDatabase.itemPrefab, position, Quaternion.identity, parent);
 
         itemObj.name = itemName;
 
@@ -30,10 +30,10 @@ public static class ItemDatabase {
     static public Dictionary<string, Sprite> itemNameToSprites;
     static public Dictionary<string, KindOfItem> itemNameToKinds;
 
-    static bool loaded = false;
+    static public bool loaded { get; private set; }
     public static void Load() {
         if (loaded) {
-            Debug.LogAssertion("ItemDatabase内のLoadが二回以上呼ばれました");
+            //Debug.LogAssertion("ItemDatabase内のLoadが二回以上呼ばれました");
             return;
         }
         loaded = true;
@@ -45,30 +45,34 @@ public static class ItemDatabase {
         string path = @"Item/Prefabs/";
         itemHeaderPrefab = Resources.Load<GameObject>(path + "UI/itemHeader");
         itemDetailPrefab = Resources.Load<GameObject>(path + "UI/itemDetail");
-        itemPrefab = Resources.Load<GameObject>(path + "item");
+        itemPrefab = Resources.Load<GameObject>(path + "itemPrefab");
     }
     static void LoadSprites() {
         string path = @"Item/Sprites/";
         var sprites = Resources.LoadAll<Sprite>(path);
         itemNameToSprites = new Dictionary<string, Sprite>();
-        foreach(var s in sprites) {
-            itemNameToSprites[s.name] = s;
+        foreach(var sp in sprites) {
+            itemNameToSprites[sp.name] = sp;
         }
     }
     static void LoadKinds() {
-        string path = @"Item/TextDatas/";
-        var textAsset=Resources.Load<TextAsset>(path+"kinds");
         Dictionary<string, KindOfItem> dict = 
         new Dictionary<string, KindOfItem> {
             { "usable", KindOfItem.USABLE },
             { "unUsable",KindOfItem.UN_USABLE},
             { "forStory",KindOfItem.FOR_STORY}
         };
+
         itemNameToKinds = new Dictionary<string, KindOfItem>();
-        using (StringReader reader = new StringReader(textAsset.text)) {
-            string[] texts = reader.ReadLine().Split(' ');
-            Debug.Log(texts[0]+","+texts[1]+",");
-            itemNameToKinds.Add(texts[0],dict[texts[1]]);
+
+        string path = @"Item/TextDatas/";
+        var textAsset = Resources.Load<TextAsset>(path + "kinds");
+        char[] separator = { '\r', '\n' };
+        string[] texts = textAsset.text.Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
+
+        foreach(var s in texts) {
+            string[] nameAndKind = s.Split(' ');
+            itemNameToKinds.Add(nameAndKind[0], dict[nameAndKind[1]]);
         }
     }
 }
