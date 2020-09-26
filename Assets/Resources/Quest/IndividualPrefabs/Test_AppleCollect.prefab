@@ -43,3 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d25ce8d6633b0e429d159617580fb1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  info:
+    displayName: "\u8D64\u3044\u679C\u7269\u72E9\u308A"
+    target: "\u308A\u3093\u30542\u500B\u3092\u6E21\u3059"
+    place: "\u30BD\u30D5\u30C8\u30A6\u30A7\u30A2\u306E\u68EE"
+    reward: 
+    deadLine: 7
+    detail: "\u4EE3\u308F\u308A\u306B\u8D64\u3044\u679C\u7269\u3092\u53D6\u3063\u3066\u304D\u3066\u304F\u308C\u307E\u305B\u3093\u304B\uFF1F"
+  serializedNorma:
+    list:
+    - Key: apple
+      Value: 1
