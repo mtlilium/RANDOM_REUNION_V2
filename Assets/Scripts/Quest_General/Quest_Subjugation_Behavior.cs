@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Quest_Subjugation_Behavior : Quest_Behaviour
-{
+public class Quest_Subjugation_Behavior : Quest_Behaviour{
     [System.Serializable]
     class StringInt:Serialize.KeyAndValue<string,int> {
         StringInt(string s, int x) : base(s, x) { }
@@ -21,13 +20,12 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
     string innerMapName = null;
     //List<string> innerMapNames = null    
 
-    EnemyManager_Behaviour enemyManager=null;
-    Dictionary<string, int> norma;
+    EnemyManager_Behaviour enemyManagerBehaviour=null;
     Dictionary<string, int> defeatedEnemyCount;
     override protected void Start(){
         base.Start();
-        enemyManager = SystemClass.enemyManager;
-        InitNormaAndDefeatedAction();
+        enemyManagerBehaviour = SystemClass.enemyManager;
+        InitDefeatedAction();
         WhenQuestCleared = () => { Debug.Log("subujugation completed"); };
         if (!SystemClass.OuterMapDict.ContainsKey(outerMapName)) {
             Debug.Log(outerMapName+"という名前のOuterMapがSystemClassのOuterMapDictに見つかりません");
@@ -40,31 +38,33 @@ public class Quest_Subjugation_Behavior : Quest_Behaviour
         var innerMap = innerMapDict[innerMapName];
         var spotManager = innerMap.GetComponent<SpawnSpotManager>();
         if (spotManager.SpotList == null) {
-            Debug.Log("spotlist is null");
+            Debug.Log(innerMap.name+"'s spotlist is null");
             return;
         }
-        foreach(string name in norma.Keys) {
-            enemyManager.EnemyGenerateRandomAtInnerMap(name, norma[name], innerMap);
+        var norma = serializedNorma.GetTable();
+        foreach (string name in norma.Keys) {
+            enemyManagerBehaviour.EnemyGenerateRandomAtInnerMap(name, norma[name], innerMap);
         }
     }
 
-    void InitNormaAndDefeatedAction() {
+    void InitDefeatedAction() {
         defeatedEnemyCount = new Dictionary<string, int>();
-        norma = serializedNorma.GetTable();
+        var norma = serializedNorma.GetTable();
         foreach (string enemyName in norma.Keys) {
             defeatedEnemyCount.Add(enemyName, 0);
-            Action func = (() => { defeatedEnemyCount[enemyName]++; });
-            if (enemyManager.WhenEnemyDefeated.ContainsKey(enemyName)) {
-                enemyManager.WhenEnemyDefeated[enemyName] += func;
+            Action func = () => { defeatedEnemyCount[enemyName]++; };
+            if (enemyManagerBehaviour.WhenEnemyDefeated.ContainsKey(enemyName)) {
+                enemyManagerBehaviour.WhenEnemyDefeated[enemyName] += func;
             }
             else {
-                enemyManager.WhenEnemyDefeated.Add(enemyName, func);
+                enemyManagerBehaviour.WhenEnemyDefeated.Add(enemyName, func);
             }
         }
     }
 
     override public bool AllNormaCleared() {
         bool allCleared = true;
+        var norma = serializedNorma.GetTable();
         foreach(string name in norma.Keys) {
             if(defeatedEnemyCount[name] < norma[name]) {
                 allCleared = false;

@@ -16,10 +16,10 @@ public class Item_Behaviour : MonoBehaviour /*ObjectOnMapScript*/ {
             return kind;
         }
         private set {
-            Debug.Log(gameObject.name + "のkindが" + value + "に更新されました");
             kind = value;
         }
     }
+    //Serializeに指定しておくとInspectorでの変更が反映されるので、ItemGeneratorでうまくkindが指定できる (serializeじゃないと勝手にkindが0に初期化される)
     [SerializeField]
     KindOfItem kind;
 

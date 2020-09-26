@@ -7,7 +7,7 @@ public class EnemyManager_Behaviour : MonoBehaviour
 {
     public Dictionary<string, Action> WhenEnemyDefeated { get; private set; }//Enemy側から呼び出す
     public Dictionary<string, GameObject> enemyNameToPrefab { get; private set; }//
-    // Start is called before the first frame update
+    
     private void Awake() {//Startより前にやっておきたい
         SystemClass.enemyManager = this;
     }

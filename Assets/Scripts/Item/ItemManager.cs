@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public static class ItemManager{
     static public ItemBag_Behaviour itemBag { get; private set; }
