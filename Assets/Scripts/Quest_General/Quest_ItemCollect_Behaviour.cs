@@ -29,6 +29,7 @@ public class Quest_ItemCollect_Behaviour : Quest_Behaviour{
         var nameToHavingItems=itemBag.NameToHavingItems;
         var norma = serializedNorma.GetTable();
         foreach(string name in norma.Keys) {
+            if (!nameToHavingItems.ContainsKey(name)) continue;
              if(nameToHavingItems[name].Count < norma[name]) {
                 return false;
              }

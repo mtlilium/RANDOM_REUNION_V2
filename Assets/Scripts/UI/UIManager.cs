@@ -9,8 +9,11 @@ public class UIManager : MonoBehaviour
     
     void Update(){
         if (Input.GetButtonDown("Menu")) {
-            menu.Toggle();
+            ToggleMenu();
         }
+    }
+    public void ToggleMenu() {
+        menu.Toggle();
     }
 }
 

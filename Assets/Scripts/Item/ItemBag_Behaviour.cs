@@ -17,6 +17,9 @@ public class ItemBag_Behaviour : MonoBehaviour {
     [SerializeField]
     UIs forStory;
 
+    [SerializeField]
+    ItemSelector_Behaviour selectorBehaviour;
+
     public Dictionary<string, List<Item_Behaviour>> NameToHavingItems { get; private set; }
 
     public Dictionary<Item_Behaviour, (GameObject header, GameObject detail)> ItemToUI { get; private set; }
@@ -63,11 +66,20 @@ public class ItemBag_Behaviour : MonoBehaviour {
         return detail;
     }
     public void DeleteItem(string itemName, int amount) {
-        //Itemの価値等実装後は、ソートして価値の低いものから消す
         //とりあえずの実装として先頭の一個を削除
         Item_Behaviour deleteItem = NameToHavingItems[itemName][0];
         Destroy(ItemToUI[deleteItem].header);
         Destroy(ItemToUI[deleteItem].detail);
         NameToHavingItems[itemName].Remove(deleteItem);
     }
+    /*
+    ItemSelector_Behaviour selector;
+    public void SelectItem(out Item_Behaviour result) {
+        StartCoroutine
+    }
+
+    public Item_Behaviour SelectItem(params Item_Behaviour[] items) {
+
+    }
+    */
 }
