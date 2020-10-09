@@ -22,10 +22,10 @@ public class ItemBag_Behaviour : MonoBehaviour {
 
     public Dictionary<string, List<Item_Behaviour>> NameToHavingItems { get; private set; }
 
-    public Dictionary<Item_Behaviour, (GameObject header, GameObject detail)> ItemToUI { get; private set; }
+    //public Dictionary<Item_Behaviour, (GameObject header, GameObject detail)> ItemToUI { get; private set; }
     public void Awake() {
         NameToHavingItems = new Dictionary<string, List<Item_Behaviour>>();
-        ItemToUI = new Dictionary<Item_Behaviour, (GameObject header, GameObject detail)>();
+        //ItemToUI = new Dictionary<Item_Behaviour, (GameObject header, GameObject detail)>();
     }
 
     public void AddNewItem(Item_Behaviour newItem){
@@ -38,6 +38,9 @@ public class ItemBag_Behaviour : MonoBehaviour {
             NameToHavingItems.Add(newItem.name, new List<Item_Behaviour>());
             NameToHavingItems[newItem.name].Add(newItem);
         }
+        ItemMenu.AddNewItemUI(newItem);
+
+        /*
         var dict = new Dictionary<KindOfItem, UIs> {
             {KindOfItem.USABLE   , usable   },
             {KindOfItem.UN_USABLE, unUsable },
@@ -48,7 +51,9 @@ public class ItemBag_Behaviour : MonoBehaviour {
         var detail=GenerateDetail(newItem,uis.contentContainer);
         uis.tab.LinkTabHeader();
         ItemToUI.Add(newItem, (header, detail));
+        */
     }
+    /*
     GameObject GenerateHeader(Item_Behaviour newItem,Transform tabHeaders) {
         var header = Instantiate(ItemDatabase.itemHeaderPrefab, tabHeaders);
 
@@ -65,21 +70,12 @@ public class ItemBag_Behaviour : MonoBehaviour {
         nameText.text = newItem.name;
         return detail;
     }
+    */
     public void DeleteItem(string itemName, int amount) {
         //とりあえずの実装として先頭の一個を削除
         Item_Behaviour deleteItem = NameToHavingItems[itemName][0];
-        Destroy(ItemToUI[deleteItem].header);
-        Destroy(ItemToUI[deleteItem].detail);
+        //Destroy(ItemToUI[deleteItem].header);
+        //Destroy(ItemToUI[deleteItem].detail);
         NameToHavingItems[itemName].Remove(deleteItem);
     }
-    /*
-    ItemSelector_Behaviour selector;
-    public void SelectItem(out Item_Behaviour result) {
-        StartCoroutine
-    }
-
-    public Item_Behaviour SelectItem(params Item_Behaviour[] items) {
-
-    }
-    */
 }
