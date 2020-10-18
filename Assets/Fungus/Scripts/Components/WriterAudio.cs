@@ -3,6 +3,7 @@
 
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 namespace Fungus
 {
@@ -24,7 +25,7 @@ namespace Fungus
     {
         [Tooltip("Volume level of writing sound effects")]
         [Range(0,1)]
-        [SerializeField] protected float volume = 1f;
+        [SerializeField] protected float volume = 0.1f;
 
         [Tooltip("Loop the audio when in Sound Effect mode. Has no effect in Beeps mode.")]
         [SerializeField] protected bool loop = true;
@@ -58,6 +59,8 @@ namespace Fungus
         // Time when current beep will have finished playing
         protected float nextBeepTime;
 
+        public AudioMixer audioMixer;
+
 
         public float GetSecondsRemaining()
         {
@@ -89,6 +92,10 @@ namespace Fungus
             }
 
             targetAudioSource.volume = 0f;
+
+            // 追加
+            audioMixer = Resources.Load("AudioMixer/AudioMixer") as AudioMixer;
+            targetAudioSource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SE_Event")[0];
         }
 
         protected virtual void Play(AudioClip audioClip)
