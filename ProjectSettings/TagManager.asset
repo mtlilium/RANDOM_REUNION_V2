@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: WaterLayer
+    uniqueID: 3885616495
+    locked: 0
+  - name: GlassLayer
+    uniqueID: 3369591193
+    locked: 0
+  - name: CollisionLayer
+    uniqueID: 984108129
+    locked: 0
