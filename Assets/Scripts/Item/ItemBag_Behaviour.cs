@@ -4,28 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemBag_Behaviour : MonoBehaviour {
-    [System.Serializable]
-    struct UIs {
-        public DS.UI.Tab tab;
-        public Transform tabHeaders;
-        public Transform contentContainer;
-    }
-    [SerializeField]
-    UIs usable;
-    [SerializeField]
-    UIs unUsable;
-    [SerializeField]
-    UIs forStory;
-
-    [SerializeField]
-    ItemSelector_Behaviour selectorBehaviour;
 
     public Dictionary<string, List<Item_Behaviour>> NameToHavingItems { get; private set; }
-
-    //public Dictionary<Item_Behaviour, (GameObject header, GameObject detail)> ItemToUI { get; private set; }
     public void Awake() {
         NameToHavingItems = new Dictionary<string, List<Item_Behaviour>>();
-        //ItemToUI = new Dictionary<Item_Behaviour, (GameObject header, GameObject detail)>();
     }
 
     public void AddNewItem(Item_Behaviour newItem){
@@ -39,19 +21,6 @@ public class ItemBag_Behaviour : MonoBehaviour {
             NameToHavingItems[newItem.name].Add(newItem);
         }
         ItemMenu.AddNewItemUI(newItem);
-
-        /*
-        var dict = new Dictionary<KindOfItem, UIs> {
-            {KindOfItem.USABLE   , usable   },
-            {KindOfItem.UN_USABLE, unUsable },
-            {KindOfItem.FOR_STORY, forStory }
-        };
-        var uis = dict[newItem.KindProperty];
-        var header=GenerateHeader(newItem,uis.tabHeaders);
-        var detail=GenerateDetail(newItem,uis.contentContainer);
-        uis.tab.LinkTabHeader();
-        ItemToUI.Add(newItem, (header, detail));
-        */
     }
     /*
     GameObject GenerateHeader(Item_Behaviour newItem,Transform tabHeaders) {
@@ -74,8 +43,7 @@ public class ItemBag_Behaviour : MonoBehaviour {
     public void DeleteItem(string itemName, int amount) {
         //とりあえずの実装として先頭の一個を削除
         Item_Behaviour deleteItem = NameToHavingItems[itemName][0];
-        //Destroy(ItemToUI[deleteItem].header);
-        //Destroy(ItemToUI[deleteItem].detail);
         NameToHavingItems[itemName].Remove(deleteItem);
+        ItemMenu.DeleteItemUI(deleteItem);
     }
 }
