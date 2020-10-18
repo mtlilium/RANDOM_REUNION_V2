@@ -77,7 +77,7 @@ public static class ItemMenu {
             return detail;
         }
     public static void DeleteItemUI(Item_Behaviour deleteItem) {
-        GameObject.Destroy(ItemToUI[deleteItem].header);
+        GameObject.Destroy(ItemToUI[deleteItem].header.gameObject);
         GameObject.Destroy(ItemToUI[deleteItem].detail);
         ItemToUI.Remove(deleteItem);
     }
