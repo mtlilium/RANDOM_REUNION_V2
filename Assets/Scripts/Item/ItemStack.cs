@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+/*
 public class ItemStack
 {
     public int Weight { get; private set; }
@@ -37,3 +39,4 @@ public class ItemStack
     }
 
 }
+*/

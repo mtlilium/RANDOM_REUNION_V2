@@ -6,8 +6,7 @@ using System.Runtime.Serialization.Json;
 using UnityEngine;
 
 
-public class PlayerOperateScript : PersonScript
-{
+public class PlayerOperateScript : PersonScript{
     public static GameObject Player { get; private set; }
 
     void Update ()
