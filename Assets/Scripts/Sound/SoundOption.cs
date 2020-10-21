@@ -9,27 +9,33 @@ public class SoundOption : MonoBehaviour
 	private AudioMixer audioMixer;
 
 	//SoundOptionキャンバス
-	[SerializeField]
+	/*
+    [SerializeField]
 	private GameObject soundOptionCanvas;
+    */
 
 
 	private void Awake()
     {
+        /*
         if (soundOptionCanvas.gameObject.activeSelf)
         {
 			soundOptionCanvas.SetActive(false);
 
 		}
+        */
     }
 
     void Update()
 	{
+        /*
 		//　3が押されたらUIをオン・オフ
 		if (Input.GetKeyDown("3"))
 		{
 			soundOptionCanvas.SetActive(!soundOptionCanvas.activeSelf);
 
 		}
+        */
 	}
 
 	public void SetMaster(float volume)
