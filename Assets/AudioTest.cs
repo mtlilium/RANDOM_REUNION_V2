@@ -9,7 +9,7 @@ public class AudioTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             AudioManager.SingletonInstance.RequestPlaySE(new Vector3(2, 2, 0), "かっ勘違いしないでよねっ!", GetInstanceID(this.gameObject) ,0.0f);
         }
