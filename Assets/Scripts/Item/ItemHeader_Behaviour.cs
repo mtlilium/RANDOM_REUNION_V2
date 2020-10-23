@@ -4,22 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemHeader_Behaviour : MonoBehaviour{
-    bool selectable;
+    bool selectable=true;
     public bool Selectable {
         get {
             return selectable;
         }
         set {
             grayMask.SetActive(!value);
+            Debug.Log("grayMask set To " + !value);
             selectable = value;
         }
     }
     GameObject grayMask = null;
     private void Awake() {
         grayMask = transform.Find("grayMask").gameObject;
+        Selectable = true;
     }
 
-    private void Start() {
-        Selectable = true;
+    private void OnDisable() {
+        //デフォルトで選べる状態にしておくため　選べない状態にするときは外部からSelectableをfalseにする
+        Selectable = true;  
     }
 }

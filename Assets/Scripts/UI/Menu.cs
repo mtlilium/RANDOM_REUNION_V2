@@ -18,6 +18,8 @@ public static class ItemMenu {
 
     static DS.UI.Window window;
 
+    static DS.UI.TabHeader tabHeader;
+
     [System.Serializable]
     public struct UIs {
         public DS.UI.Tab tab;
@@ -28,9 +30,10 @@ public static class ItemMenu {
     static UIs unUsable;
     static UIs forStory;
 
-    public static void Init(DS.UI.Window _window,UIs _usable, UIs _unUsable, UIs _forStory) {
+    public static void Init(DS.UI.Window _window, DS.UI.TabHeader _tabHeader, UIs _usable, UIs _unUsable, UIs _forStory) {
         ItemToUI = new Dictionary<Item_Behaviour, (ItemHeader_Behaviour header, GameObject detail)>();
         window = _window;
+        tabHeader = _tabHeader;
         usable = _usable;
         unUsable = _unUsable;
         forStory = _forStory;
@@ -38,14 +41,12 @@ public static class ItemMenu {
 
     static public void OpenToSelect(string itemName) {
         Menu.Open();
+        tabHeader.SelectTab();
         window.Open();
         foreach(var item in ItemToUI.Keys) {
             if (item.name != itemName) {
-                Debug.Log(item.name + " enUnselectable");
+                Debug.Log(item.name + " is unselectable");
                 ItemToUI[item].header.Selectable = false;
-            }
-            else {
-                Debug.Log(item.name + " is selectable");
             }
         }
     }

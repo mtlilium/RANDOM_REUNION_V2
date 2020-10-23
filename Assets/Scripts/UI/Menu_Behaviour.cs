@@ -10,6 +10,9 @@ public class Menu_Behaviour : MonoBehaviour {
     DS.UI.Window itemWindow;
 
     [SerializeField]
+    DS.UI.TabHeader itemTabHeader;
+
+    [SerializeField]
     ItemMenu.UIs usable;
     [SerializeField]
     ItemMenu.UIs unUsable;
@@ -19,7 +22,7 @@ public class Menu_Behaviour : MonoBehaviour {
     private void Start() {
         //Menu.Init(menuWindow);
         Menu.Init(this);
-        ItemMenu.Init(itemWindow,usable, unUsable, forStory);
+        ItemMenu.Init(itemWindow, itemTabHeader, usable, unUsable, forStory);
     }
     public void Open() {
         menuWindow.Open();
