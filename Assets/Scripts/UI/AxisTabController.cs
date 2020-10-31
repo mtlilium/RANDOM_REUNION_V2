@@ -11,7 +11,7 @@ public class AxisTabController : AxisController{
         }
     }
     
-    protected override IEnumerator Controll() {
+    override public IEnumerator Controll() {
         while (true) {
             var axis = Input.GetAxisRaw(base.axisName);
             if (axis > 0.2f) {
