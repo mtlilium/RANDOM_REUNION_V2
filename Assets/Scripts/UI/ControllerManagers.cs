@@ -25,7 +25,9 @@ public static class ControllerManagers {
 
 public class ControllerManager{
     public Controller nowController { get; private set; }
+    public Controller previousController { get; private set; }
     public void ChangeController(Controller newController) {
+        previousController = nowController;
         nowController?.StopControll();
         nowController = newController;
         newController?.StartControll();

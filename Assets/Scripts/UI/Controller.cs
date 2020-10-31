@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Controller : MonoBehaviour{
+public abstract class Controller : MonoBehaviour {
     protected ControllerManager controllerManager;
     protected ControllerManagers.ControllerType type;
 
+    public bool dynamicPreviousControllerSetting;
     [SerializeField]
-    Controller previousController=null;
+    [HideInInspector]
+    Controller previousController = null;
 
     bool controlling=false;
     Coroutine controllCoroutine;
@@ -15,6 +17,9 @@ public abstract class Controller : MonoBehaviour{
         if (gameObject.activeInHierarchy && !controlling) {
             controlling = true;
             controllCoroutine = StartCoroutine(Controll());
+        }
+        if (dynamicPreviousControllerSetting) {
+            previousController = controllerManager.previousController;
         }
     }
     public void StopControll() {
@@ -30,7 +35,6 @@ public abstract class Controller : MonoBehaviour{
             if (!ControllerManagers.initiallized) ControllerManagers.Init();
             controllerManager = ControllerManagers.controllerManagerDict[type];
         }
-        //previousController = controllerManager.nowController;
         controllerManager.ChangeController(this);
     }
     protected void ChangeControllToPrevious() {

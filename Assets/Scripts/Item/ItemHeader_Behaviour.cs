@@ -11,7 +11,6 @@ public class ItemHeader_Behaviour : MonoBehaviour{
         }
         set {
             grayMask.SetActive(!value);
-            Debug.Log("grayMask set To " + !value);
             selectable = value;
         }
     }
@@ -22,7 +21,7 @@ public class ItemHeader_Behaviour : MonoBehaviour{
     }
 
     private void OnDisable() {
-        //デフォルトで選べる状態にしておくため　選べない状態にするときは外部からSelectableをfalseにする
+        //デフォルトで選べる状態にしておく　選べない状態にするときは外部からSelectableをfalseにする
         Selectable = true;  
     }
 }
