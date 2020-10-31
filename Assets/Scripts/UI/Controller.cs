@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public abstract class Controller : MonoBehaviour {
     protected ControllerManager controllerManager;
     protected ControllerManagers.ControllerType type;
 
-    public bool dynamicPreviousControllerSetting;
+    public bool staticPreviousControllerSetting;
+    
+    [ShowIf("staticPreviousControllerSetting")]
     [SerializeField]
-    [HideInInspector]
     Controller previousController = null;
 
     bool controlling=false;
@@ -18,7 +20,7 @@ public abstract class Controller : MonoBehaviour {
             controlling = true;
             controllCoroutine = StartCoroutine(Controll());
         }
-        if (dynamicPreviousControllerSetting) {
+        if (!staticPreviousControllerSetting) {
             previousController = controllerManager.previousController;
         }
     }
