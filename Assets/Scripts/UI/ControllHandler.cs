@@ -12,25 +12,31 @@ public class ControllHandler : MonoBehaviour {
     [SerializeField]
     ControllHandler previousController = null;
 
-    Controller controller;
+    Controller[] controllers;
 
     bool controlling = false;
-    Coroutine controllCoroutine;
+    List<Coroutine> controllCoroutines;
     private void Awake() {
-        controller = GetComponent<Controller>();
+        controllCoroutines = new List<Coroutine>();
+        controllers = GetComponents<Controller>();
     }
 
     public void StartControll() {
         if (gameObject.activeInHierarchy && !controlling) {
             controlling = true;
-            controllCoroutine = StartCoroutine(controller.Controll());
+            foreach (var controller in controllers) {
+                controllCoroutines.Add( StartCoroutine(controller.Controll()) );
+            }
         }
         if (!staticPreviousControllerSetting) {
             previousController = ControllHandlerManager.previousController;
         }
     }
     public void StopControll() {
-        StopCoroutine(controllCoroutine);
+        foreach (var coroutine in controllCoroutines) {
+            StopCoroutine(coroutine);
+        }
+        controllCoroutines.Clear();
         controlling = false;
     }
     

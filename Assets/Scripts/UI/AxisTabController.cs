@@ -9,8 +9,10 @@ public class AxisTabController : AxisController{
         if (tab == null) {
             Debug.LogError("AxisTabControllerがアタッチされた"+gameObject.name+"にTabが見つかりません");
         }
+        upAxisEvent.AddListener(tab.PreviousTab);
+        downAxisEvent.AddListener(tab.NextTab);
     }
-    
+    /*
     override public IEnumerator Controll() {
         while (true) {
             var axis = Input.GetAxisRaw(base.axisName);
@@ -25,4 +27,5 @@ public class AxisTabController : AxisController{
             yield return null;
         }
     }
+    */
 }

@@ -15,6 +15,7 @@ public static class Menu{
 
 public static class ItemMenu { 
     public static Dictionary<Item_Behaviour, (ItemHeader_Behaviour header, GameObject detail)> ItemToUI { get; private set; }
+    public static Dictionary<ItemHeader_Behaviour,Item_Behaviour> headerToItem { get; private set; }
 
     static DS.UI.Window window;
 
@@ -32,6 +33,7 @@ public static class ItemMenu {
 
     public static void Init(DS.UI.Window _window, DS.UI.TabHeader _tabHeader, UIs _usable, UIs _unUsable, UIs _forStory) {
         ItemToUI = new Dictionary<Item_Behaviour, (ItemHeader_Behaviour header, GameObject detail)>();
+        headerToItem = new Dictionary<ItemHeader_Behaviour, Item_Behaviour>();
         window = _window;
         tabHeader = _tabHeader;
         usable = _usable;
@@ -58,12 +60,14 @@ public static class ItemMenu {
             {KindOfItem.FOR_STORY, forStory }
         };
         var uis = dict[newItem.KindProperty];
-        ItemToUI.Add(newItem, (GenerateHeader(newItem,uis.tabHeaders), GenerateDetail(newItem,uis.contentContainer)) );
+        var header = GenerateHeader(newItem, uis.tabHeaders);
+        ItemToUI.Add(newItem, (header, GenerateDetail(newItem,uis.contentContainer)) );
+        headerToItem.Add(header, newItem);
         uis.tab.LinkTabHeader();
     }
         static ItemHeader_Behaviour GenerateHeader(Item_Behaviour newItem, Transform tabHeaders) {
             var header = GameObject.Instantiate(ItemDatabase.itemHeaderPrefab, tabHeaders);
-
+            
             var image = header.transform.Find("Image").GetComponent<Image>();
             image.sprite = newItem.GetComponent<SpriteRenderer>().sprite;
 
