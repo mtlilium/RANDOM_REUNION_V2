@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public static class Menu{
     static Menu_Behaviour menuBehaviour;
@@ -14,18 +15,20 @@ public static class Menu{
 }
 
 public static class ItemMenu { 
-    public static Dictionary<Item_Behaviour, (ItemHeader_Behaviour header, GameObject detail)> ItemToUI { get; private set; }
-    public static Dictionary<ItemHeader_Behaviour,Item_Behaviour> headerToItem { get; private set; }
+    public static Dictionary<Item_Behaviour, (ItemHeader_Behaviour header, GameObject detail)> ItemToUI { get; private set; } //Itemが削除された時に一緒にUIを削除するのに使う
+    public static Dictionary<DS.UI.UIContent,Item_Behaviour> detailContentToItem { get; private set; } //現在選択中のアイテムを取得するのに使う
 
     static DS.UI.Window window;
-
     static DS.UI.TabHeader tabHeader;
+
+    static Tab_SelectingContent tab;
 
     [System.Serializable]
     public struct UIs {
         public DS.UI.Tab tab;
         public Transform tabHeaders;
         public Transform contentContainer;
+        public DS.UI.UIContent uiContent;
     }
     static UIs usable;
     static UIs unUsable;
@@ -33,7 +36,7 @@ public static class ItemMenu {
 
     public static void Init(DS.UI.Window _window, DS.UI.TabHeader _tabHeader, UIs _usable, UIs _unUsable, UIs _forStory) {
         ItemToUI = new Dictionary<Item_Behaviour, (ItemHeader_Behaviour header, GameObject detail)>();
-        headerToItem = new Dictionary<ItemHeader_Behaviour, Item_Behaviour>();
+        detailContentToItem = new Dictionary<DS.UI.UIContent, Item_Behaviour>();
         window = _window;
         tabHeader = _tabHeader;
         usable = _usable;
@@ -41,18 +44,22 @@ public static class ItemMenu {
         forStory = _forStory;
     }
 
-    static public void OpenToSelect(string itemName) {
+    public static void OpenToSelect(string itemName) {
         Menu.Open();
         tabHeader.SelectTab();
         window.Open();
         foreach(var item in ItemToUI.Keys) {
             if (item.name != itemName) {
-                Debug.Log(item.name + " is unselectable");
                 ItemToUI[item].header.Selectable = false;
             }
         }
     }
-    
+    public static Item_Behaviour SelectingItem() {
+        var selectingContent = tab.SelectingContent();
+        var v = new List<UIs> { usable, unUsable, forStory };
+        var selectingTab = v.FirstOrDefault(uis => uis.uiContent == selectingContent).tab.GetComponent<Tab_SelectingContent>();
+        return detailContentToItem[selectingTab.SelectingContent()];
+    }
     public static void AddNewItemUI(Item_Behaviour newItem) {
         var dict = new Dictionary<KindOfItem, UIs> {
             {KindOfItem.USABLE   , usable   },
@@ -61,8 +68,9 @@ public static class ItemMenu {
         };
         var uis = dict[newItem.KindProperty];
         var header = GenerateHeader(newItem, uis.tabHeaders);
-        ItemToUI.Add(newItem, (header, GenerateDetail(newItem,uis.contentContainer)) );
-        headerToItem.Add(header, newItem);
+        var detail = GenerateDetail(newItem, uis.contentContainer);
+        ItemToUI.Add(newItem, (header, detail) );
+        detailContentToItem.Add(detail.GetComponent<DS.UI.UIContent>(), newItem);
         uis.tab.LinkTabHeader();
     }
         static ItemHeader_Behaviour GenerateHeader(Item_Behaviour newItem, Transform tabHeaders) {
