@@ -10,7 +10,6 @@ public static class ControllHandlerManager{
         previousController = nowHandler;
         nowHandler?.StopControll();
         nowHandler = newHandler;
-        Debug.Log("switch to " + newHandler.name);
         newHandler?.StartControll();
     }
 }

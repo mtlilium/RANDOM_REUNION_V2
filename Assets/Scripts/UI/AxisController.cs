@@ -12,7 +12,7 @@ public class AxisController : Controller{
     }
 
     [SerializeField]
-    protected UnityEngine.Events.UnityEvent upAxisEvent=null, downAxisEvent=null;
+    public UnityEngine.Events.UnityEvent upAxisEvent=null, downAxisEvent=null;
         
     override public IEnumerator Controll() {
         yield return new WaitForSecondsRealtime(0.2f);//別のAxisControllerからEnableされた時に一度のGetButtonDownで連続して反応するのを防ぐ

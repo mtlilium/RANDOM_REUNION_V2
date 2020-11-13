@@ -10,6 +10,10 @@ public class Tab_SelectingContent : MonoBehaviour {
     private void Awake() {
         tab = GetComponent<Tab>();
     }
+    public TabHeader SelectingTabHeader() {
+        var tabHeaders = tab.headerContainer.Contents<TabHeader>();
+        return tabHeaders.ElementAt(tab.selected);
+    }
     public UIContent SelectingContent() {
         var contents = tab.contentContainer.Contents<UIContent>();
         return contents.ElementAt(tab.selected);

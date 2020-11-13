@@ -8,7 +8,6 @@ public class WindowActivator : Controller{
     [SerializeField]
     DS.UI.Window inactivateWindow = null;
 
-    //new 
     private void OnEnable () {
         //base.OnEnable();
         activateWindow?.gameObject.SetActive(false);
@@ -18,13 +17,19 @@ public class WindowActivator : Controller{
         yield return new WaitForSecondsRealtime(0.2f);//別のActivatorでこのActivatorがEnableされた時に一度のGetButtonDownで連続して反応するのを防ぐ
         while (true) {
             if (Input.GetButtonDown("Submit")) {
-                activateWindow?.Open();
+                Open();
             }
             if (Input.GetButtonDown("Cancel")) {
-                inactivateWindow?.Close();
-                handler.ChangeControllToPrevious();
+                Close();
             }
             yield return null;
         }
+    }
+    public virtual void Open() {
+        activateWindow?.Open();
+    }
+    public virtual void Close() {
+        inactivateWindow?.Close();
+        handler.ChangeControllToPrevious();
     }
 }

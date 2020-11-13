@@ -13,22 +13,36 @@ public class Menu_Behaviour : MonoBehaviour {
     DS.UI.TabHeader itemTabHeader;
 
     [SerializeField]
+    Tab_SelectingContent itemTab;
+
+    /*
+    [SerializeField]
     ItemMenu.UIs usable;
     [SerializeField]
     ItemMenu.UIs unUsable;
     [SerializeField]
     ItemMenu.UIs forStory;
+    */
 
     private void Start() {
         //Menu.Init(menuWindow);
         Menu.Init(this);
-        ItemMenu.Init(itemWindow, itemTabHeader, usable, unUsable, forStory);
+        ItemMenu.Init(itemWindow, itemTabHeader,itemTab/*, usable, unUsable, forStory*/);
     }
     public void Open() {
         menuWindow.Open();
     }
+    public void Close() {
+        menuWindow.Close();
+    }
     public void OpenItemMenuToSelect(string itemName) {
         ItemMenu.OpenToSelect(itemName);
+    }
+    public void SetSelectedItem() {
+        ItemMenu.SetSelectedItem();
+    }
+    public Item_Behaviour SelectedItem() {
+        return ItemMenu.SelectedItem;
     }
     void Update() {
         if (Input.GetButtonDown("Menu")) {
