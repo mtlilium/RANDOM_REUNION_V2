@@ -44,6 +44,9 @@ public class Menu_Behaviour : MonoBehaviour {
     public Item_Behaviour SelectedItem() {
         return ItemMenu.SelectedItem;
     }
+    public string selectedItemName() {
+        return SelectedItem().name;
+    } 
     void Update() {
         if (Input.GetButtonDown("Menu")) {
             if (menuWindow == null) Debug.Log("menuWindowがnull");

@@ -25,7 +25,7 @@ public static class ItemMenu {
             }
             var ret = selectedItem;
             selectedItem = null;
-            return selectedItem;
+            return ret;
         }
     }
 
@@ -89,6 +89,7 @@ public static class ItemMenu {
             var selectingContent = tab.SelectingContent();
             return selectingContent.transform.Find(selectingContent.gameObject.name + "Tab").GetComponent<Tab_SelectingContent>();
         }
+
     public static void AddNewItemUI(Item_Behaviour newItem) {
         /*
         var dict = new Dictionary<KindOfItem, UIs> {
@@ -125,8 +126,10 @@ public static class ItemMenu {
             return detail;
         }
     public static void DeleteItemUI(Item_Behaviour deleteItem) {
+        var detailObject = ItemToUI[deleteItem].detail;
+        detailContentToItem.Remove(detailObject.GetComponent<DS.UI.UIContent>());
         GameObject.Destroy(ItemToUI[deleteItem].header.gameObject);
-        GameObject.Destroy(ItemToUI[deleteItem].detail);
+        GameObject.Destroy(detailObject);
         ItemToUI.Remove(deleteItem);
     }
 }
