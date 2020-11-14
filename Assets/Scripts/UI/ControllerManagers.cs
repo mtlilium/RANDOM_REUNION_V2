@@ -7,6 +7,7 @@ public static class ControllerManagers {
     public enum ControllerType {
         DEFAULT,
         VERTICAL_TAB,
+        HORIZONTAL_TAB,
         WINDOW_ACTIVATE,
     }
     public static Dictionary<ControllerType,ControllerManager> controllerManagerDict { get; private set; }
@@ -18,8 +19,7 @@ public static class ControllerManagers {
         controllerManagerDict = new Dictionary<ControllerType, ControllerManager>();
         foreach(ControllerType controllerType in Enum.GetValues(typeof(ControllerType))) {
             controllerManagerDict.Add(controllerType, new ControllerManager());
-        }
-        
+        }       
     }
 }
 

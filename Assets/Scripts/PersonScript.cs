@@ -12,7 +12,7 @@ public class PersonScript : MovableObjectScript
     [SerializeField]
     public CircleCollider2D InteractionTrigger;
     protected PersonalInteraction personalInteraction;
-    public ItemStack inventory { get; private set;}
+    //public ItemStack inventory { get; private set;}
 
     public new void Awake()
     {
