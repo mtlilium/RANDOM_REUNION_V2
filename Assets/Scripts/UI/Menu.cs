@@ -130,6 +130,7 @@ public static class ItemMenu {
         detailContentToItem.Remove(detailObject.GetComponent<DS.UI.UIContent>());
         GameObject.Destroy(ItemToUI[deleteItem].header.gameObject);
         GameObject.Destroy(detailObject);
+        DebugLogWrapper.Log(deleteItem.name + " deleted");
         ItemToUI.Remove(deleteItem);
     }
 }
