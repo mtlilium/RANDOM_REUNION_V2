@@ -18,12 +18,14 @@ public class Quest_ItemCollect_Behaviour : Quest_Behaviour{
     protected override void Start() {
         base.Start();
         itemBag = ItemManager.itemBag;
+        
         WhenQuestCleared += () => {
             var norma = serializedNorma.GetTable();
             foreach (string name in norma.Keys) {
                 itemBag.DeleteItem(name,norma[name]);
             }
         };
+        
     }
     public override bool AllNormaCleared() {
         var nameToHavingItems=itemBag.NameToHavingItems;

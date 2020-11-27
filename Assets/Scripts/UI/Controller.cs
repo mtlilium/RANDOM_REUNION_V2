@@ -2,40 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Controller : MonoBehaviour{
-    protected ControllerManager controllerManager;
-    protected ControllerManagers.ControllerType type;
-
-    [SerializeField]
-    Controller previousController=null;
-
-    bool controlling=false;
-    Coroutine controllCoroutine;
-    public void StartControll() {
-        if (gameObject.activeInHierarchy && !controlling) {
-            controlling = true;
-            controllCoroutine = StartCoroutine(Controll());
+public abstract class Controller :MonoBehaviour{
+    protected ControllHandler handler;
+    private void Awake() {
+        handler = GetComponent<ControllHandler>();
+        if (handler == null) {
+            DebugLogWrapper.LogError(gameObject.name+"にControllerHandlerがアタッチされていません");
         }
     }
-    public void StopControll() {
-        StopCoroutine(controllCoroutine);
-        controlling = false;
-    }
-    protected abstract IEnumerator Controll();
-    protected void OnEnable() {
-        if (controllerManager == null) {
-            if (type == ControllerManagers.ControllerType.DEFAULT) {
-                Debug.LogError("Controllerの派生クラスでtypeが正しく設定されていません");
-            }
-            if (!ControllerManagers.initiallized) ControllerManagers.Init();
-            controllerManager = ControllerManagers.controllerManagerDict[type];
-        }
-        //previousController = controllerManager.nowController;
-        controllerManager.ChangeController(this);
-    }
-    protected void ChangeControllToPrevious() {
-        if (previousController != null) {
-            controllerManager.ChangeController(previousController);
-        }
-    }
+    public abstract IEnumerator Controll();
 }
