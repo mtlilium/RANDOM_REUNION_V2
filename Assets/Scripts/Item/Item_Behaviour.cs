@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 public enum KindOfItem {
+    UN_DEFINED,
     USABLE,
     UN_USABLE,
     FOR_STORY

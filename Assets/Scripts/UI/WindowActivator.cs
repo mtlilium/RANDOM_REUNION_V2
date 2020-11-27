@@ -8,25 +8,28 @@ public class WindowActivator : Controller{
     [SerializeField]
     DS.UI.Window inactivateWindow = null;
 
-    private void Awake() {
-        type = ControllerManagers.ControllerType.WINDOW_ACTIVATE;
-    }
-    new private void OnEnable () {
-        base.OnEnable();
+    private void OnEnable () {
+        //base.OnEnable();
         activateWindow?.gameObject.SetActive(false);
     }
 
-    protected override IEnumerator Controll() {
+    override public IEnumerator Controll() {
         yield return new WaitForSecondsRealtime(0.2f);//別のActivatorでこのActivatorがEnableされた時に一度のGetButtonDownで連続して反応するのを防ぐ
         while (true) {
             if (Input.GetButtonDown("Submit")) {
-                activateWindow?.Open();
+                Open();
             }
             if (Input.GetButtonDown("Cancel")) {
-                inactivateWindow?.Close();
-                ChangeControllToPrevious();
+                Close();
             }
             yield return null;
         }
+    }
+    public virtual void Open() {
+        activateWindow?.Open();
+    }
+    public virtual void Close() {
+        inactivateWindow?.Close();
+        handler.ChangeControllToPrevious();
     }
 }

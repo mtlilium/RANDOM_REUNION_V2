@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemHeader_Behaviour : MonoBehaviour{
-    bool selectable;
+    bool selectable=true;
     public bool Selectable {
         get {
             return selectable;
@@ -17,9 +17,11 @@ public class ItemHeader_Behaviour : MonoBehaviour{
     GameObject grayMask = null;
     private void Awake() {
         grayMask = transform.Find("grayMask").gameObject;
+        Selectable = true;
     }
 
-    private void Start() {
-        Selectable = true;
+    private void OnDisable() {
+        //デフォルトで選べる状態にしておく　選べない状態にするときは外部からSelectableをfalseにする
+        Selectable = true;  
     }
 }

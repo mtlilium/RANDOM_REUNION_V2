@@ -41,9 +41,11 @@ public class ItemBag_Behaviour : MonoBehaviour {
     }
     */
     public void DeleteItem(string itemName, int amount) {
-        //とりあえずの実装として先頭の一個を削除
-        Item_Behaviour deleteItem = NameToHavingItems[itemName][0];
-        NameToHavingItems[itemName].Remove(deleteItem);
-        ItemMenu.DeleteItemUI(deleteItem);
+        for (int i = 0; i < amount; i++) {
+            //とりあえずの実装として先頭の一個を削除
+            Item_Behaviour deleteItem = NameToHavingItems[itemName][0];
+            NameToHavingItems[itemName].Remove(deleteItem);
+            ItemMenu.DeleteItemUI(deleteItem);
+        }
     }
 }
