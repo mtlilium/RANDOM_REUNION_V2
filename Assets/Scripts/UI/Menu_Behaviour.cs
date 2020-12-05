@@ -2,55 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* GameScene側のFangus等から、UISceneのMenuを操作するためのクラス
+ * Check : Fungus側のイベントを正しく作れば多分消せるので消したい
+ */
+
 public class Menu_Behaviour : MonoBehaviour {
-    [SerializeField]
-    public DS.UI.Window menuWindow;
-
-    [SerializeField]
-    DS.UI.Window itemWindow;
-
-    [SerializeField]
-    DS.UI.TabHeader itemTabHeader;
-
-    [SerializeField]
-    Tab_SelectingContent itemTab;
-
-    /*
-    [SerializeField]
-    ItemMenu.UIs usable;
-    [SerializeField]
-    ItemMenu.UIs unUsable;
-    [SerializeField]
-    ItemMenu.UIs forStory;
-    */
-
-    private void Start() {
-        //Menu.Init(menuWindow);
-        Menu.Init(this);
-        ItemMenu.Init(itemWindow, itemTabHeader,itemTab/*, usable, unUsable, forStory*/);
-    }
     public void Open() {
-        menuWindow.Open();
+        Menu.Open();
     }
     public void Close() {
-        menuWindow.Close();
+        Menu.Close();
     }
     public void OpenItemMenuToSelect(string itemName) {
         ItemMenu.OpenToSelect(itemName);
     }
-    public void SetSelectedItem() {
-        ItemMenu.SetSelectedItem();
-    }
+    
     public Item_Behaviour SelectedItem() {
         return ItemMenu.SelectedItem;
     }
     public string selectedItemName() {
         return SelectedItem().name;
     } 
-    void Update() {
-        if (Input.GetButtonDown("Menu")) {
-            if (menuWindow == null) Debug.Log("menuWindowがnull");
-            menuWindow.Toggle();
-        }
-    }
 }
