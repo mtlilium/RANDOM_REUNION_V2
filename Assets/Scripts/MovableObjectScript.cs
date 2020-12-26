@@ -18,11 +18,15 @@ public class MovableObjectScript : ObjectOnMapScript
             if (value == directions.Undefined)
                 return;
             if (stateDic[value] != null)
-                if(Time.timeScale!=0)
-                    sr.sprite = stateDic[value];
+                // if(Time.timeScale!=0)
+                //    sr.sprite = stateDic[value];
             _state = value;
         }
     }
+    [SerializeField]
+    bool MoveAnimated=false;
+
+    Animator animator;
 
     public directions State_Initial = directions.Down;
 
@@ -54,8 +58,19 @@ public class MovableObjectScript : ObjectOnMapScript
         stateDic.Add(directions.DownRight, Sprite_DownRight);
 
         state = directions.Down;
+        sr.sprite = stateDic[state];
 
         ActionsWhenDirecrionChanged += LookAtDirection;
+
+        if (MoveAnimated) {
+            animator = GetComponent<Animator>();
+            ActionsWhenDirecrionChanged += (newDir) => {
+                animator.CrossFadeInFixedTime(Enum.GetName(typeof(directions), newDir), 0);
+            };
+        }
+        ActionsWhenDirecrionChanged += (newDir) => {
+            if (Time.timeScale != 0 && newDir != directions.Undefined) sr.sprite = stateDic[newDir];
+        };
     }
 
     private void Start()
