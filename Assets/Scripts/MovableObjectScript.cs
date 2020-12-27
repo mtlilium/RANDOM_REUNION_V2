@@ -5,8 +5,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using UnityEngine;
 
-public class MovableObjectScript : ObjectOnMapScript
-{
+public class MovableObjectScript : ObjectOnMapScript{
     Rigidbody2D rb2d;
 
     float movement = 0.1f;
@@ -17,14 +16,14 @@ public class MovableObjectScript : ObjectOnMapScript
         {
             if (value == directions.Undefined)
                 return;
-            if (stateDic[value] != null)
+            //if (stateDic[value] != null)
                 // if(Time.timeScale!=0)
                 //    sr.sprite = stateDic[value];
             _state = value;
         }
     }
     [SerializeField]
-    bool MoveAnimated=false;
+    bool moveAnimated=false;
 
     Animator animator;
 
@@ -60,22 +59,36 @@ public class MovableObjectScript : ObjectOnMapScript
         state = directions.Down;
         sr.sprite = stateDic[state];
 
+        
         ActionsWhenDirecrionChanged += LookAtDirection;
-
-        if (MoveAnimated) {
+        if (moveAnimated) {
             animator = GetComponent<Animator>();
             ActionsWhenDirecrionChanged += (newDir) => {
-                animator.CrossFadeInFixedTime(Enum.GetName(typeof(directions), newDir), 0);
+                if(newDir!=directions.Undefined) animator.CrossFadeInFixedTime(Enum.GetName(typeof(directions), newDir), 0);
             };
         }
-        ActionsWhenDirecrionChanged += (newDir) => {
-            if (Time.timeScale != 0 && newDir != directions.Undefined) sr.sprite = stateDic[newDir];
-        };
+        else {
+            ActionsWhenDirecrionChanged += (newDir) => {
+                if (Time.timeScale != 0 && newDir != directions.Undefined) sr.sprite = stateDic[newDir];
+            };
+        }
     }
 
-    private void Start()
-    {
-
+    Vector2 prePosition;
+    bool isIdle=false;
+    protected void Update() {
+        if (moveAnimated) {
+            /*
+            if (prePosition == rb2d.position && !isIdle) {
+                DebugLogWrapper.Log("Changed to Idle");
+                animator.CrossFadeInFixedTime("Idle", 0);
+                sr.sprite = stateDic[state];
+                isIdle = true;
+            }
+            if (prePosition != rb2d.position) isIdle = false;
+            prePosition = rb2d.position;
+            */
+        }
     }
 
     void Move(Vector2 direction)//引数の方向に移動に移動量movementだけ移動
@@ -85,7 +98,8 @@ public class MovableObjectScript : ObjectOnMapScript
     public void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
     {
         rb2d.MovePosition(rb2d.position + direction.normalized * q);
-        ActionsWhenDirecrionChanged(DirectionOfDeltaPos(direction));
+        directions dir = DirectionOfDeltaPos(direction);
+        if (state!=dir) ActionsWhenDirecrionChanged(dir);
     }
     
     public void Move(MapCoordinate mapcoordinate)//MapCoordinateのToVector2の方向に移動量movementだけ移動
