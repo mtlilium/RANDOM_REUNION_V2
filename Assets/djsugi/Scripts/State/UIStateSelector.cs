@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace DS.UI
 {
+    [System.Serializable]
     public enum UIState
     {
         NORMAL,
@@ -37,13 +38,17 @@ namespace DS.UI
         [SerializeField]
         private UIState state = default;
         [SerializeField]
-        private List<Style> styles = default;
+        private List<Style> styles = new List<Style>();
 
 
         public void SetState(UIState state)
         {
             this.state = state;
             Apply();
+        }
+        public void SetState(int state)
+        {
+            SetState((UIState)state);
         }
 
         public void SetState()
@@ -61,6 +66,8 @@ namespace DS.UI
 
         private void Apply()
         {
+            if (styles == null) return;
+
             styles = styles.Where(s => s != null).ToList();
 
             foreach (var style in styles)

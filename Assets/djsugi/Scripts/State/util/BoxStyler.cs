@@ -1,8 +1,5 @@
 ﻿using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
@@ -41,6 +38,8 @@ namespace DS.UI.util
             {
                 { DrawStyle.Shadow.Shadow, "shadow" },
                 { DrawStyle.Shadow.Inner_Shadow, "shadow_inner" },
+                { DrawStyle.Shadow.Blur, "blur" },
+                { DrawStyle.Shadow.Inner_Blur, "blur_inner" },
             };
 
         [BoxGroup("Stroke")]
@@ -60,6 +59,15 @@ namespace DS.UI.util
 
         //[SerializeField]
         private Image image_fill, image_shadow, image_stroke;
+
+
+        private void Awake()
+        {
+            if (Application.isPlaying)
+            {
+                Destroy(this);
+            }
+        }
 
 
         private Image init_child(string name)

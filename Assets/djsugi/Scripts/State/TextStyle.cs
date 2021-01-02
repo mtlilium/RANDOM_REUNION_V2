@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 namespace DS.UI
 {
@@ -7,7 +8,16 @@ namespace DS.UI
     {
         public override void SetColor(TextMeshProUGUI target, Color color)
         {
-            target.color = color;
+            if (duration == .0f || !Application.isPlaying)
+            {
+                target.color = color;
+            }
+            else
+            {
+                var tween = target.DOColor(color, duration);
+                SetTween(tween);
+            }
+
         }
     }
 }

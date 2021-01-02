@@ -21,6 +21,8 @@ namespace DS.UI.util
         {
             Shadow,
             Inner_Shadow,
+            Blur,
+            Inner_Blur,
         }
 
         public enum Stroke

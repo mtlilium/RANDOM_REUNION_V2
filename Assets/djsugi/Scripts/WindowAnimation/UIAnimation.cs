@@ -2,10 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-#if UNITY_EDITOR
 using NaughtyAttributes;
-#endif
 
 namespace DS.UI.WindowAnimation
 {
@@ -94,6 +91,6 @@ namespace DS.UI.WindowAnimation
             if (window == null) return false;
             return !window.animations.Contains(this);
         }
-    }
 #endif
+    }
 }
