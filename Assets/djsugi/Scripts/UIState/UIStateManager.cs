@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace DS.UI
 {
+    #region UI State
     [System.Serializable]
     public enum UIState
     {
@@ -31,6 +32,8 @@ namespace DS.UI
 
         public abstract void Apply(UIState state);
     }
+    #endregion
+
 
     [DisallowMultipleComponent]
     public class UIStateManager : MonoBehaviour
@@ -79,6 +82,8 @@ namespace DS.UI
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            if (Application.isPlaying) return;
+
             Apply();
         }
 #endif
