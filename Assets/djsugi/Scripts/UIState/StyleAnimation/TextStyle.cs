@@ -2,7 +2,7 @@
 using TMPro;
 using DG.Tweening;
 
-namespace DS.UI
+namespace DS.UI.StyleAnimation
 {
     public class TextStyle : ColorStyle<TextMeshProUGUI>
     {

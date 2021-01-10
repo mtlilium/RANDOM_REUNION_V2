@@ -4,7 +4,7 @@ using System;
 using DG.Tweening;
 using NaughtyAttributes;
 
-namespace DS.UI
+namespace DS.UI.StyleAnimation
 {
     #region Abstract Class
     public abstract class ColorStyle<T> : UIStateStyle

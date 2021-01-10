@@ -9,25 +9,18 @@ using UniRx;
 namespace DS.UI.LoopAnimation
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class FadeLoopAnimation : LoopAnimation
+    [DisallowMultipleComponent]
+    public class FadeLoopAnimation : SimpleLoopAnimation
     {
         [SerializeField]
+        [Tooltip("相対的な変化量")]
         private float target = -1f;
 
-        private Sequence sequence;
 
-
-        public override void PlayAnimation() => sequence.Play();
-
-        public override void StopAnimation() => sequence.Pause();
-
-
-        private void Start()
+        protected override Tween Tween()
         {
             var obj = GetComponent<CanvasGroup>();
-            var tween = obj.DOFade(target, duration);
-
-            sequence = LoopSequence(tween);
+            return obj.DOFade(target, duration);
         }
     }
 }

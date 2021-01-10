@@ -9,25 +9,18 @@ using UniRx;
 namespace DS.UI.LoopAnimation
 {
     [RequireComponent(typeof(RectTransform))]
-    public class RotateLoopAnimation : LoopAnimation
+    [DisallowMultipleComponent]
+    public class RotateLoopAnimation : SimpleLoopAnimation
     {
         [SerializeField]
+        [Tooltip("相対的な変化量")]
         private Vector3 target = Vector3.zero;
 
-        private Sequence sequence;
 
-
-        public override void PlayAnimation() => sequence.Play();
-
-        public override void StopAnimation() => sequence.Pause();
-
-
-        private void Start()
+        protected override Tween Tween()
         {
             var obj = GetComponent<RectTransform>();
-            var tween = obj.DORotate(target, duration);
-
-            sequence = LoopSequence(tween);
+            return obj.DORotate(target, duration);
         }
     }
 }
