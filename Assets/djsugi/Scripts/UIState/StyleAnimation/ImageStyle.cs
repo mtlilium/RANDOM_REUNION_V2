@@ -34,9 +34,9 @@ namespace DS.UI.StyleAnimation
 #endif
 
 
-        public Color StyleColor(UIState style)
+        public Color StyleColor(UIState state)
         {
-            switch (style)
+            switch (state)
             {
                 case UIState.NORMAL:
                     return normal;
@@ -60,15 +60,15 @@ namespace DS.UI.StyleAnimation
             else tween.SetEase(ease);
         }
 
-        public override void Apply(UIState style)
+        public override void Apply(UIState state)
         {
             target = (target != null) ? target : GetComponent<T>();
 
 #if UNITY_EDITOR
-            previous = style;
+            previous = state;
 #endif
 
-            SetColor(target, StyleColor(style));
+            SetColor(target, StyleColor(state));
         }
 
 #if UNITY_EDITOR

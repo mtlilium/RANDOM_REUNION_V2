@@ -30,51 +30,91 @@ namespace DS.UI.LoopAnimation
 
     }
 
+
     public abstract class SimpleLoopAnimation : LoopAnimation
     {
         [BoxGroup("Animation"), SerializeField]
+        private bool showMore = false;
+        [BoxGroup("Animation"), SerializeField]
+        [ShowIf("showMore")]
         [Tooltip("ループ前に1度待機する時間")]
         protected float delay = .0f;
         [BoxGroup("Animation"), SerializeField]
+        [ShowIf("showMore")]
         [Tooltip("ループ中毎回待機する時間")]
         protected float interval = .0f;
         [BoxGroup("Animation"), SerializeField]
+        [ShowIf("showMore")]
         [Tooltip("停止中再生するか")]
         protected bool ignoreTimescale = false;
+        [BoxGroup("Animation"), SerializeField]
+        [ShowIf("showMore")]
+        [Tooltip("ループ再生(-1=infinite)")]
+        protected int loopTimes = -1;
 
 
         private Sequence sequence;
 
-        public override void PlayAnimation() => sequence.Play();
 
-        public override void StopAnimation() => sequence.Pause();
+        public override void PlayAnimation()
+        {
+            if (LoopTimes() > 0)
+            {
+                Delay(() => sequence.Restart());
+            }
+            else
+            {
+                sequence.Play();
+            }
+        }
+
+        public override void StopAnimation()
+        {
+            if (LoopTimes() > 0)
+            {
+                sequence.Rewind(true);
+            }
+            else
+            {
+                sequence.Pause();
+            }
+        }
 
 
         private void Start()
         {
-            if(delay == .0f)
+            Delay(() => sequence = LoopSequence(Tween()));
+        }
+
+
+        private void Delay(Action callback)
+        {
+            if (delay == .0f)
             {
-                sequence = LoopSequence(Tween());
+                callback();
             }
             else
             {
                 DOVirtual.DelayedCall(delay, () =>
                 {
-                    sequence = LoopSequence(Tween());
+                    callback();
                 });
             }
         }
 
         protected abstract Tween Tween();
 
+        private int LoopTimes() => loopTimes;
+
         protected Sequence LoopSequence(Tween tween)
         {
             return DOTween.Sequence()
                 .Append(tween.SetRelative().SetEase(ease))
-                .SetLoops(-1, loop)
+                .SetLoops(LoopTimes(), loop)
                 .PrependInterval(interval)
                 .SetLink(gameObject)
                 .SetUpdate(UpdateType.Normal, isIndependentUpdate: ignoreTimescale)
+                .SetAutoKill(false)
                 ;
         }
     }

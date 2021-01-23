@@ -6,6 +6,7 @@ using DG.Tweening;
 
 namespace DS.UI.WindowAnimation
 {
+    [RequireComponent(typeof(CanvasGroup))]
     public class UIAnimationCanvasGroup : UIAnimation
     {
         [Header("Volume")]
