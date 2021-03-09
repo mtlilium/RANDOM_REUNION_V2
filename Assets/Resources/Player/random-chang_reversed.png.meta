@@ -1,0 +1,788 @@
+fileFormatVersion: 2
+guid: b9206d467e89a334eb5f6f31782aa94c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9098687060527592966
+    second: random-chang_reversed_0
+  - first:
+      213: 1527940451692268802
+    second: random-chang_reversed_1
+  - first:
+      213: 8387531881368353891
+    second: random-chang_reversed_2
+  - first:
+      213: -5901834752712490660
+    second: random-chang_reversed_3
+  - first:
+      213: 8858449526117576618
+    second: random-chang_reversed_4
+  - first:
+      213: 5075325586833817344
+    second: random-chang_reversed_5
+  - first:
+      213: -2273487307779682666
+    second: random-chang_reversed_6
+  - first:
+      213: 1570860500856333895
+    second: random-chang_reversed_7
+  - first:
+      213: -7074021104817101894
+    second: random-chang_reversed_8
+  - first:
+      213: 4358058896288981679
+    second: random-chang_reversed_9
+  - first:
+      213: 8056873771612199802
+    second: random-chang_reversed_10
+  - first:
+      213: -8780731583225991456
+    second: random-chang_reversed_11
+  - first:
+      213: 1923231081442977950
+    second: random-chang_reversed_12
+  - first:
+      213: -6166948448671882773
+    second: random-chang_reversed_13
+  - first:
+      213: 8161058969877723528
+    second: random-chang_reversed_14
+  - first:
+      213: -5332382857899822265
+    second: random-chang_reversed_15
+  - first:
+      213: 6028810165578840865
+    second: random-chang_reversed_16
+  - first:
+      213: -741273979064766010
+    second: random-chang_reversed_17
+  - first:
+      213: 7452479865866779170
+    second: random-chang_reversed_18
+  - first:
+      213: -4427716864847882560
+    second: random-chang_reversed_19
+  - first:
+      213: -7375462572706148728
+    second: random-chang_reversed_20
+  - first:
+      213: -4889707506474687367
+    second: random-chang_reversed_21
+  - first:
+      213: 3336862788699191406
+    second: random-chang_reversed_22
+  - first:
+      213: 7184142031818403083
+    second: random-chang_reversed_23
+  - first:
+      213: -8017968824227599926
+    second: random-chang_reversed_24
+  - first:
+      213: 2957293056859688154
+    second: random-chang_reversed_25
+  - first:
+      213: -5852712074344934744
+    second: random-chang_reversed_26
+  - first:
+      213: 3152991966703140130
+    second: random-chang_reversed_27
+  - first:
+      213: -413637415748393855
+    second: random-chang_reversed_28
+  - first:
+      213: 5076698520903185432
+    second: random-chang_reversed_29
+  - first:
+      213: 1291326063635143103
+    second: random-chang_reversed_30
+  - first:
+      213: -7767636284021645695
+    second: random-chang_reversed_31
+  - first:
+      213: 4647974097979355292
+    second: random-chang_reversed_32
+  - first:
+      213: -8401384489179080612
+    second: random-chang_reversed_33
+  - first:
+      213: 5798473768130462124
+    second: random-chang_reversed_34
+  - first:
+      213: -2565325917081809998
+    second: random-chang_reversed_35
+  - first:
+      213: -1042331238975070663
+    second: random-chang_reversed_0
+  - first:
+      213: -1668819178713730790
+    second: random-chang_reversed_1
+  - first:
+      213: -6973235938756458629
+    second: random-chang_reversed_2
+  - first:
+      213: -8005342824025787153
+    second: random-chang_reversed_3
+  - first:
+      213: -3877782796540419880
+    second: random-chang_reversed_4
+  - first:
+      213: 7550346194698044529
+    second: random-chang_reversed_5
+  - first:
+      213: 6757281706319458979
+    second: random-chang_reversed_6
+  - first:
+      213: 7878107324918313452
+    second: random-chang_reversed_7
+  - first:
+      213: 7447256492498885599
+    second: random-chang_reversed_8
+  - first:
+      213: -3912143786723973880
+    second: random-chang_reversed_9
+  - first:
+      213: -6902394758535761181
+    second: random-chang_reversed_10
+  - first:
+      213: -2517165998314629541
+    second: random-chang_reversed_11
+  - first:
+      213: 6086504239577641751
+    second: random-chang_reversed_12
+  - first:
+      213: 7996758159491715061
+    second: random-chang_reversed_13
+  - first:
+      213: -1479372551132750124
+    second: random-chang_reversed_14
+  - first:
+      213: -7407550007169738943
+    second: random-chang_reversed_15
+  - first:
+      213: 3354652173734077446
+    second: random-chang_reversed_16
+  - first:
+      213: 7030255626622882586
+    second: random-chang_reversed_17
+  - first:
+      213: -3461335322997229279
+    second: random-chang_reversed_18
+  - first:
+      213: -8436708995496750376
+    second: random-chang_reversed_19
+  - first:
+      213: -7669125330102848874
+    second: random-chang_reversed_20
+  - first:
+      213: -1362115441228255348
+    second: random-chang_reversed_21
+  - first:
+      213: -6209874585285623301
+    second: random-chang_reversed_22
+  - first:
+      213: -8159001944952240527
+    second: random-chang_reversed_23
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: random-chang_reversed_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93e199ab245e881f0800000000000000
+      internalID: -1042331238975070663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a11b86a7cc927d8e0800000000000000
+      internalID: -1668819178713730790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b770f670cd61a3f90800000000000000
+      internalID: -6973235938756458629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe478bc9d1f47e090800000000000000
+      internalID: -8005342824025787153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d0661887195f2ac0800000000000000
+      internalID: -3877782796540419880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 288
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17403325cd738c860800000000000000
+      internalID: 7550346194698044529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a2ba6809efa6cd50800000000000000
+      internalID: 6757281706319458979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce1b82c3fd8a45d60800000000000000
+      internalID: 7878107324918313452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdb1e9a9258f95760800000000000000
+      internalID: 7447256492498885599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_9
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 805e01214f545b9c0800000000000000
+      internalID: -3912143786723973880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e235fd9984c530a0800000000000000
+      internalID: -6902394758535761181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_11
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 192
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b56d3cd6cda311dd0800000000000000
+      internalID: -2517165998314629541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7133fe3bb5b977450800000000000000
+      internalID: 6086504239577641751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_13
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ffc53b6d213afe60800000000000000
+      internalID: 7996758159491715061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ded447b086387be0800000000000000
+      internalID: -1479372551132750124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_15
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14794bee388133990800000000000000
+      internalID: -7407550007169738943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_16
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6046968d06e1e8e20800000000000000
+      internalID: 3354652173734077446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_17
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 96
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a135c099e3c709160800000000000000
+      internalID: 7030255626622882586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 129fc38dcddd6ffc0800000000000000
+      internalID: -3461335322997229279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_19
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d2d2124ed9caea80800000000000000
+      internalID: -8436708995496750376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_20
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 692f441252bc19590800000000000000
+      internalID: -7669125330102848874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_21
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8fe386193bc81de0800000000000000
+      internalID: -1362115441228255348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_22
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf1035c47f712d9a0800000000000000
+      internalID: -6209874585285623301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: random-chang_reversed_23
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 176866595f665ce80800000000000000
+      internalID: -8159001944952240527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
