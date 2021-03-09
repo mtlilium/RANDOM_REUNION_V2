@@ -21,6 +21,9 @@ public class PersonScript : MovableObjectScript
         personalInteraction = new PersonalInteraction(InteractionTrigger);
         ActionsWhenDirecrionChanged += personalInteraction.DirectionalUpdate;
     }
+    new private void Update() {
+        base.Update();
+    }
 }
 
 public class PersonalInteraction

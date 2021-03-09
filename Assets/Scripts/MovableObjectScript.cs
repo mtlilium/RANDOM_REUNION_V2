@@ -5,10 +5,9 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using UnityEngine;
 
-public class MovableObjectScript : ObjectOnMapScript
-{
+public class MovableObjectScript : ObjectOnMapScript{
     Rigidbody2D rb2d;
-
+    [SerializeField]
     float movement = 0.1f;
     directions _state;
     directions state {
@@ -17,12 +16,16 @@ public class MovableObjectScript : ObjectOnMapScript
         {
             if (value == directions.Undefined)
                 return;
-            if (stateDic[value] != null)
-                if(Time.timeScale!=0)
-                    sr.sprite = stateDic[value];
+            //if (stateDic[value] != null)
+                // if(Time.timeScale!=0)
+                //    sr.sprite = stateDic[value];
             _state = value;
         }
     }
+    [SerializeField]
+    bool moveAnimated=false;
+
+    Animator animator;
 
     public directions State_Initial = directions.Down;
 
@@ -36,6 +39,8 @@ public class MovableObjectScript : ObjectOnMapScript
     public Sprite Sprite_DownRight = null;
 
     Dictionary<directions, Sprite> stateDic = new Dictionary<directions, Sprite>();
+
+    Dictionary<directions, Vector2> stateToXYDic = new Dictionary<directions, Vector2>();
 
     public Action<directions> ActionsWhenDirecrionChanged;
 
@@ -54,13 +59,44 @@ public class MovableObjectScript : ObjectOnMapScript
         stateDic.Add(directions.DownRight, Sprite_DownRight);
 
         state = directions.Down;
+        sr.sprite = stateDic[state];
 
+        
         ActionsWhenDirecrionChanged += LookAtDirection;
+        if (moveAnimated) {
+            animator = GetComponent<Animator>();
+            ActionsWhenDirecrionChanged += (dir) => {
+                if (dir != directions.Undefined) animator.CrossFadeInFixedTime(Enum.GetName(typeof(directions), dir), 0);
+            };
+            stateToXYDic.Add(directions.Up,         new Vector2( 0, 1));
+            stateToXYDic.Add(directions.UpRight,    new Vector2( 1, 1));
+            stateToXYDic.Add(directions.Right,      new Vector2( 1, 0));
+            stateToXYDic.Add(directions.DownRight,  new Vector2( 1,-1));
+            stateToXYDic.Add(directions.Down,       new Vector2( 0,-1));
+            stateToXYDic.Add(directions.DownLeft,   new Vector2(-1,-1));
+            stateToXYDic.Add(directions.Left,       new Vector2(-1, 0));
+            stateToXYDic.Add(directions.UpLeft,     new Vector2(-1, 1));
+        }
+        else {
+            ActionsWhenDirecrionChanged += (newDir) => {
+                if (Time.timeScale != 0 && newDir != directions.Undefined) sr.sprite = stateDic[newDir];
+            };
+        }
     }
 
-    private void Start()
-    {
-
+    bool moved = false;
+    bool isIdle = false;
+    protected void Update() {
+        if (moveAnimated) {
+            if (moved) {
+                isIdle = false;
+            }
+            else if (!isIdle) {
+                animator.CrossFadeInFixedTime("Idle_Blend", 0);
+                isIdle = true;
+            }
+            moved = false;
+        }
     }
 
     void Move(Vector2 direction)//引数の方向に移動に移動量movementだけ移動
@@ -69,8 +105,21 @@ public class MovableObjectScript : ObjectOnMapScript
     }
     public void Move(Vector2 direction, float q)//引数の方向に移動量Qだけ移動
     {
-        rb2d.MovePosition(rb2d.position + direction.normalized * q);
-        ActionsWhenDirecrionChanged(DirectionOfDeltaPos(direction));
+        Vector2 normalizedDir = direction.normalized;
+        rb2d.MovePosition(rb2d.position + normalizedDir * q);
+        directions dir = DirectionOfDeltaPos(direction);
+        if (state!=dir) ActionsWhenDirecrionChanged(dir);
+        if (moveAnimated) {
+            if (direction != Vector2.zero) moved = true; //動いていたらtrue 動いてない場合にanimationを停止させるための処理
+            if (dir != directions.Undefined) {
+                Vector2 laseMove = stateToXYDic[dir];
+                animator.SetFloat("LastMoveX", laseMove.x);
+                animator.SetFloat("LastMoveY", laseMove.y);
+                if (isIdle) {
+                    animator.CrossFadeInFixedTime("Walk_Blend", 0);
+                }
+            }
+        }
     }
     
     public void Move(MapCoordinate mapcoordinate)//MapCoordinateのToVector2の方向に移動量movementだけ移動
