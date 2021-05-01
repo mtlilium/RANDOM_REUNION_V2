@@ -3,30 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using System.Linq;
+using System.Threading.Tasks;
+using UniRx;
 
 public class AudioManager : MonoBehaviour
 {
     // 出力先
     public AudioMixer audioMixer;
 
+    // SoundsSheet : 情報が入ってる
+    private SoundsSheet soundSheet;
+
+    // Sounds の 辞書 <key:string, List<AudioClip>>
+    private Dictionary<string, List<AudioClip>> bgmDic;
+    private Dictionary<string, List<AudioClip>> seDic;
+
     private const string BGM_PATH = "Sounds/BGM";
     private const string SE_PATH = "Sounds/SE";
     private const int BGM_SOURCE_NUM = 1;
-    private const int SE_SOURCE_NUM = 10;
+    private const int SE_SOURCE_NUM = 30;
 
     private Vector3 BGM_POS = new Vector3(0, 0, 0);
 
     // AudioMixer の各ミキサーのボリュームとは違う
-    private const float BGM_VOLUME = 0.5f;
-    private const float SE_VOLUME = 0.3f;
+    private const float BGM_VOLUME = 0.8f;
+    private const float SE_VOLUME = 0.7f;
 
     // BGMは一つづつ鳴るが、SEは複数同時に鳴ることがある
     private AudioSource bgmSource;
-    private List<AudioSource> seSourceList;
-    private Dictionary<string, AudioClip> seClipDic;
-    private Dictionary<string, AudioClip> bgmClipDic;
-    private Dictionary<int, Speaker> historySE;
-    private Dictionary<int, Speaker> historyBGM;
+
+    // BGM の　フェードアウトのスピード
+    private const float BGM_FADE_OUT_RATE = 0.5f;
+
+    //次流すBGM名
+    private string nextBGMName;
+
+    //流れているBGM曲の長さ
+    public float nowBGMLength;
+
+    //BGMをフェードアウト中か
+    private bool isFadeOut = false;
+
 
     private const string SOUND_OBJECT_NAME = "AudioManager";
     private static AudioManager singletonInstance = null;
@@ -34,7 +51,7 @@ public class AudioManager : MonoBehaviour
     private GameObject speakerPrefab;
 
 
-    public static AudioManager SingletonInstance
+    public static AudioManager instance
     {
         get
         {
@@ -49,143 +66,154 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-
-    private void Awake()
+    //ゲーム起動時に呼ばれます.
+    [RuntimeInitializeOnLoadMethod()]
+    static void LoadSounds()
     {
+        AudioManager.instance.bgmDic = new Dictionary<string, List<AudioClip>>();
+        AudioManager.instance.seDic = new Dictionary<string, List<AudioClip>>();
 
-        transform.position = new Vector3(0, 0, 0);
+        AudioManager.instance.soundSheet = Resources.Load("Sounds/Sounds") as SoundsSheet;
 
-        audioMixer = Resources.Load("AudioMixer/AudioMixer") as AudioMixer;
+        for (int i = 0; i < AudioManager.instance.soundSheet.sheets.Count; i++)
+        {
+            string dirName = AudioManager.instance.soundSheet.sheets[i].name;
+            Debug.Log(dirName + " is now Loading...");
+            for (int j = 0; j < AudioManager.instance.soundSheet.sheets[i].list.Count; j++)
+            {
+                string key = AudioManager.instance.soundSheet.sheets[i].list[j].key;
+                Debug.Log("Sounds/" + dirName + "/" + key);
+                object[] sounds = Resources.LoadAll("Sounds/" + dirName + "/" + key);
+                if (sounds == null)
+                {
+                    Debug.Log("ERRORRRR");
+                }
+                List<AudioClip> tmpList = new List<AudioClip>();
+                foreach (object sound in sounds)
+                {
+                    tmpList.Add((AudioClip)sound);
+                }
+                if (dirName == "BGM")
+                {
+                    AudioManager.instance.bgmDic.Add(key, tmpList);
+                }
+                else if (dirName == "SE")
+                {
+                    AudioManager.instance.seDic.Add(key, tmpList);
+                }
+            }
+        }
 
-        speakerPrefab = (GameObject)Resources.Load("Speaker");
+        AudioManager.instance.transform.position = new Vector3(0, 0, 0);
+
+        AudioManager.instance.audioMixer = Resources.Load("Sounds/AudioMixer") as AudioMixer;
+
+        AudioManager.instance.speakerPrefab = (GameObject)Resources.Load("Sounds/Speaker");
+
+        AudioManager.instance.bgmSource = AudioManager.instance.gameObject.AddComponent<AudioSource>();
+        AudioManager.instance.bgmSource.playOnAwake = false;
+        AudioManager.instance.bgmSource.loop = true;
+        AudioManager.instance.bgmSource.spatialBlend = 0.0f;
+        AudioManager.instance.bgmSource.outputAudioMixerGroup = AudioManager.instance.audioMixer.FindMatchingGroups("BGM")[0];
 
         for (int i = 0; i < SE_SOURCE_NUM + BGM_SOURCE_NUM; i++)
         {
             //Speaker Prefab生成
-            CreateSpeaker(speakerPrefab);
+            AudioManager.instance.CreateSpeaker(AudioManager.instance.speakerPrefab);
         }
-
-        bgmClipDic = (Resources.LoadAll(BGM_PATH) as Object[]).ToDictionary(bgm => bgm.name, bgm => (AudioClip)bgm);
-        seClipDic = (Resources.LoadAll(SE_PATH) as Object[]).ToDictionary(se => se.name, se => (AudioClip)se);
-
-        historySE = new Dictionary<int, Speaker>();
-        historyBGM = new Dictionary<int, Speaker>();
     }
 
+    public void StopBGM()
+    {
+        bgmSource.Stop();
+    }
+
+    /// <summary>
+	/// 指定したファイル名のBGMを流す。ただし既に流れている場合は前の曲をフェードアウトさせてから。
+	/// 第二引数のfadeOutRateに指定した割合でフェードアウトするスピードが変わる
+	/// </summary>
+    public void PlayBGM(string key, float vol = BGM_VOLUME, float fadeOutRate = BGM_FADE_OUT_RATE)
+    {
+        if (!bgmDic.ContainsKey(key))
+        {
+            Debug.Log(key + "という名前のBGMがありません");
+            return;
+        }
+
+        //現在BGMが流れていない時はそのまま流す
+        if (!bgmSource.isPlaying)
+        {
+            nextBGMName = "";
+            bgmSource.clip = bgmDic[key][0];
+            bgmSource.volume = vol;
+            bgmSource.Play();
+            nowBGMLength = bgmSource.clip.length;
+        }
+        //違うBGMが流れている時は、流れているBGMをフェードアウトさせてから次を流す。同じBGMが流れている時はスルー
+        else if (bgmSource.clip.name != key)
+        {
+            nextBGMName = key;
+            isFadeOut = true;
+        }
+
+    }
+    private void Update()
+    {
+        if (!isFadeOut)
+        {
+            return;
+        }
+
+        //徐々にボリュームを下げていき、ボリュームが0になったらボリュームを戻し次の曲を流す
+        bgmSource.volume -= Time.deltaTime * BGM_FADE_OUT_RATE;
+        if (bgmSource.volume <= 0)
+        {
+            bgmSource.Stop();
+            bgmSource.volume = BGM_VOLUME;
+            isFadeOut = false;
+
+            if (!string.IsNullOrEmpty(nextBGMName))
+            {
+                PlayBGM(nextBGMName);
+            }
+        }
+
+    }
 
     // 重複して同じ音が鳴るとき、一気にSpeakerが占領されるのでInstanceIDとSpeakerを紐づけて, history で管理
     // 紐づけがあれば同じSpeakerで鳴らしなおすことができる.
-    public void RequestPlaySE(Vector3 pos, string fileName, int instanceID, float delay = 0.0f, bool isLoop = false, bool isEvent = false)
+    public float PlaySE(string key, GameObject obj, float vol = SE_VOLUME, float delay = 0.0f, bool isLoop = false)
     {
-        Speaker speaker;
 
-        string outMixerName = "SE";
+        Speaker speaker = FindEmptySpeaker().GetComponent<Speaker>();
 
-        if (isEvent)
+        if (speaker == null)
         {
-            outMixerName += "_Event";
+            speaker = CreateSpeaker(speakerPrefab).GetComponent<Speaker>();
         }
+        int seLength = seDic[key].Count;
+        AudioClip seClip = seDic[key][(int)Random.Range(0, seLength)];
 
-        if (historySE.ContainsKey(instanceID))
-        {
-            speaker = historySE[instanceID];
+        speaker.PlayAudio(seClip, obj, vol, delay);
 
-        }
-        else
-        {
-            speaker = FindEmptySpeaker().GetComponent<Speaker>();
-
-            if (speaker == null)
-            {
-                speaker = CreateSpeaker(speakerPrefab).GetComponent<Speaker>();
-            }
-
-            historySE = new Dictionary<int, Speaker> { { instanceID, speaker } };
-
-        }
-
-        StartCoroutine(speaker.PlayAudio(pos, seClipDic[fileName], audioMixer.FindMatchingGroups(outMixerName)[0], delay, SE_VOLUME, isLoop, false));
+        return seClip.length;
     }
 
-    public void RequestPlaySE(Vector3 pos, AudioClip audioClip, int instanceID, float delay = 0.0f, bool isLoop = false, bool isEvent = false)
+    public float PlaySE(string key, Vector3 pos, float vol = SE_VOLUME, float delay = 0.0f, bool isLoop = false)
     {
-        Speaker speaker;
 
-        string outMixerName = "SE";
+        Speaker speaker = FindEmptySpeaker().GetComponent<Speaker>();
 
-        if (isEvent)
+        if (speaker == null)
         {
-            outMixerName += "_Event";
+            speaker = CreateSpeaker(speakerPrefab).GetComponent<Speaker>();
         }
+        int seLength = seDic[key].Count;
+        AudioClip seClip = seDic[key][(int)Random.Range(0, seLength)];
 
-        if (historySE.ContainsKey(instanceID))
-        {
-            speaker = historySE[instanceID];
-
-        }
-        else
-        {
-            speaker = FindEmptySpeaker().GetComponent<Speaker>();
-
-            if (speaker == null)
-            {
-                speaker = CreateSpeaker(speakerPrefab).GetComponent<Speaker>();
-            }
-
-            historySE = new Dictionary<int, Speaker> { { instanceID, speaker } };
-
-        }
-
-        StartCoroutine(speaker.PlayAudio(pos, audioClip, audioMixer.FindMatchingGroups(outMixerName)[0], delay, SE_VOLUME, isLoop, false));
+        speaker.PlayAudio(seClip, pos, vol, delay);
+        return seClip.length;
     }
-
-    public void RequestPlayBGM(string fileName, int instanceID, float delay = 0.0f, bool isLoop = true)
-    {
-        Speaker speaker;
-        if (historyBGM.ContainsKey(instanceID))
-        {
-            speaker = historyBGM[instanceID];
-        }
-        else
-        {
-            speaker = FindEmptySpeaker().GetComponent<Speaker>();
-
-            if (speaker == null)
-            {
-                speaker = CreateSpeaker(speakerPrefab).GetComponent<Speaker>();
-            }
-
-            historyBGM = new Dictionary<int, Speaker> { { instanceID, speaker } };
-
-        }
-
-        StartCoroutine(speaker.PlayAudio(BGM_POS, bgmClipDic[fileName], audioMixer.FindMatchingGroups("BGM")[0], delay, BGM_VOLUME, isLoop, true));
-    }
-
-    public void RequestPlayBGM(AudioClip audioClip, int instanceID, float delay = 0.0f, bool isLoop = true)
-    {
-        Speaker speaker;
-        if (historyBGM.ContainsKey(instanceID))
-        {
-            speaker = historyBGM[instanceID];
-        }
-        else
-        {
-            speaker = FindEmptySpeaker().GetComponent<Speaker>();
-
-            if (speaker == null)
-            {
-                speaker = CreateSpeaker(speakerPrefab).GetComponent<Speaker>();
-            }
-
-            historyBGM = new Dictionary<int, Speaker> { { instanceID, speaker } };
-
-            
-        }
-
-        StartCoroutine(speaker.PlayAudio(BGM_POS, audioClip, audioMixer.FindMatchingGroups("BGM")[0], delay, BGM_VOLUME, isLoop, true));
-    }
-
 
     private GameObject FindEmptySpeaker()
     {

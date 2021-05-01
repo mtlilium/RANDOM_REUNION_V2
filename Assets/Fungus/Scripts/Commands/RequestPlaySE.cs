@@ -27,7 +27,7 @@ namespace Fungus
 
         public override void OnEnter()
         {
-            AudioManager.SingletonInstance.RequestPlaySE(this.transform.position, seClip, this.gameObject.GetInstanceID(), delay, isLoop, isEvent);
+            //AudioManager.instance.PlaySE(this.transform.position, seClip, this.gameObject.GetInstanceID(), delay, isLoop, isEvent);
             Continue();
         }
     }

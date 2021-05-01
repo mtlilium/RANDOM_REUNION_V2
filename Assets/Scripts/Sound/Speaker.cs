@@ -7,62 +7,47 @@ public class Speaker : MonoBehaviour
 {
 
     AudioSource audioSource;
-    public bool isUsed;
+    public bool isUsing;
 
     // Start is called before the first frame update
     void Awake()
     {
-        isUsed = false;
+        isUsing = false;
         audioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (!audioSource.isPlaying & isUsing)
+        {
+            GetBack();
+        }
     }
 
-    public IEnumerator PlayAudio(Vector3 pos, AudioClip audioClip, AudioMixerGroup outputMixer, float delay = 0.0f, float volume=0.5f, bool isLoop = false, bool isBGM = false)
+    public void PlayAudio(AudioClip audioClip, GameObject obj, float vol, float delay = 0.0f)
     {
-        yield return new WaitForSeconds(delay);
+        //yield return new WaitForSeconds(delay);
 
-
-        
-        transform.position = pos;
-
-        audioSource.outputAudioMixerGroup = outputMixer;
-        audioSource.volume = volume;
-
+        //this.transform.parent = AudioManager.instance.gameObject.transform;
+        this.transform.SetParent(obj.transform, false);
+        this.transform.localPosition = new Vector3(0, 0, 0);
+        isUsing = true;
+        audioSource.volume = vol;
         audioSource.clip = audioClip;
-
-        if (isLoop)
-        {
-            audioSource.loop = true;
-        }
-        else
-        {
-            audioSource.loop = false;
-        }
-
-        if (isBGM)
-        {
-            audioSource.spatialBlend = 0.0f;
-        }
-        else
-        {
-            audioSource.spatialBlend = 1.0f;
-        }
 
         audioSource.Play();
     }
 
-    public IEnumerator RePlayAudio(Vector3 pos, AudioClip audioClip, AudioMixerGroup outputMixer, float delay = 0.0f)
+    public void PlayAudio(AudioClip audioClip, Vector3 pos, float vol, float delay = 0.0f)
     {
-        yield return new WaitForSeconds(delay);
+        //yield return new WaitForSeconds(delay);
 
-        transform.position = pos;
+        //this.transform.parent = AudioManager.instance.gameObject.transform;
+        this.transform.localPosition = pos;
+        isUsing = true;
+        audioSource.volume = vol;
         audioSource.clip = audioClip;
-        audioSource.outputAudioMixerGroup = outputMixer;
 
         audioSource.Play();
     }
@@ -72,5 +57,12 @@ public class Speaker : MonoBehaviour
         return audioSource.time == 0.0f && !audioSource.isPlaying;
         //Play()した直後にPause()すると、timeは0だしisPlayingはfalseなので再生終了したと判定されてしまうが,
         //Pauseせず再生状態のままピッチを0.0fにすればいいです.
+    }
+
+    private void GetBack()
+    {
+        isUsing = false;
+        this.transform.SetParent(AudioManager.instance.gameObject.transform, false);
+        this.transform.localPosition = new Vector3(0, 0, 0);
     }
 }
