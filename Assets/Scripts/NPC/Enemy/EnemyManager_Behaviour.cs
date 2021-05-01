@@ -14,7 +14,7 @@ public class EnemyManager_Behaviour : MonoBehaviour
     void Start(){
         WhenEnemyDefeated = new Dictionary<string, Action>();
         enemyNameToPrefab = new Dictionary<string, GameObject>();
-        var prefabs = Resources.LoadAll<GameObject>("EnemyPrefab/");
+        var prefabs = Resources.LoadAll<GameObject>("Enemy/");
         foreach (GameObject prefab in prefabs) {
             enemyNameToPrefab[prefab.name] = prefab;
         }

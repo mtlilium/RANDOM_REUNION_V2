@@ -9,8 +9,8 @@ using UnityEngine;
 public class PlayerOperateScript : PersonScript{
     public static GameObject Player { get; private set; }
 
-    void Update ()
-    {
+    new void Update (){
+        base.Update();
         Player = gameObject;
         MapCoordinate c;
 		if (IsArrowInput(out c)) {
