@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using NaughtyAttributes;
+using UniRx;
+
 public abstract class Controller :MonoBehaviour{
     protected ControllHandler handler;
     private void Awake() {
@@ -11,4 +14,6 @@ public abstract class Controller :MonoBehaviour{
         }
     }
     public abstract IEnumerator Controll();
+
+
 }

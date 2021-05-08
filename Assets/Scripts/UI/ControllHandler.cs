@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 
+
 public class ControllHandler : MonoBehaviour {
     //protected ControllerManagers.ControllerType type;
 
@@ -49,4 +50,3 @@ public class ControllHandler : MonoBehaviour {
         }
     }
 }
-

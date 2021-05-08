@@ -28,4 +28,9 @@ public class AxisController : Controller{
             yield return null;
         }
     }
+
+    private void Reset() {
+        upAxisEvent = new UnityEngine.Events.UnityEvent();
+        downAxisEvent = new UnityEngine.Events.UnityEvent();
+    }
 }

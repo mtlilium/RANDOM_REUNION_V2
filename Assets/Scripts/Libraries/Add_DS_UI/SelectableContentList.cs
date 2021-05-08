@@ -4,7 +4,6 @@ using UnityEngine;
 using DS.UI;
 using NaughtyAttributes;
 using System.Linq;
-
 namespace ADD_DS.UI {
 
     public class SelectableContentList : MonoBehaviour {
@@ -35,12 +34,15 @@ namespace ADD_DS.UI {
             var axisController = AddAxisController();
             axisController.axisName = InputManagerInfomation.VerticalDigitalControllerName;
         }
-            AxisController AddAxisController() {
-                var axisController = gameObject.AddComponent<AxisController>();
-                axisController.upAxisEvent.AddListener(PreviousTab);
-                axisController.downAxisEvent.AddListener(NextTab);
-                return axisController;
-            }
+        AxisController AddAxisController() {
+            var axisController = gameObject.AddComponent<AxisController>();
+            //axisController.upAxisEvent.AddListener(PreviousTab);
+            //axisController.downAxisEvent.AddListener(NextTab);
+            UnityEditor.Events.UnityEventTools.AddPersistentListener(axisController.upAxisEvent, PreviousTab);
+            UnityEditor.Events.UnityEventTools.AddPersistentListener(axisController.downAxisEvent, NextTab);
+            DebugLogWrapper.LogError(axisController.upAxisEvent);
+            return axisController;
+        }
 
 
         private void UpdateContents(System.Func<IEnumerable<(int, UIContent)>, int> selector) {
