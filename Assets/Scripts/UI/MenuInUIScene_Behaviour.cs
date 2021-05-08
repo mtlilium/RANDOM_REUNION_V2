@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DS.UI;
 
 /* staticなクラスたちのinitを呼び出して参照を渡す
@@ -33,10 +34,13 @@ public class MenuInUIScene_Behaviour : MonoBehaviour{
         ItemMenu.SetSelectedItem();
     }
 
+    [SerializeField]
+    Button button;
     private void Update() {
         if (Input.GetButtonDown("Menu")) {
-            if (menuWindow == null) Debug.Log("menuWindowがnull");
+            if (menuWindow == null)  DebugLogWrapper.Log("menuWindowがnull");
             menuWindow.Toggle();
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(button.gameObject);
         }
     }
 }

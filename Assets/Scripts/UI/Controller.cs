@@ -7,7 +7,7 @@ public abstract class Controller :MonoBehaviour{
     private void Awake() {
         handler = GetComponent<ControllHandler>();
         if (handler == null) {
-            DebugLogWrapper.LogError(gameObject.name+"にControllerHandlerがアタッチされていません");
+            handler = gameObject.AddComponent<ControllHandler>();
         }
     }
     public abstract IEnumerator Controll();
